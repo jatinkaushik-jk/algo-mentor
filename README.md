@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AlgoMentor: Your Socratic AI for Learning Algorithms
 
-## Getting Started
+AlgoMentor is a **Socratic AI-driven educational platform** designed to make learning algorithms simple, interactive, and engaging. Powered by Google's Gemini 1.5 model, AlgoMentor acts as a virtual mentor that uses a Socratic approach to guide users through the fundamentals of sorting and searching algorithms. Whether you're a beginner learning the basics or a more advanced learner, AlgoMentor adapts to your level and makes complex concepts easier to grasp.
 
-First, run the development server:
+## ✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Socratic Learning Method**: The AI doesn't just tell you how things work; it asks guiding questions, fostering critical thinking and deeper understanding.
+- **Interactive Conversations**: Based on the user’s input, the AI dynamically adjusts its questions and responses to maintain a coherent and focused conversation.
+- **Real-Time Feedback**: Users receive immediate, personalized feedback, helping them to improve and correct misunderstandings on the go.
+- **Task History Maintenance**: Every interaction between the user and the AI is saved, ensuring that users can continue from where they left off, without losing track of the conversation.
+- **Beginner-Friendly**: Designed with DSA beginners in mind, AlgoMentor simplifies complex topics and avoids unnecessary jargon.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[AlgoMentor Landing Page](/public/images/cover-image.png)
+[AlgoMentor Login Page](/public/images/login-page.png)
+[AlgoMentor Dashboard Page](/public/images/dashboard-page.png)
+[AlgoMentor Ai Chat Page](/public/images/ai-chat-page.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Technologies Used
 
-## Learn More
+- **Google Gemini 1.5**: Generative AI model for natural language processing and Socratic dialogue.
+- **Next.js**: Framework for building the web application, ensuring seamless and server-side rendering.
+- **React & TypeScript**: For building a type-safe, scalable, and efficient user interface.
+- **Tailwind CSS & Shadcn UI**: For responsive design and a modern, intuitive user interface.
+- **MongoDB & Mongoose**: Storing user-AI interaction history for persistent learning sessions.
 
-To learn more about Next.js, take a look at the following resources:
+## 🔧 How to Setup Locally
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/your-username/algo-mentor.git
+   cd algo-mentor
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Set up environment variables**:
+   Create a `.env.local` file at the root of the project and add your API key and database connection string:
+
+   ```bash
+   GEMINI_API_KEY=your-google-gemini-api-key
+   MONGODB_URI=your-mongo-db-connection-string
+   ```
+
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+
+## 🔮 Future Updates
+
+- **Advanced Algorithm Support**: Adding more complex algorithms like Dynamic Programming and Graph Algorithms.
+- **Code Snippet Integration**: Users will be able to write and execute code within the app for a hands-on coding experience.
+- **Gamified Learning**: Introducing points, badges, and leaderboards to make learning algorithms even more fun.
+- **Multilingual Support**: Expanding to support languages other than English for a global user base.
+
+## 🌍 Scope
+
+AlgoMentor bridges the gap between traditional learning and modern AI-powered education. It provides users with a tailored learning experience, encourages critical thinking, and equips them with problem-solving skills essential for mastering algorithms. The project’s scalability makes it ideal for learners of all levels, from coding bootcamps to individual developers seeking to refine their skills.
+
+## 📨 Reach Out
+
+Feel free to connect with me on [LinkedIn](https://linkedin.com/in/jatinkaushik-jk) or [GitHub](https://github.com/jatinkaushik-jk) for any feedback, questions, or collaboration opportunities.
