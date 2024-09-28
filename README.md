@@ -12,10 +12,10 @@ AlgoMentor is a **Socratic AI-driven educational platform** designed to make lea
 
 ## Screenshots
 
-[AlgoMentor Landing Page](/public/images/cover-image.png)
-[AlgoMentor Login Page](/public/images/login-page.png)
-[AlgoMentor Dashboard Page](/public/images/dashboard-page.png)
-[AlgoMentor Ai Chat Page](/public/images/ai-chat-page.png)
+![AlgoMentor Landing Page](/public/images/cover-image.png)
+![AlgoMentor Login Page](/public/images/login-page.png)
+![AlgoMentor Dashboard Page](/public/images/dashboard-page.png)
+![AlgoMentor Ai Chat Page](/public/images/ai-chat-page.png)
 
 ## 🚀 Technologies Used
 
