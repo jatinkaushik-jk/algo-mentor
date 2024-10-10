@@ -1,8 +1,4 @@
 import React from "react";
-import { getServerSession } from "next-auth";
-// import { authOptions } from "../api/auth/[...nextauth]/route";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import Calender from "./components/calender";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import AlgorithmTable from "./components/algorithm-table";
@@ -10,9 +6,6 @@ import Header from "@/components/ui/header";
 import Image from "next/image";
 
 const Dashboard = async () => {
-  const session = await getServerSession(authOptions);
-  console.log(session);
-
   // if (!session) {
   //   // Redirect to sign-in if the user is not authenticated
   //   redirect("/login");
@@ -46,7 +39,10 @@ const Dashboard = async () => {
                     height={150}
                     alt="404 Illustration"
                     className="max-w-[100px] sm:max-w-[125px] md:max-w-[140px] lg:max-w-[150px] mx-auto m-6"
-                    style={{ aspectRatio: "3/2", objectFit: "contain" }}
+                    style={{
+                      aspectRatio: "3/2",
+                      objectFit: "contain",
+                    }}
                   />
                 </div>
               </section>

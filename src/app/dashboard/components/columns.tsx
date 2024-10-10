@@ -36,7 +36,29 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium hover:text-primary cursor-pointer">
+          <span
+            // get algorithm details for redirection
+            onClick={async () => {
+              try {
+                const res = await fetch("api/actions/algo-actions", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(row.original),
+                });
+                const result = await res.json();
+                if (res.status !== 200) {
+                  alert(result.message);
+                } else {
+                  window.location.href = "/socratic-ai";
+                }
+                console.log(result);
+              } catch (error) {}
+              console.log(row.original);
+            }}
+            className="max-w-[500px] truncate font-medium hover:text-primary cursor-pointer"
+          >
             {row.getValue("title")}
           </span>
         </div>

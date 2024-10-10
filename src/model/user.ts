@@ -1,76 +1,90 @@
-import mongoose, {Schema, Document} from "mongoose";
-
+import mongoose, { Schema, Document } from "mongoose";
 
 // For type checking by typescript
-export interface Message extends Document{
-    content: string;
-    createdAt: Date;
-};
 
-const MessageSchema : Schema<Message> = new Schema({
-    content:{
-        type: String,
-        required: true
-    },
-    createdAt:{
-        type: Date,
-        required: true,
-        default: Date.now()
+export interface Algorithm extends Document {
+  algoID: string;
+  title: string;
+  description: string;
+  timeComplexity: string;
+  label: string;
+  difficulty: string;
+}
+export interface ChatHistory extends Document {
+  role: string;
+  parts: [
+    {
+      text: string;
     }
-    
+  ];
+}
+export interface Module extends Document {
+  state: string;
+  algos: [Algorithm];
+  chatHistory: [ChatHistory];
+}
+
+export interface User extends Document {
+  email: string;
+  username: string;
+  password: string;
+  modules: [Module];
+}
+
+const AlgorithmSchema: Schema<Algorithm> = new Schema({
+  algoID: String,
+  title: String,
+  description: String,
+  timeComplexity: String,
+  label: String,
+  difficulty: String,
+});
+const ChatHistorySchema: Schema<ChatHistory> = new Schema({
+  role: String,
+  parts: [
+    {
+      text: String,
+    },
+  ],
 });
 
-export interface User extends Document{
-    email: string;
-    username: string,
-    password: string;
-    verifyCode: string;
-    verifyCodeExpiry: Date;
-    isVerified: boolean;
-    isAcceptingMessage: boolean;
-    messages: Message[]
-};
-
-const UserSchema : Schema<User> = new Schema({
-    email: {
-        type: String,
-        unique: true,
-        // RegeX expression for email validation
-        match: [/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g, "Please use a valid email address"],
-        trim: true,
-        required: [true, "Email is required"],
-    },
-    username: {
-        type: String,
-        unique: true,
-        trim: true,
-        required: [true, "Username is required"],
-    },
-    password: {
-        type: String,
-        required: [true, "Password is required"]
-    },
-    verifyCode: {
-        type: String,
-        unique: true,
-        required: [true, "Verify code is required"]
-    },
-    verifyCodeExpiry: {
-        type: Date,
-        required: true
-    },
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
-    isAcceptingMessage: {
-        type: Boolean,
-        default: true
-    },
-    messages: [MessageSchema]
-
+const ModuleSchema: Schema<Module> = new Schema({
+  state: {
+    type: String,
+    default: "pending",
+  },
+  algos: [AlgorithmSchema],
+  chatHistory: [ChatHistorySchema],
 });
 
-const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User", UserSchema));
+const UserSchema: Schema<User> = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    // RegeX expression for email validation
+    match: [
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+      "Please use a valid email address",
+    ],
+    trim: true,
+    required: [true, "Email is required"],
+  },
+  username: {
+    type: String,
+    unique: true,
+    trim: true,
+    required: [true, "Username is required"],
+  },
+  password: {
+    type: String,
+    minlength: 8,
+    required: [true, "Password is required"],
+  },
+  modules: [ModuleSchema],
+});
+
+const UserModel =
+  (mongoose.models?.User as mongoose.Model<User>) ||
+  mongoose.model<User>("User", UserSchema);
 
 export default UserModel;

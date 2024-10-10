@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "@/lib/dbConnect";
+import dbConnect from "@/dbConnect";
 import Conversation from "@/model/conversation"; // Import the Conversation model
 
 export default async function handler(

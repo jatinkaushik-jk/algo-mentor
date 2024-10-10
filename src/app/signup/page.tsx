@@ -1,5 +1,4 @@
 "use client";
-// import React from "react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -19,10 +18,13 @@ import { SignUpSchema } from "@/schemas/signUpSchema";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function SignUpPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean | null>(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
@@ -37,9 +39,35 @@ function SignUpPage() {
     setShowPassword((prevState) => !prevState); // Toggle the state
   }
 
-  function onSubmit(data: z.infer<typeof SignUpSchema>) {
+  // Handle form submission
+  async function handleSignUp(formData: z.infer<typeof SignUpSchema>) {
     setIsLoading(true);
-    console.log(JSON.stringify(data, null, 2));
+    setError(null);
+
+    try {
+      // Send the form data to the API
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.status === 200) {
+        console.log("User registered successfully");
+        alert("User registered successfully");
+        // Redirect to login page
+        router.push("/login");
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -51,7 +79,7 @@ function SignUpPage() {
           </h2>
         </div>
         <section className="hidden lg:flex lg:w-1/2 justify-center items-center h-screen bg-black dark:bg-[rgb(24,24,27)] bg-[url(/images/primaryBG.webp)] bg-no-repeat bg-cover bg-center">
-          <h3 className="text-4xl font-bold w-max max-w-[80%]">
+          <h3 className="text-4xl font-bold text-white w-max max-w-[80%]">
             Master Algorithms <br />
             with Your Socratic AI Mentor!
           </h3>
@@ -65,7 +93,7 @@ function SignUpPage() {
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={form.handleSubmit(handleSignUp)}
               className="w-2/3 space-y-4"
             >
               <div>
@@ -80,7 +108,7 @@ function SignUpPage() {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="username" {...field} />
+                      <Input placeholder="username" {...field} required />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -96,6 +124,7 @@ function SignUpPage() {
                       <Input
                         type="email"
                         placeholder="email@example.com"
+                        required
                         {...field}
                       />
                     </FormControl>
@@ -114,6 +143,7 @@ function SignUpPage() {
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder="password"
+                          required
                           {...field}
                         />
                         <div
@@ -128,11 +158,16 @@ function SignUpPage() {
                   </FormItem>
                 )}
               />
-              <Button disabled={isLoading} className="w-full">
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Submit
-              </Button>
-              <p className="text-sm">
+              {error && <p className="text-red-600 text-sm">{error}</p>}
+              <div>
+                <Button disabled={isLoading} className="w-full mt-5">
+                  {isLoading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Submit
+                </Button>
+              </div>
+              <p className="text-sm mt-10">
                 By creating your account, you agree to the{" "}
                 <a
                   href="http://github.com/jatinkaushik-jk/algomentor"

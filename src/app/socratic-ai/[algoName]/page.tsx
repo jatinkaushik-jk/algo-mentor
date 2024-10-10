@@ -18,12 +18,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Header from "@/components/ui/header";
-import { DialogUpdate } from "./popup";
+import { DialogUpdate } from "../popup";
 import { aiReply } from "@/app/api/ai/genai";
-import { useRouter } from "next/navigation";
-import AlgoNav from "./components/AlgoNav";
 
-export default function SocraticAI() {
+export default function SocraticAI({
+  params,
+}: {
+  params: { algoName: string };
+}) {
   const chatInput = useRef<HTMLTextAreaElement>(null);
   const chatDisplay = useRef<HTMLDivElement>(null);
   // const userId = "exampleUserId";
@@ -31,7 +33,6 @@ export default function SocraticAI() {
     { role: string; parts: { text: string }[] }[]
   >([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     if (chatDisplay.current) {
@@ -56,6 +57,37 @@ export default function SocraticAI() {
   //   }
   //   fetchHistory();
   // }, [userId]);
+
+  useEffect(() => {
+    // if(params.algoName)
+    setMessages(() => [
+      { role: "user", parts: [{ text: "Bubble sort" }] },
+      {
+        role: "model",
+        parts: [
+          {
+            text: "Bubble Sort is one of the simplest sorting algorithms, invented in the 1950s. It works by repeatedly stepping through the list, comparing adjacent elements and swapping them if they are in the wrong order. Let's start with a fundamental question: **Can you describe in your own words how Bubble Sort would sort a list of numbers in ascending order?**",
+          },
+        ],
+      },
+      {
+        role: "user",
+        parts: [
+          {
+            text: "I think it will just compare and swap the numbers consecutively",
+          },
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          {
+            text: "That's a good start! You're on the right track. Bubble Sort does indeed compare and swap numbers consecutively. Can you elaborate on how the comparison and swapping would happen? For example, imagine we have the list [5, 1, 4, 2, 8]. How would the algorithm work its way through this list in the first pass?",
+          },
+        ],
+      },
+    ]);
+  }, []);
 
   const handleMessageInput = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,9 +127,16 @@ export default function SocraticAI() {
       <div className="flex flex-col sm:gap-4 sm:pl-14">
         <Header pageHeading="Socratic AI" searchbar={false}></Header>
         <main>
-          <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6 p-6 pt-0 ">
-            <AlgoNav></AlgoNav>
-            <div className="relative w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/100 dark:bg-muted/50 p-4 lg:col-span-2 shadow-lg">
+          <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6 p-6 pt-0">
+            <div className="hidden md:flex flex-col w-80 bg-muted/50 rounded-xl p-2 gap-y-2 py-4">
+              <div className=" font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer bg-primary dark:bg-primary transition-colors">
+                Bubble Sort <ArrowRightCircleIcon />
+              </div>
+              <div className="bg-slate-100 dark:bg-slate-800 font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary">
+                Binary Search <ArrowRightCircleIcon />
+              </div>
+            </div>
+            <div className="relative w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
               <div className="flex-1 h-3/5">
                 <div
                   ref={chatDisplay}
@@ -108,14 +147,14 @@ export default function SocraticAI() {
                     return msg.role === "user" ? (
                       <div
                         key={index}
-                        className="p-2 px-3 bg-slate-100 dark:bg-slate-900 m-2 self-end rounded-md ml-16 text-wrap break-words"
+                        className="p-2 px-3 bg-slate-100 dark:bg-slate-800 m-2 self-end rounded-md ml-16 text-wrap break-words"
                       >
                         {msg.parts[0].text}
                       </div>
                     ) : (
                       <div
                         key={index}
-                        className="p-2 px-3 bg-slate-200 dark:bg-slate-800 m-2 self-end rounded-md mr-16 text-wrap break-words"
+                        className="p-2 px-3 bg-slate-100 dark:bg-slate-800 m-2 self-end rounded-md mr-16 text-wrap break-words"
                       >
                         {msg.parts[0].text}
                       </div>

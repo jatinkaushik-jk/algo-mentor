@@ -1,11 +1,12 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Github, Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,15 +17,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/loginSchema";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import Link from "next/link";
-import { useState } from "react";
+// import { useToast } from "@/components/hooks/use-toast";
+import { FormEvent, useState } from "react";
 
 function LoginPage() {
-  // const searchParams = useSearchParams();
-  // const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -38,10 +37,23 @@ function LoginPage() {
     setShowPassword((prevState) => !prevState); // Toggle the state
   }
 
-  function onSubmit(data: z.infer<typeof LoginSchema>) {
+  const handleLogin = async (
+    formData: z.infer<typeof LoginSchema>,
+    e: FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     setIsLoading(true);
-    console.log(JSON.stringify(data, null, 2));
-  }
+    setError(null);
+    console.log(formData);
+    const res = await signIn("credentials", { ...formData, redirect: false });
+    if (res?.error) {
+      // Handle sign-in failure
+      setError(res.error);
+    } else if (res?.ok) {
+      // Handle successful sign-in
+      console.log("Sign-in successful");
+    }
+  };
 
   return (
     <>
@@ -66,7 +78,7 @@ function LoginPage() {
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmit)}
+              onSubmit={form.handleSubmit(handleLogin)}
               className="w-2/3 space-y-4"
             >
               <div>
@@ -84,6 +96,7 @@ function LoginPage() {
                       <Input
                         type="email"
                         placeholder="email@example.com"
+                        required
                         {...field}
                       />
                     </FormControl>
@@ -102,6 +115,7 @@ function LoginPage() {
                         <Input
                           type={showPassword ? "text" : "password"}
                           placeholder="password"
+                          required
                           {...field}
                         />
                         <div
@@ -116,19 +130,36 @@ function LoginPage() {
                   </FormItem>
                 )}
               />
-              <Button disabled={isLoading} className="w-full">
+              {error && <p className="text-red-600 text-sm">{error}</p>}
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full"
+                value="Sign In"
+              >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{" "}
                 Submit
               </Button>
-              <Button
-                onClick={() => signIn("github")}
-                disabled={isLoading}
-                variant="outline"
-                className="w-full bg-black text-white hover:bg-muted"
-              >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{" "}
-                <Github /> Sign in with GitHub
-              </Button>
+            </form>
+            <form
+              action={async () => {
+                signIn("github", { redirectTo: "/dashboard" });
+              }}
+              className="w-2/3"
+            >
+              <fieldset className="border-t-2 text-center mt-8">
+                <legend className="px-3">or login with</legend>
+                <Button
+                  disabled={isLoading}
+                  variant="outline"
+                  className="w-full bg-black text-white hover:bg-muted mt-5"
+                >
+                  {isLoading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}{" "}
+                  <Github /> Sign in with GitHub
+                </Button>
+              </fieldset>
             </form>
           </Form>
         </section>

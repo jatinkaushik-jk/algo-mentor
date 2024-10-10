@@ -1,6 +1,6 @@
 [
     {
-      "id": "Algo001",
+      "algoID": "Algo001",
       "title": "Bubble Sort",
       "description": "Simple comparison-based sorting.",
       "difficulty": "easy",
@@ -8,7 +8,7 @@
       "timeComplexity": "O(n^2)"
     },
     {
-      "id": "Algo002",
+      "algoID": "Algo002",
       "title": "Merge Sort",
       "description": "Efficient, divide-and-conquer sorting.",
       "difficulty": "medium",
@@ -16,7 +16,7 @@
       "timeComplexity": "O(n log n)"
     },
     {
-      "id": "Algo003",
+      "algoID": "Algo003",
       "title": "Quick Sort",
       "description": "Fast, in-place partition sorting.",
       "difficulty": "hard",
@@ -24,7 +24,7 @@
       "timeComplexity": "O(n log n)"
     },
     {
-      "id": "Algo004",
+      "algoID": "Algo004",
       "title": "Selection Sort",
       "description": "Finds minimum, swaps positions.",
       "difficulty": "easy",
@@ -32,7 +32,7 @@
       "timeComplexity": "O(n^2)"
     },
     {
-      "id": "Algo005",
+      "algoID": "Algo005",
       "title": "Heap Sort",
       "description": "Uses heap to sort elements.",
       "difficulty": "medium",
@@ -40,7 +40,7 @@
       "timeComplexity": "O(n log n)"
     },
     {
-      "id": "Algo006",
+      "algoID": "Algo006",
       "title": "Insertion Sort",
       "description": "Builds sorted array one element.",
       "difficulty": "easy",
@@ -48,7 +48,7 @@
       "timeComplexity": "O(n^2)"
     },
     {
-      "id": "Algo007",
+      "algoID": "Algo007",
       "title": "Radix Sort",
       "description": "Non-comparative, digit-wise sorting.",
       "difficulty": "medium",
@@ -56,7 +56,7 @@
       "timeComplexity": "O(nk)"
     },
     {
-      "id": "Algo008",
+      "algoID": "Algo008",
       "title": "Shell Sort",
       "description": "Improved version of insertion sort.",
       "difficulty": "medium",
@@ -64,7 +64,7 @@
       "timeComplexity": "O(n log n)"
     },
     {
-      "id": "Algo009",
+      "algoID": "Algo009",
       "title": "Counting Sort",
       "description": "Counts elements, sorts non-comparatively.",
       "difficulty": "easy",
@@ -72,7 +72,7 @@
       "timeComplexity": "O(n + k)"
     },
     {
-      "id": "Algo010",
+      "algoID": "Algo010",
       "title": "Tim Sort",
       "description": "Hybrid merge and insertion sort.",
       "difficulty": "hard",
@@ -80,7 +80,7 @@
       "timeComplexity": "O(n log n)"
     },
     {
-      "id": "Algo011",
+      "algoID": "Algo011",
       "title": "Linear Search",
       "description": "Sequentially checks each element.",
       "difficulty": "easy",
@@ -88,7 +88,7 @@
       "timeComplexity": "O(n)"
     },
     {
-      "id": "Algo012",
+      "algoID": "Algo012",
       "title": "Binary Search",
       "description": "Efficient search for sorted arrays.",
       "difficulty": "easy",
@@ -96,7 +96,7 @@
       "timeComplexity": "O(log n)"
     },
     {
-      "id": "Algo013",
+      "algoID": "Algo013",
       "title": "Depth-First Search (DFS)",
       "description": "Traverses tree/graph depth-first.",
       "difficulty": "medium",
@@ -104,7 +104,7 @@
       "timeComplexity": "O(V + E)"
     },
     {
-      "id": "Algo014",
+      "algoID": "Algo014",
       "title": "Breadth-First Search (BFS)",
       "description": "Traverses tree/graph breadth-first.",
       "difficulty": "medium",
@@ -112,7 +112,7 @@
       "timeComplexity": "O(V + E)"
     },
     {
-      "id": "Algo015",
+      "algoID": "Algo015",
       "title": "Jump Search",
       "description": "Jump ahead and then perform linear search.",
       "difficulty": "medium",

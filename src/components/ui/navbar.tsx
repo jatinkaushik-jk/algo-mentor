@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -58,9 +58,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function Navbar() {
-  const { data: session, status } = useSession();
-
+export function Navbar({ authStatus = "loading" }) {
   return (
     <NavigationMenu className="p-4 lg:px-10 xs:px-6">
       <NavigationMenuList className="flex flex-row justify-between items-center">
@@ -111,7 +109,7 @@ export function Navbar() {
                 <Book className="h-5 w-5" />
                 Documentation
               </Link>
-              {status === "authenticated" && (
+              {authStatus === "authenticated" && (
                 <Link
                   href="/dashboard"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
@@ -121,7 +119,7 @@ export function Navbar() {
                 </Link>
               )}
 
-              {status === "authenticated" ? (
+              {authStatus === "authenticated" ? (
                 <Link
                   href="#"
                   onClick={() => signOut()}
@@ -218,7 +216,7 @@ export function Navbar() {
           <NavigationMenuItem>
             <Link href="/login" legacyBehavior passHref>
               <NavigationMenuLink>
-                {status === "authenticated" ? (
+                {authStatus === "authenticated" ? (
                   <Button onClick={() => signOut()}>Log out</Button>
                 ) : (
                   <Button>Login</Button>

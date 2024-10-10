@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import AuthProvider from "@/components/AuthProvider";
-import { ThemeProvider } from "@/components/theme-provider";
+// import AuthProvider from "@/context/AuthProvider";
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/context/theme-provider";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
+        <SessionProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -41,7 +42,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
-        </AuthProvider>
+        </SessionProvider>
       </body>
     </html>
   );

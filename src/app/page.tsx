@@ -1,12 +1,15 @@
 "use client";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/ui/navbar";
 import Link from "next/link";
 import { CircleArrowUp } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const scrollToTopBtn = useRef(null);
+  useState;
+  const { data: session, status } = useSession();
 
   const handleScroll = () => {
     if (scrollToTopBtn.current) {
@@ -35,7 +38,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar authStatus={status} />
       <div
         id="top"
         className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)]"
