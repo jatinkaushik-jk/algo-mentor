@@ -1,12 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
-import {
-  ArrowRightCircleIcon,
-  CornerDownLeft,
-  Mic,
-  Paperclip,
-} from "lucide-react";
+import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -31,7 +26,6 @@ export default function SocraticAI() {
     { role: string; parts: { text: string }[] }[]
   >([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     if (chatDisplay.current) {

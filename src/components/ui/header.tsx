@@ -63,7 +63,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/dashboard"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/dashboard"
+                  currentPath.startsWith("/dashboard")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -74,7 +74,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/socratic-ai"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/socratic-ai"
+                  currentPath.startsWith("/socratic-ai")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -85,7 +85,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/products"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/products"
+                  currentPath.startsWith("/products")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -96,7 +96,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/collab"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/collab"
+                  currentPath.startsWith("/collab")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -107,7 +107,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/analytics"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/analytics"
+                  currentPath.startsWith("/analytics")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -118,7 +118,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               <Link
                 href="/settings"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath == "/settings"
+                  currentPath.startsWith("/settings")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}

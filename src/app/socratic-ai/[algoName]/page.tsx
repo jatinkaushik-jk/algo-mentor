@@ -20,6 +20,7 @@ import {
 import Header from "@/components/ui/header";
 import { DialogUpdate } from "../popup";
 import { aiReply } from "@/app/api/ai/genai";
+import AlgoNav from "../components/AlgoNav";
 
 export default function SocraticAI({
   params,
@@ -128,14 +129,7 @@ export default function SocraticAI({
         <Header pageHeading="Socratic AI" searchbar={false}></Header>
         <main>
           <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6 p-6 pt-0">
-            <div className="hidden md:flex flex-col w-80 bg-muted/50 rounded-xl p-2 gap-y-2 py-4">
-              <div className=" font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer bg-primary dark:bg-primary transition-colors">
-                Bubble Sort <ArrowRightCircleIcon />
-              </div>
-              <div className="bg-slate-100 dark:bg-slate-800 font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary">
-                Binary Search <ArrowRightCircleIcon />
-              </div>
-            </div>
+            <AlgoNav></AlgoNav>
             <div className="relative w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
               <div className="flex-1 h-3/5">
                 <div

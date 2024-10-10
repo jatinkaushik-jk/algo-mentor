@@ -37,7 +37,7 @@ const SidebarNavigations = () => {
               <Link
                 href="/dashboard"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath == "/dashboard"
+                  currentPath.startsWith("/dashboard")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -53,7 +53,7 @@ const SidebarNavigations = () => {
               <Link
                 href="/socratic-ai"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath == "/socratic-ai"
+                  currentPath.startsWith("/socratic-ai")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -69,7 +69,7 @@ const SidebarNavigations = () => {
               <Link
                 href="/products"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath == "/products"
+                  currentPath.startsWith("/products")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -85,7 +85,7 @@ const SidebarNavigations = () => {
               <Link
                 href="/collab-with-us"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath == "/collab-with-us"
+                  currentPath.startsWith("/collab-with-us")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
@@ -101,7 +101,7 @@ const SidebarNavigations = () => {
               <Link
                 href="/analytics"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath == "/analytics"
+                  currentPath.startsWith("/analytics")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
