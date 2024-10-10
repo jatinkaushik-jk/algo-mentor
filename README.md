@@ -45,7 +45,7 @@ AlgoMentor is a **Socratic AI-driven educational platform** designed to make lea
 
    ```bash
    GEMINI_API_KEY=your-google-gemini-api-key
-   MONGODB_URI=your-mongo-db-connection-string
+   MONGO_URI=your-mongo-db-connection-string
    ```
 
 4. **Run the development server**:
