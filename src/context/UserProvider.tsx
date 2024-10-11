@@ -27,7 +27,9 @@ export function UserProvider({ children }: any) {
       }
     };
 
-    fetchData();
+    if (session) {
+      fetchData();
+    }
   }, [session]);
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;

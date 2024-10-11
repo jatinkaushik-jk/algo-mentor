@@ -51,7 +51,9 @@ export const columns: ColumnDef<Task>[] = [
                 if (res.status !== 200) {
                   alert(result.message);
                 } else {
-                  window.location.href = "/socratic-ai";
+                  window.location.href = `/socratic-ai/${row.original.title
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`;
                 }
                 console.log(result);
               } catch (error) {}

@@ -31,31 +31,40 @@ export interface User extends Document {
   modules: [Module];
 }
 
-const AlgorithmSchema: Schema<Algorithm> = new Schema({
-  algoID: String,
-  title: String,
-  description: String,
-  timeComplexity: String,
-  label: String,
-  difficulty: String,
-});
-const ChatHistorySchema: Schema<ChatHistory> = new Schema({
-  role: String,
-  parts: [
-    {
-      text: String,
-    },
-  ],
-});
-
-const ModuleSchema: Schema<Module> = new Schema({
-  state: {
-    type: String,
-    default: "pending",
+const AlgorithmSchema: Schema<Algorithm> = new Schema(
+  {
+    algoID: String,
+    title: String,
+    description: String,
+    timeComplexity: String,
+    label: String,
+    difficulty: String,
   },
-  algos: [AlgorithmSchema],
-  chatHistory: [ChatHistorySchema],
-});
+  { _id: false }
+);
+const ChatHistorySchema: Schema<ChatHistory> = new Schema(
+  {
+    role: String,
+    parts: [
+      {
+        text: String,
+      },
+    ],
+  },
+  { _id: false }
+);
+
+const ModuleSchema: Schema<Module> = new Schema(
+  {
+    state: {
+      type: String,
+      default: "pending",
+    },
+    algos: [AlgorithmSchema],
+    chatHistory: [ChatHistorySchema],
+  },
+  { _id: false }
+);
 
 const UserSchema: Schema<User> = new Schema({
   email: {

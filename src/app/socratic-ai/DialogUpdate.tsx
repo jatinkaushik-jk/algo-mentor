@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -23,8 +22,6 @@ export function DialogUpdate({ children }) {
             We are working on this feature and will update soon.
           </DialogDescription>
         </DialogHeader>
-
-        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );

@@ -51,8 +51,6 @@ const sendAlgoData = async (req: Request) => {
       });
 
       if (pendingStates.length >= 3) {
-        console.log(pendingStates.length);
-
         return NextResponse.json(
           {
             message:

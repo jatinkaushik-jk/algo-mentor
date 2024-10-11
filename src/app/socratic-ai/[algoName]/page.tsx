@@ -1,12 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
-import {
-  ArrowRightCircleIcon,
-  CornerDownLeft,
-  Mic,
-  Paperclip,
-} from "lucide-react";
+import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -18,9 +13,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Header from "@/components/ui/header";
-import { DialogUpdate } from "../popup";
+import { DialogUpdate } from "../DialogUpdate";
 import { aiReply } from "@/app/api/ai/genai";
 import AlgoNav from "../components/AlgoNav";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { marked } from "marked";
 
 export default function SocraticAI({
   params,
@@ -29,11 +27,20 @@ export default function SocraticAI({
 }) {
   const chatInput = useRef<HTMLTextAreaElement>(null);
   const chatDisplay = useRef<HTMLDivElement>(null);
-  // const userId = "exampleUserId";
+  const { data: session } = useSession();
+  const userData = session?.user;
+  const algoName = params.algoName.toLowerCase().replace("-", " ");
+
   const [messages, setMessages] = useState<
     { role: string; parts: { text: string }[] }[]
   >([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  if (!session) {
+    // router.push("/login");
+    console.log("No session");
+  }
 
   useEffect(() => {
     if (chatDisplay.current) {
@@ -41,58 +48,49 @@ export default function SocraticAI({
     }
   }, [messages]);
 
-  // // Fetch the stored chat history for the user when the page loads
-  // useEffect(() => {
-  //   async function fetchHistory() {
-  //     try {
-  //       const response = await fetch(
-  //         `/api/conversations/getHistory?userId=${userId}`
-  //       );
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setMessages(data.messages);
-  //       }
-  //     } catch (error) {
-  //       console.error("Failed to load conversation history:", error);
-  //     }
-  //   }
-  //   fetchHistory();
-  // }, [userId]);
-
   useEffect(() => {
-    // if(params.algoName)
-    setMessages(() => [
-      { role: "user", parts: [{ text: "Bubble sort" }] },
-      {
-        role: "model",
-        parts: [
-          {
-            text: "Bubble Sort is one of the simplest sorting algorithms, invented in the 1950s. It works by repeatedly stepping through the list, comparing adjacent elements and swapping them if they are in the wrong order. Let's start with a fundamental question: **Can you describe in your own words how Bubble Sort would sort a list of numbers in ascending order?**",
+    // Fetch chat history when page loads
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(`/api/conversations/getHistory`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        ],
-      },
-      {
-        role: "user",
-        parts: [
-          {
-            text: "I think it will just compare and swap the numbers consecutively",
-          },
-        ],
-      },
-      {
-        role: "model",
-        parts: [
-          {
-            text: "That's a good start! You're on the right track. Bubble Sort does indeed compare and swap numbers consecutively. Can you elaborate on how the comparison and swapping would happen? For example, imagine we have the list [5, 1, 4, 2, 8]. How would the algorithm work its way through this list in the first pass?",
-          },
-        ],
-      },
-    ]);
-  }, []);
+          body: JSON.stringify({
+            userEmail: userData?.email,
+            algoName: algoName,
+          }),
+        });
+        const data = await response.json();
+        if (response.status === 200) {
+          setMessages(data);
+        } else {
+          alert(data?.message);
+        }
+      } catch (error) {
+        console.error("Error fetching history:", error);
+      }
+    };
 
-  const handleMessageInput = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (chatInput.current && chatInput.current.value.trim() !== "") {
+    async function startChat() {
+      if (!chatDisplay.current?.hasChildNodes() && chatInput.current) {
+        chatInput.current.value = algoName;
+        setMessages((prevData) => [
+          ...prevData,
+          { role: "user", parts: [{ text: algoName }] },
+        ]);
+        await handleMessageInput();
+      }
+    }
+    if (userData)
+      fetchHistory().then(() => {
+        startChat();
+      });
+  }, [algoName, userData]);
+
+  const handleMessageInput = async () => {
+    if (chatInput.current && chatInput.current.value !== "") {
       const userMessage = {
         role: "user",
         parts: [{ text: chatInput.current.value }],
@@ -102,23 +100,37 @@ export default function SocraticAI({
       // Send user message to AI and update the chat
       setLoading(true);
       chatInput.current.value = ""; // Clear input
-      const aiText = await aiReply(userMessage.parts[0].text);
+      const aiText = await aiReply(
+        userMessage.parts[0].text,
+        userData?.email,
+        algoName
+      );
       const aiMessage = { role: "model", parts: [{ text: aiText }] };
+      // Update UI
       setMessages((prevMSGs) => [...prevMSGs, aiMessage]);
       setLoading(false);
-      //   // Save conversation to the database
-      //   try {
-      //     await fetch("/api/conversations/saveHistory", {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({ userId, messages: [userMessage, aiMessage] }),
-      //     });
-      //   } catch (error) {
-      //     console.error("Failed to save conversation:", error);
-      //   }
-      // }
+
+      // Save chat to DB
+      try {
+        const response = await fetch(`/api/conversations/saveHistory`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: userData?.email,
+            algoName: algoName,
+            chatMessage: [userMessage, aiMessage],
+          }),
+        });
+
+        if (response.status !== 200) {
+          const data = await response.json();
+          console.log(data.message);
+        }
+      } catch (error) {
+        console.error("Error saving chat history:", error);
+      }
     }
   };
 
@@ -149,16 +161,20 @@ export default function SocraticAI({
                       <div
                         key={index}
                         className="p-2 px-3 bg-slate-100 dark:bg-slate-800 m-2 self-end rounded-md mr-16 text-wrap break-words"
-                      >
-                        {msg.parts[0].text}
-                      </div>
+                        dangerouslySetInnerHTML={{
+                          __html: marked.parse(msg.parts[0].text),
+                        }}
+                      ></div>
                     );
                   })}
                 </div>
               </div>
               <form
                 className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-                onSubmit={handleMessageInput}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleMessageInput();
+                }}
               >
                 <Label htmlFor="message" className="sr-only">
                   Message
