@@ -1,15 +1,24 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Calender from "./components/calender";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import AlgorithmTable from "./components/algorithm-table";
 import Header from "@/components/ui/header";
 import Image from "next/image";
+// import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-const Dashboard = async () => {
-  // if (!session) {
-  //   // Redirect to sign-in if the user is not authenticated
-  //   redirect("/login");
-  // }
+const Dashboard = () => {
+  const { data: session } = useSession();
+  console.log(session);
+  const router = useRouter();
+  useEffect(() => {
+    if (!session) {
+      // Redirect to sign-in if the user is not authenticated
+      router.push("/login");
+    }
+  });
 
   return (
     <>
@@ -20,12 +29,16 @@ const Dashboard = async () => {
           <main>
             <div className="w-full min-h-screen flex flex-row xl:gap-4 p-6">
               <section className="w-full lg:w-[75%]">
-                <div className="w-full p-2 hidden sm:flex flex-row gap-6 justify-center items-center">
+                <div className="w-full hidden sm:flex flex-row gap-6 px-2 justify-start items-center">
                   <div className="w-72 aspect-[5/3.4] rounded-xl bg-[url('/images/cardImg01.webp')] bg-center bg-cover bg-no-repeat bg-[rgba(0,0,0,0.1)] bg-blend-multiply hover:bg-white transition-colors"></div>
                   <div className="w-72 aspect-[5/3.4] rounded-xl bg-[url('/images/cardImg02.webp')] bg-center bg-cover bg-no-repeat bg-[rgba(0,0,0,0.1)] bg-blend-multiply hover:bg-white transition-colors"></div>
                   <div className="w-72 aspect-[5/3.4] rounded-xl bg-[url('/images/cardImg03.webp')] bg-center bg-cover bg-no-repeat bg-[rgba(0,0,0,0.1)] bg-blend-multiply hover:bg-white transition-colors"></div>
                 </div>
-                <div className="mt-4 sm:mt-14">
+                <div className="mt-4 sm:mt-8">
+                  <h3 className="font-semibold text-3xl px-2 mb-4">
+                    Welcome back {session?.user?.name}!
+                  </h3>
+                  {/* <h3>Welcome back {session?.user?.name}!</h3> */}
                   <AlgorithmTable />
                 </div>
               </section>

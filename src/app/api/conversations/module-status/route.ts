@@ -4,7 +4,7 @@ import UserModel from "@/model/user";
 import dbConnect from "@/dbConnect";
 
 async function saveHistory(req: NextRequest) {
-  const { userEmail, algoName, chatMessage } = await req.json();
+  const { userEmail, algoName, status } = await req.json();
 
   try {
     await dbConnect();
@@ -26,25 +26,17 @@ async function saveHistory(req: NextRequest) {
       );
     }
 
-    // check duplicate response
-    const userChats = reqModule.chatHistory.filter(
-      (historyObj) =>
-        historyObj.role === "user" &&
-        chatMessage[0].parts[0].text === historyObj.parts[0].text
-    );
-    if (userChats.length > 1) {
-      return res.json({ message: "Duplicate chats cleared!" }, { status: 400 });
-    }
+    // set state
+    reqModule.state = status;
 
-    // Save new message
-    Array.from(chatMessage).forEach((msg) => {
-      reqModule.chatHistory.push(msg);
-    });
     await user.save();
 
-    return res.json({ message: "Chat history saved" }, { status: 200 });
+    return res.json(
+      { message: "Congratulations! Module completed successfully." },
+      { status: 200 }
+    );
   } catch (error) {
-    console.log("Pta nhi kya error hai", error);
+    console.log("Internal Server error!", error);
 
     return res.json(
       { message: "Failed to save chat history", error },

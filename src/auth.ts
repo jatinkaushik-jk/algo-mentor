@@ -1,52 +1,59 @@
 import NextAuth, { AuthError } from "next-auth";
-import { z } from "zod";
 import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import UserModel from "./model/user";
 import bcrypt from "bcryptjs";
 import dbConnect from "./dbConnect";
-import { LoginSchema } from "./schemas/loginSchema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      id: "user-login",
-      name: "Credentials",
+      // id: "user-login",
+      // name: "Credentials",
       credentials: {
         email: {
           label: "Email",
-          type: "text ",
+          type: "email",
           placeholder: "email@gmail.com",
         },
         password: {
           label: "Password",
           type: "password",
-          placeholder: "password",
+          placeholder: "********",
         },
       },
-      authorize: async (credentials: z.infer<typeof LoginSchema>) => {
-        const email = credentials.email.toLowerCase() as string;
+      authorize: async (credentials) => {
+        const email = credentials.email as string;
         const password = credentials.password as string;
         console.log("User data from client : ", email, password);
 
-        // database connection
-        await dbConnect();
+        try {
+          // database connection
+          await dbConnect();
+          // logic to verify if the user exists
+          const user = await UserModel.findOne({ email });
+          if (!user) {
+            throw new AuthError("User not found!");
+          }
+          const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+          );
 
-        // logic to verify if the user exists
-        const user = await UserModel.findOne({ email });
+          if (!isPasswordCorrect) {
+            throw new AuthError("Invalid Credentials!");
+          }
 
-        if (!user) {
-          throw new Error("User not found!");
+          console.log(user);
+          return {
+            id: user._id as string,
+            email: user.email as string,
+            name: user.username as string,
+          };
+        } catch (error) {
+          console.error("Error during authorization:", error);
+          return null;
         }
-
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordCorrect) {
-          throw new Error("Invalid Credentials!");
-        }
-
-        console.log({ ...user, password: "hidden" });
-        return { ...user, password: "hidden" };
       },
     }),
     GitHub({
@@ -80,18 +87,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new AuthError("Error Authenticating User!");
         }
       }
-      return false;
+      // Block sign-in for users with a specific email domain
+      if (user.email?.endsWith("@example.com")) {
+        return false; // Deny sign-in
+      }
+      return true;
     },
-    // jwt({ token, user }) {
-    //   if (user) {
-    //     // User is available during sign-in
-    //     token.id = user.id;
-    //   }
-    //   return token;
-    // },
-    // session({ session, token }) {
-    //   session.user.id = token.id;
-    //   return session;
-    // },
+    jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id as string;
+      return session;
+    },
   },
 });

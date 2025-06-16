@@ -33,9 +33,13 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
   const currentPath = usePathname();
+  const { data: session } = useSession();
   return (
     <div>
       <header className="sticky top-0 z-30 flex h-14 py-4 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 ">
@@ -157,7 +161,19 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
               size="icon"
               className="overflow-hidden rounded-full"
             >
-              <User />
+              {session?.user ? (
+                <Avatar>
+                  <AvatarImage
+                    src={session.user.image as string}
+                    alt="user avatar"
+                  />
+                  <AvatarFallback>
+                    <User />
+                  </AvatarFallback>
+                </Avatar>
+              ) : (
+                <User />
+              )}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -168,7 +184,9 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500">Logout</DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500" onClick={() => signOut}>
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <ModeToggle />

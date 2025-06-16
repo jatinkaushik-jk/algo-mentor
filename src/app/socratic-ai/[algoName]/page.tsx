@@ -35,6 +35,7 @@ export default function SocraticAI({
     { role: string; parts: { text: string }[] }[]
   >([]);
   const [loading, setLoading] = useState(false);
+  const [isEnd, setIsEnd] = useState(false);
   const router = useRouter();
 
   if (!session) {
@@ -65,11 +66,14 @@ export default function SocraticAI({
         const data = await response.json();
         if (response.status === 200) {
           setMessages(data);
+          return data.length != 0 ? true : false;
         } else {
           alert(data?.message);
+          return true;
         }
       } catch (error) {
         console.error("Error fetching history:", error);
+        return true;
       }
     };
 
@@ -83,11 +87,16 @@ export default function SocraticAI({
         await handleMessageInput();
       }
     }
-    if (userData)
-      fetchHistory().then(() => {
-        startChat();
+
+    if (userData) {
+      console.log("Fetching history...");
+      fetchHistory().then((res) => {
+        !res && startChat();
       });
-  }, [algoName, userData]);
+    }
+
+    return () => {};
+  }, []);
 
   const handleMessageInput = async () => {
     if (chatInput.current && chatInput.current.value !== "") {
@@ -100,11 +109,16 @@ export default function SocraticAI({
       // Send user message to AI and update the chat
       setLoading(true);
       chatInput.current.value = ""; // Clear input
+      // get response from AI
       const aiText = await aiReply(
         userMessage.parts[0].text,
         userData?.email,
         algoName
       );
+      const isEndRequested = new RegExp(
+        `(?=.*explore another algorithm)(?=.*continue with ${algoName})`,
+        "i"
+      ).test(aiText);
       const aiMessage = { role: "model", parts: [{ text: aiText }] };
       // Update UI
       setMessages((prevMSGs) => [...prevMSGs, aiMessage]);
@@ -131,6 +145,34 @@ export default function SocraticAI({
       } catch (error) {
         console.error("Error saving chat history:", error);
       }
+
+      if (isEndRequested) {
+        setIsEnd(true);
+      }
+    }
+  };
+
+  const endConversation = async () => {
+    console.log("end conversation");
+    try {
+      const response = await fetch(`/api/conversations/module-status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail: userData?.email,
+          algoName: algoName,
+          status: "completed",
+        }),
+      });
+
+      if (response.status !== 200) {
+        const data = await response.json();
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.error("Error saving Module status");
     }
   };
 
@@ -160,13 +202,31 @@ export default function SocraticAI({
                     ) : (
                       <div
                         key={index}
-                        className="p-2 px-3 bg-slate-100 dark:bg-slate-800 m-2 self-end rounded-md mr-16 text-wrap break-words"
+                        className="p-2 px-3 bg-slate-100 dark:bg-slate-800 m-2 self-start rounded-md mr-16 text-wrap break-words"
                         dangerouslySetInnerHTML={{
                           __html: marked.parse(msg.parts[0].text),
                         }}
                       ></div>
                     );
                   })}
+                  {!isEnd && (
+                    <div className="flex flex-col xs:flex-row justify-center items-center gap-4 sm:mx-10">
+                      <Button
+                        variant="outline"
+                        className="border-primary border-2 p-4 w-1/2 h-max text-wrap"
+                        onClick={endConversation}
+                      >
+                        Explore another algorithm
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="border-primary border-2 p-4 w-1/2 h-max text-wrap"
+                        onClick={() => setIsEnd(false)}
+                      >
+                        Continue the {algoName}
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
               <form
@@ -212,7 +272,12 @@ export default function SocraticAI({
                       <TooltipContent side="top">Use Microphone</TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
-                  <Button type="submit" size="sm" className="ml-auto gap-1.5">
+                  <Button
+                    type="submit"
+                    size="sm"
+                    className="ml-auto gap-1.5"
+                    disabled={isEnd}
+                  >
                     {loading ? "Loading..." : "Send Message"}
                     <CornerDownLeft className="size-3.5" />
                   </Button>

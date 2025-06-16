@@ -18,12 +18,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/loginSchema";
 // import { useToast } from "@/components/hooks/use-toast";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -37,21 +40,40 @@ function LoginPage() {
     setShowPassword((prevState) => !prevState); // Toggle the state
   }
 
-  const handleLogin = async (
-    formData: z.infer<typeof LoginSchema>,
-    e: FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
+  const handleLogin = async (formData: z.infer<typeof LoginSchema>) => {
     setIsLoading(true);
     setError(null);
     console.log(formData);
-    const res = await signIn("credentials", { ...formData, redirect: false });
-    if (res?.error) {
-      // Handle sign-in failure
-      setError(res.error);
-    } else if (res?.ok) {
-      // Handle successful sign-in
-      console.log("Sign-in successful");
+    try {
+      const res = await signIn("credentials", {
+        ...formData,
+        // redirectTo: "/dashboard", // Redirect to dashboard or desired page
+        redirect: false, // Prevent automatic redirection
+      });
+      console.log("Sign-in response:", res);
+      // Check if the response contains an error
+      if (res?.error) {
+        // Handle sign-in failure
+        switch (res.error) {
+          case "CredentialsSignin":
+            setError("Invalid Credentials. Please try again.");
+            break;
+
+          default:
+            setError("An unexpected error occurred. Please try again later.");
+            break;
+        }
+      } else if (res?.ok) {
+        // Handle successful sign-in
+        console.log("Sign-in successful:");
+        router.push("/dashboard"); // Redirect to dashboard or desired page
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Login failed. Please try again.");
+      return;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,7 +100,10 @@ function LoginPage() {
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(handleLogin)}
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit(handleLogin)();
+              }}
               className="w-2/3 space-y-4"
             >
               <div>

@@ -52,6 +52,12 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			shiki: {
+  				light: 'var(--shiki-light)',
+  				'light-bg': 'var(--shiki-light-bg)',
+  				dark: 'var(--shiki-dark)',
+  				'dark-bg': 'var(--shiki-dark-bg)'
   			}
   		},
   		borderRadius: {
@@ -75,11 +81,20 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'typing-dot-bounce': {
+  				'0%,40%': {
+  					transform: 'translateY(0)'
+  				},
+  				'20%': {
+  					transform: 'translateY(-0.25rem)'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'typing-dot-bounce': 'typing-dot-bounce 1.25s ease-out infinite'
   		}
   	}
   },

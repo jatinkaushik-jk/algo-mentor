@@ -7,7 +7,7 @@ import { createContext, useState } from "react";
 export const UserContext = createContext<any>(undefined);
 export function UserProvider({ children }: any) {
   const [user, setUser] = useState<User>();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,11 +26,10 @@ export function UserProvider({ children }: any) {
         console.error("Error fetching data:", error);
       }
     };
-
-    if (session) {
+    if (status === "authenticated") {
       fetchData();
     }
-  }, [session]);
+  }, [session, status]);
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
   //   return <UserContext.Provider value={} {...props}>{children}</UserContext.Provider>;

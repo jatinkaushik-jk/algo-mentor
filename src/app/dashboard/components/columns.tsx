@@ -3,28 +3,28 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 
 import { labels, difficulty, timeComplexity } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
 export const columns: ColumnDef<Task>[] = [
-  {
-    id: "select",
+  // {
+  //   id: "select",
 
-    cell: ({ row }) => (
-      <Checkbox
-        // checked={row.getIsSelected()}
-        disabled
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       // checked={row.getIsSelected()}
+  //       disabled
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: "title",
     header: ({ column }) => (
