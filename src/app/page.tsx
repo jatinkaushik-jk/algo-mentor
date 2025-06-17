@@ -7,9 +7,9 @@ import { CircleArrowUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const scrollToTopBtn = useRef(null);
+  const scrollToTopBtn = useRef<HTMLDivElement>(null);
   useState;
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   const handleScroll = () => {
     if (scrollToTopBtn.current) {
@@ -145,7 +145,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Let's Collab
+                    Let&apos;s Collab
                   </Link>
                 </Button>
               </div>
@@ -188,7 +188,7 @@ export default function Home() {
                 intuitive, question-driven approach, AlgoMentor guides you
                 step-by-step through key concepts like algorithm mechanics, time
                 and space complexities, and practical applications. Whether
-                you're a beginner or sharpening your skills, our AI mentor
+                you&apos;re a beginner or sharpening your skills, our AI mentor
                 adapts to your learning pace, making algorithm learning more
                 engaging and interactive.
               </p>
@@ -206,8 +206,8 @@ export default function Home() {
                   Learn at Your Own Pace
                 </h3>
                 <p className="mt-2 ">
-                  Whether you're a beginner or an advanced coder, AlgoMentor
-                  tailors the learning experience to your needs.
+                  Whether you&apos;re a beginner or an advanced coder,
+                  AlgoMentor tailors the learning experience to your needs.
                 </p>
               </div>
               <div>
@@ -233,22 +233,22 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-20">
               <div className=" p-6 rounded-lg shadow-md bg-purple-400 text-black">
                 <p className="text-lg">
-                  "AlgoMentor helped me improve my coding skills in record time.
-                  The personalized feedback is amazing!"
+                  &quot;AlgoMentor helped me improve my coding skills in record
+                  time. The personalized feedback is amazing!&quot;
                 </p>
                 <p className="mt-4 font-semibold">— Aditi, Software Engineer</p>
               </div>
               <div className="p-6 rounded-lg shadow-md bg-purple-400 text-black">
                 <p className="text-lg">
-                  "The AI-powered lessons make learning algorithms so much
-                  easier and fun!"
+                  &quot;The AI-powered lessons make learning algorithms so much
+                  easier and fun!&quot;
                 </p>
                 <p className="mt-4 font-semibold">— Ravi, Data Scientist</p>
               </div>
               <div className="p-6 rounded-lg shadow-md bg-purple-400 text-black">
                 <p className="text-lg">
-                  "From beginner to advanced, AlgoMentor guided me through every
-                  step. Highly recommend it!"
+                  &quot;From beginner to advanced, AlgoMentor guided me through
+                  every step. Highly recommend it!&quot;
                 </p>
                 <p className="mt-4 font-semibold">— Sarah, CS Student</p>
               </div>
@@ -288,7 +288,9 @@ export default function Home() {
       {/* Footer Section */}
       <footer className="p-8 ">
         <div className="text-center flex gap-6 flex-wrap items-center justify-between">
-          <p className="text-sm">© 2024 AlgoMentor | All rights reserved.</p>
+          <p className="text-sm">
+            © {new Date().getFullYear()} AlgoMentor | All rights reserved.
+          </p>
           <div className="flex justify-center items-center gap-4">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>

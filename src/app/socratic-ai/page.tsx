@@ -17,6 +17,7 @@ import { DialogUpdate } from "./DialogUpdate";
 import AlgoNav from "./components/AlgoNav";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import ChatBotUI from "./ChatBotUI";
 
 export default function SocraticAI() {
   const chatInput = useRef<HTMLTextAreaElement>(null);
@@ -37,8 +38,9 @@ export default function SocraticAI() {
         <main>
           <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6 p-6 pt-0 ">
             <AlgoNav></AlgoNav>
-            <div className="w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/100 dark:bg-muted/50 p-4 lg:col-span-2 shadow-lg">
-              <div className="flex-1 h-3/5">
+            <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
+              <ChatBotUI />
+              {/* <div className="flex-1 h-3/5">
                 <div
                   ref={chatDisplay}
                   className="chatDisplay flex flex-col h-full pb-4 text-wrap"
@@ -87,7 +89,7 @@ export default function SocraticAI() {
                     <CornerDownLeft className="size-3.5" />
                   </Button>
                 </div>
-              </form>
+              </form> */}
             </div>
           </div>
         </main>

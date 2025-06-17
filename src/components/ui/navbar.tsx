@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -71,73 +70,6 @@ export function Navbar({ authStatus = "loading" }) {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="md:hidden">
-              <PanelLeft className="h-5 w-5" />
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="sm:max-w-xs">
-            <nav className="grid gap-6 text-lg font-medium">
-              <Link href="/">
-                <div className="lg:text-3xl text-2xl font-bold text-primary text-nowrap">
-                  Algo Mentor
-                </div>
-                <span className="sr-only">Logo</span>
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              >
-                <Code className="h-5 w-5" />
-                Getting Started
-              </Link>
-              <Link
-                href="https:github.com/jatinkaushik-jk"
-                target="_blank"
-                className="flex items-center gap-4 px-2.5 text-foreground"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                Resources
-              </Link>
-              <Link
-                href="https:github.com/jatinkaushik-jk"
-                target="_blank"
-                className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              >
-                <Book className="h-5 w-5" />
-                Documentation
-              </Link>
-              {authStatus === "authenticated" && (
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <LayoutDashboard className="h-5 w-5" />
-                  Dashboard
-                </Link>
-              )}
-
-              {authStatus === "authenticated" ? (
-                <Link
-                  href="#"
-                  onClick={() => signOut()}
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-red-600"
-                >
-                  <LogOut /> Log out
-                </Link>
-              ) : (
-                <Link
-                  href="/login"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Button className="w-full">Login</Button>
-                </Link>
-              )}
-            </nav>
-          </SheetContent>
-        </Sheet>
         <NavigationMenuList className="hidden md:flex">
           <NavigationMenuItem>
             <NavigationMenuTrigger className=" text-xs lg:text-base px-2 lg:px-4">
@@ -213,7 +145,7 @@ export function Navbar({ authStatus = "loading" }) {
           </NavigationMenuItem>
         </NavigationMenuList>
         <NavigationMenuList className="gap-1 xs:gap-3">
-          <NavigationMenuItem>
+          <NavigationMenuItem className="hidden md:block">
             <Link href="/login" legacyBehavior passHref>
               <NavigationMenuLink>
                 {authStatus === "authenticated" ? (
@@ -224,7 +156,74 @@ export function Navbar({ authStatus = "loading" }) {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="flex items-center gap-4">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button size="icon" variant="outline" className="md:hidden">
+                  <PanelLeft className="h-5 w-5" />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="sm:max-w-xs">
+                <nav className="grid gap-6 text-lg font-medium">
+                  <Link href="/">
+                    <div className="lg:text-3xl text-2xl font-bold text-primary text-nowrap">
+                      Algo Mentor
+                    </div>
+                    <span className="sr-only">Logo</span>
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <Code className="h-5 w-5" />
+                    Getting Started
+                  </Link>
+                  <Link
+                    href="https:github.com/jatinkaushik-jk"
+                    target="_blank"
+                    className="flex items-center gap-4 px-2.5 text-foreground"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                    Resources
+                  </Link>
+                  <Link
+                    href="https:github.com/jatinkaushik-jk"
+                    target="_blank"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <Book className="h-5 w-5" />
+                    Documentation
+                  </Link>
+                  {authStatus === "authenticated" && (
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    >
+                      <LayoutDashboard className="h-5 w-5" />
+                      Dashboard
+                    </Link>
+                  )}
+
+                  {authStatus === "authenticated" ? (
+                    <Link
+                      href="#"
+                      onClick={() => signOut()}
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-red-600"
+                    >
+                      <LogOut /> Log out
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    >
+                      <Button className="w-full">Login</Button>
+                    </Link>
+                  )}
+                </nav>
+              </SheetContent>
+            </Sheet>
             <ModeToggle />
           </NavigationMenuItem>
         </NavigationMenuList>
