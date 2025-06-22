@@ -1,24 +1,25 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
-import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
+// import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+// import { Button } from "@/components/ui/button";
+// import { Label } from "@/components/ui/label";
+// import { Textarea } from "@/components/ui/textarea";
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipProvider,
+//   TooltipTrigger,
+// } from "@/components/ui/tooltip";
+// import { DialogUpdate } from "../DialogUpdate";
+// import { marked } from "marked";
 import Header from "@/components/ui/header";
-import { DialogUpdate } from "../DialogUpdate";
 import { aiReply } from "@/app/api/ai/genai";
 import AlgoNav from "../components/AlgoNav";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { marked } from "marked";
+import ChatBotUI from "../ChatBotUI";
 
 export default function SocraticAI({
   params,
@@ -184,7 +185,7 @@ export default function SocraticAI({
         <main>
           <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6 p-6 pt-0">
             <AlgoNav></AlgoNav>
-            <div className="relative w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+            {/* <div className="relative w-full flex min-h-[50vh] gap-y-4 flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
               <div className="flex-1 h-3/5">
                 <div
                   ref={chatDisplay}
@@ -283,6 +284,9 @@ export default function SocraticAI({
                   </Button>
                 </div>
               </form>
+            </div> */}
+            <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
+              <ChatBotUI initialMessage={algoName} />
             </div>
           </div>
         </main>

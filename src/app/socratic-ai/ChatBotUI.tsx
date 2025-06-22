@@ -3,10 +3,17 @@
 import { useChat } from "@ai-sdk/react";
 
 import { Chat } from "@/components/ui/chat";
+import { Message } from "@/components/ui/chat-message";
+import { useEffect } from "react";
 
-export default function ChatBotUI() {
+export default function ChatBotUI({
+  initialMessage,
+}: {
+  initialMessage?: string;
+}) {
   const {
     messages,
+    setMessages,
     input,
     handleInputChange,
     handleSubmit,
@@ -14,10 +21,18 @@ export default function ChatBotUI() {
     isLoading,
     stop,
   } = useChat();
-
+  useEffect(() => {
+    if (initialMessage && messages.length === 0) {
+      setMessages(
+        initialMessage
+          ? [{ id: "first", role: "user", content: initialMessage }]
+          : []
+      );
+    }
+  });
   return (
     <Chat
-      messages={messages}
+      messages={messages as Array<Message>}
       input={input}
       handleInputChange={handleInputChange}
       handleSubmit={handleSubmit}
@@ -25,9 +40,9 @@ export default function ChatBotUI() {
       stop={stop}
       append={append}
       suggestions={[
-        "Generate a tasty vegan lasagna recipe for 3 people.",
-        "Generate a list of 5 questions for a frontend job interview.",
-        "Who won the 2022 FIFA World Cup?",
+        `What is the Socratic method and how is it used in this AI tool?`,
+        `How does Socratic AI help me learn algorithms differently than traditional methods?`,
+        `Can you walk me through how to get started with Socratic AI?`,
       ]}
     />
   );
