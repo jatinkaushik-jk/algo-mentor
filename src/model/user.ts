@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-
+import { Message } from "@/components/ui/chat-message";
 // For type checking by typescript
 
 export interface Algorithm extends Document {
@@ -15,13 +15,13 @@ export interface ChatHistory extends Document {
   parts: [
     {
       text: string;
-    }
+    },
   ];
 }
 export interface Module extends Document {
   state: string;
   algos: [Algorithm];
-  chatHistory: [ChatHistory];
+  chatHistory: Message[];
 }
 
 export interface User extends Document {

@@ -286,7 +286,7 @@ export default function SocraticAI({
               </form>
             </div> */}
             <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
-              <ChatBotUI initialMessage={algoName} />
+              <ChatBotUI initialInput={algoName} algoName={algoName} />
             </div>
           </div>
         </main>
