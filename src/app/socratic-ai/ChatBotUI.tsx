@@ -13,21 +13,16 @@ export default function ChatBotUI({
 }) {
   const {
     messages,
-    setMessages,
     input,
     handleInputChange,
     handleSubmit,
     append,
     isLoading,
     stop,
-  } = useChat();
+  } = useChat({ api: "/api/ai/chat", initialInput: initialMessage });
   useEffect(() => {
     if (initialMessage && messages.length === 0) {
-      setMessages(
-        initialMessage
-          ? [{ id: "first", role: "user", content: initialMessage }]
-          : []
-      );
+      handleSubmit();
     }
   });
   return (
