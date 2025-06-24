@@ -1,12 +1,12 @@
 "use client";
-import { UserContext } from "@/context/UserProvider";
-import { Module } from "@/model/user";
+import { useUserContext } from "@/context/UserProvider";
+import { Module } from "@/models/user.model";
 import { ArrowRightCircleIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AlgoNav = () => {
-  const [algoList, setAlgoList] = useState<Array<Module>>([]);
+  const [algoList, setAlgoList] = useState<Module[]>([]);
   const currentPath = usePathname();
   const router = useRouter();
   // const { data: session } = useSession();
@@ -39,7 +39,7 @@ const AlgoNav = () => {
   //   }
   // }, [session?.user]);
 
-  const user = useContext(UserContext);
+  const { user } = useUserContext();
   useEffect(() => {
     if (user?.modules) setAlgoList(user.modules);
   }, [user]);
@@ -52,38 +52,36 @@ const AlgoNav = () => {
         ) : algoList.length === 0 ? (
           <p>Not Started yet!</p>
         ) : (
-          algoList.map((moduleData) =>
-            moduleData.algos.map((algo) => (
-              <div
-                key={algo.algoID}
-                onClick={() =>
-                  router.push(
-                    `/socratic-ai/${algo.title
-                      .toLowerCase()
-                      .replace(/ /g, "-")}`
-                  )
-                }
-                className={`font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary ${
-                  currentPath.includes(
-                    algo.title.toLowerCase().replace(/ /g, "-")
-                  )
-                    ? "bg-primary dark:bg-primary"
-                    : "bg-slate-200 dark:bg-slate-800"
-                } `}
-              >
-                {algo.title}{" "}
-                <ArrowRightCircleIcon
-                  style={{
-                    color: `${
-                      moduleData.state === "pending"
-                        ? "rgb(255,191,0)" // yellow for pendings
-                        : "rgb(124,252,0)" // green for completed
-                    }`,
-                  }}
-                />
-              </div>
-            ))
-          )
+          algoList.map((module) => (
+            <div
+              key={module?.algorithm?.algoID}
+              onClick={() =>
+                router.push(
+                  `/socratic-ai/${module?.algorithm?.title
+                    ?.toLowerCase()
+                    .replace(/ /g, "-")}`
+                )
+              }
+              className={`font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary ${
+                currentPath.includes(
+                  module?.algorithm?.title?.toLowerCase().replace(/ /g, "-")
+                )
+                  ? "bg-primary dark:bg-primary"
+                  : "bg-slate-200 dark:bg-slate-800"
+              } `}
+            >
+              {module?.algorithm?.title}{" "}
+              <ArrowRightCircleIcon
+                style={{
+                  color: `${
+                    module.state === "pending"
+                      ? "rgb(255,191,0)" // yellow for pendings
+                      : "rgb(124,252,0)" // green for completed
+                  }`,
+                }}
+              />
+            </div>
+          ))
         )}
       </div>
     </>

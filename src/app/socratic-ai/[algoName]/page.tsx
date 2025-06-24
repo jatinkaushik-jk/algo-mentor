@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 // import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
 
@@ -15,10 +15,9 @@ import SidebarNavigations from "@/components/ui/sidebarNavigations";
 // import { DialogUpdate } from "../DialogUpdate";
 // import { marked } from "marked";
 import Header from "@/components/ui/header";
-import { aiReply } from "@/app/api/ai/genai";
 import AlgoNav from "../components/AlgoNav";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import ChatBotUI from "../ChatBotUI";
 
 export default function SocraticAI({
@@ -26,132 +25,51 @@ export default function SocraticAI({
 }: {
   params: { algoName: string };
 }) {
-  const chatInput = useRef<HTMLTextAreaElement>(null);
-  const chatDisplay = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   const userData = session?.user;
   const algoName = params.algoName.toLowerCase().replace("-", " ");
 
-  const [messages, setMessages] = useState<
-    { role: string; parts: { text: string }[] }[]
-  >([]);
-  const [loading, setLoading] = useState(false);
-  const [isEnd, setIsEnd] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   if (!session) {
     // router.push("/login");
     console.log("No session");
   }
 
-  useEffect(() => {
-    if (chatDisplay.current) {
-      chatDisplay.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  }, [messages]);
+  // useEffect(() => {
+  //   // Fetch chat history when page loads
+  //   const fetchHistory = async () => {
+  //     try {
+  //       const response = await fetch(`/api/conversations/getHistory`, {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           userEmail: userData?.email,
+  //           algoName: algoName,
+  //         }),
+  //       });
+  //       const data = await response.json();
+  //       if (response.status === 200) {
+  //         return data.length != 0 ? true : false;
+  //       } else {
+  //         alert(data?.message);
+  //         return true;
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching history:", error);
+  //       return true;
+  //     }
+  //   };
 
-  useEffect(() => {
-    // Fetch chat history when page loads
-    const fetchHistory = async () => {
-      try {
-        const response = await fetch(`/api/conversations/getHistory`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: userData?.email,
-            algoName: algoName,
-          }),
-        });
-        const data = await response.json();
-        if (response.status === 200) {
-          setMessages(data);
-          return data.length != 0 ? true : false;
-        } else {
-          alert(data?.message);
-          return true;
-        }
-      } catch (error) {
-        console.error("Error fetching history:", error);
-        return true;
-      }
-    };
+  //   if (userData) {
+  //     console.log("Fetching history...");
+  //     fetchHistory();
+  //   }
 
-    async function startChat() {
-      if (!chatDisplay.current?.hasChildNodes() && chatInput.current) {
-        chatInput.current.value = algoName;
-        setMessages((prevData) => [
-          ...prevData,
-          { role: "user", parts: [{ text: algoName }] },
-        ]);
-        await handleMessageInput();
-      }
-    }
-
-    if (userData) {
-      console.log("Fetching history...");
-      fetchHistory().then((res) => {
-        !res && startChat();
-      });
-    }
-
-    return () => {};
-  }, []);
-
-  const handleMessageInput = async () => {
-    if (chatInput.current && chatInput.current.value !== "") {
-      const userMessage = {
-        role: "user",
-        parts: [{ text: chatInput.current.value }],
-      };
-      setMessages((prevMSGs) => [...prevMSGs, userMessage]);
-
-      // Send user message to AI and update the chat
-      setLoading(true);
-      chatInput.current.value = ""; // Clear input
-      // get response from AI
-      const aiText = await aiReply(
-        userMessage.parts[0].text,
-        userData?.email,
-        algoName
-      );
-      const isEndRequested = new RegExp(
-        `(?=.*explore another algorithm)(?=.*continue with ${algoName})`,
-        "i"
-      ).test(aiText);
-      const aiMessage = { role: "model", parts: [{ text: aiText }] };
-      // Update UI
-      setMessages((prevMSGs) => [...prevMSGs, aiMessage]);
-      setLoading(false);
-
-      // Save chat to DB
-      try {
-        const response = await fetch(`/api/conversations/saveHistory`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: userData?.email,
-            algoName: algoName,
-            chatMessage: [userMessage, aiMessage],
-          }),
-        });
-
-        if (response.status !== 200) {
-          const data = await response.json();
-          console.log(data.message);
-        }
-      } catch (error) {
-        console.error("Error saving chat history:", error);
-      }
-
-      if (isEndRequested) {
-        setIsEnd(true);
-      }
-    }
-  };
+  //   return () => {};
+  // }, []);
 
   const endConversation = async () => {
     console.log("end conversation");

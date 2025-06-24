@@ -1,9 +1,9 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import UserModel from "@/model/user";
+import UserModel, { Module } from "@/models/user.model";
 import dbConnect from "@/dbConnect";
 
-async function saveHistory(req: NextRequest) {
+async function saveModuleStatus(req: NextRequest) {
   const { userEmail, algoName, status } = await req.json();
 
   try {
@@ -15,8 +15,8 @@ async function saveHistory(req: NextRequest) {
       return res.json({ error: "User not found" }, { status: 404 });
     }
 
-    const reqModule = user.modules.find((mod) =>
-      mod.algos.some((algo) => algo.title.toLowerCase() === algoName)
+    const reqModule = user.modules.find(
+      (mod: Module) => mod?.algorithm?.title.toLowerCase() === algoName
     );
 
     if (!reqModule) {
@@ -45,4 +45,4 @@ async function saveHistory(req: NextRequest) {
   }
 }
 
-export { saveHistory as POST };
+export { saveModuleStatus as POST };

@@ -1,6 +1,6 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import UserModel from "@/model/user";
+import UserModel, { Module } from "@/models/user.model";
 import dbConnect from "@/dbConnect";
 
 async function getHistory(req: NextRequest) {
@@ -14,8 +14,8 @@ async function getHistory(req: NextRequest) {
       return res.json({ error: "User not found" }, { status: 404 });
     }
 
-    const reqModule = user.modules.find((mod) =>
-      mod.algos.some((algo) => algo.title.toLowerCase() === algoName)
+    const reqModule = user.modules.find(
+      (mod: Module) => mod?.algorithm?.title.toLowerCase() === algoName
     );
 
     if (!reqModule) {
@@ -24,7 +24,7 @@ async function getHistory(req: NextRequest) {
         { status: 404 }
       );
     }
-    const history = reqModule.chatHistory || [];
+    const history = reqModule.conversation || [];
 
     return res.json(history, { status: 200 });
   } catch (error) {

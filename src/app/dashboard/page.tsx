@@ -12,13 +12,13 @@ import { useSession } from "next-auth/react";
 const Dashboard = () => {
   const { data: session } = useSession();
   console.log(session);
-  const router = useRouter();
-  useEffect(() => {
-    if (!session) {
-      // Redirect to sign-in if the user is not authenticated
-      router.push("/login");
-    }
-  });
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if (!session) {
+  //     // Redirect to sign-in if the user is not authenticated
+  //     router.push("/login");
+  //   }
+  // });
 
   return (
     <>

@@ -1,8 +1,8 @@
-import mongoose, { Schema, Document } from "mongoose";
-import { Message } from "@/components/ui/chat-message";
+import mongoose, { Schema } from "mongoose";
+// import { Message } from "@/components/ui/chat-message";
 // For type checking by typescript
 
-export interface Algorithm extends Document {
+export interface Algorithm {
   algoID: string;
   title: string;
   description: string;
@@ -10,28 +10,32 @@ export interface Algorithm extends Document {
   label: string;
   difficulty: string;
 }
-export interface ChatHistory extends Document {
-  role: string;
-  parts: [
+export interface Conversation {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  createdAt?: Date;
+  parts?: [
     {
+      type: string;
       text: string;
     },
   ];
 }
-export interface Module extends Document {
+export interface Module {
   state: string;
-  algos: [Algorithm];
-  chatHistory: Message[];
+  algorithm: Algorithm;
+  conversation: Conversation[];
 }
 
-export interface User extends Document {
+export interface User {
   email: string;
   username: string;
   password: string;
-  modules: [Module];
+  modules: Module[];
 }
 
-const AlgorithmSchema: Schema<Algorithm> = new Schema(
+const AlgorithmSchema = new Schema(
   {
     algoID: String,
     title: String,
@@ -42,11 +46,19 @@ const AlgorithmSchema: Schema<Algorithm> = new Schema(
   },
   { _id: false }
 );
-const ChatHistorySchema: Schema<ChatHistory> = new Schema(
+const ConversationSchema = new Schema(
   {
-    role: String,
+    id: String,
+    role: {
+      type: String,
+      enum: ["user", "assistant"],
+      required: true,
+    },
+    content: String,
+    createdAt: { type: Date, default: Date.now() },
     parts: [
       {
+        type: String,
         text: String,
       },
     ],
@@ -54,19 +66,19 @@ const ChatHistorySchema: Schema<ChatHistory> = new Schema(
   { _id: false }
 );
 
-const ModuleSchema: Schema<Module> = new Schema(
+const ModuleSchema = new Schema(
   {
     state: {
       type: String,
       default: "pending",
     },
-    algos: [AlgorithmSchema],
-    chatHistory: [ChatHistorySchema],
+    algorithm: AlgorithmSchema,
+    conversation: [ConversationSchema],
   },
   { _id: false }
 );
 
-const UserSchema: Schema<User> = new Schema({
+const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -92,8 +104,6 @@ const UserSchema: Schema<User> = new Schema({
   modules: [ModuleSchema],
 });
 
-const UserModel =
-  (mongoose.models?.User as mongoose.Model<User>) ||
-  mongoose.model<User>("User", UserSchema);
+const UserModel = mongoose.models?.User || mongoose.model("User", UserSchema);
 
 export default UserModel;

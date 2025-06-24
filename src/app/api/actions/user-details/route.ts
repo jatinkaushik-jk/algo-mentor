@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import dbConnect from "@/dbConnect";
-import UserModel from "@/model/user";
+import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
 
 const getUserDetails = async () => {

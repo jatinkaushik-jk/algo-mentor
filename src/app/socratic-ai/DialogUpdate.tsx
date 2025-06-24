@@ -9,7 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export function DialogUpdate({ children }) {
+export function DialogUpdate({ children }: { children?: React.ReactNode }) {
+  // This component is used to show a dialog update message
   return (
     <Dialog>
       <DialogTrigger asChild>

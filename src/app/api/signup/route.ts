@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/dbConnect";
 import bcrypt from "bcryptjs";
-import UserModel from "@/model/user";
+import UserModel from "@/models/user.model";
 
 const registerUser = async (req: Request) => {
   const { email, username, password } = await req.json();

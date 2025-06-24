@@ -8,15 +8,15 @@ import ChatBotUI from "./ChatBotUI";
 import { useRouter } from "next/navigation";
 
 export default function SocraticAI() {
-  const { data: session } = useSession();
-  const router = useRouter();
+  // const { data: session } = useSession();
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (!session) {
-      // Redirect to sign-in if the user is not authenticated
-      router.push("/login");
-    }
-  });
+  // useEffect(() => {
+  //   if (!session) {
+  //     // Redirect to sign-in if the user is not authenticated
+  //     router.push("/login");
+  //   }
+  // });
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

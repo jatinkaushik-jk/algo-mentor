@@ -1,10 +1,16 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import UserModel from "@/model/user";
+import UserModel, { Conversation } from "@/models/user.model";
 import dbConnect from "@/dbConnect";
+import { Module } from "@/models/user.model";
 
 async function saveHistory(req: NextRequest) {
-  const { userEmail, algoName, chatMessage } = await req.json();
+  const {
+    userEmail,
+    algoName,
+    message,
+  }: { userEmail: string; algoName: string; message: Conversation } =
+    await req.json();
 
   try {
     await dbConnect();
@@ -15,8 +21,8 @@ async function saveHistory(req: NextRequest) {
       return res.json({ error: "User not found" }, { status: 404 });
     }
 
-    const reqModule = user.modules.find((mod) =>
-      mod.algos.some((algo) => algo.title.toLowerCase() === algoName)
+    const reqModule = user.modules.find(
+      (mod: Module) => mod?.algorithm?.title.toLowerCase() === algoName
     );
 
     if (!reqModule) {
@@ -26,22 +32,19 @@ async function saveHistory(req: NextRequest) {
       );
     }
 
-    // check duplicate response
-    const userChats = reqModule.chatHistory.filter(
-      (historyObj) =>
-        historyObj.role === "user" &&
-        chatMessage[0].parts[0].text === historyObj.parts[0].text
-    );
-    if (userChats.length > 1) {
-      return res.json({ message: "Duplicate chats cleared!" }, { status: 400 });
-    }
+    // // check duplicate response
+    // const userChats = reqModule.conversation.filter(
+    //   (chat:Conversation) =>
+    //     chat.role === "user" &&
+    //     messages.content === chat.content
+    // );
+    // if (userChats.length > 1) {
+    //   return res.json({ message: "Duplicate chats cleared!" }, { status: 400 });
+    // }
 
     // Save new message
-    Array.from(chatMessage).forEach((msg) => {
-      reqModule.chatHistory.push(msg);
-    });
+    reqModule.conversation.push(message);
     await user.save();
-
     return res.json({ message: "Chat history saved" }, { status: 200 });
   } catch (error) {
     console.log("Pta nhi kya error hai", error);

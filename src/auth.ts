@@ -1,7 +1,7 @@
 import NextAuth, { AuthError } from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
-import UserModel from "./model/user";
+import UserModel from "./models/user.model";
 import bcrypt from "bcryptjs";
 import dbConnect from "./dbConnect";
 

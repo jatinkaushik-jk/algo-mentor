@@ -1,4 +1,4 @@
-import UserModel, { Algorithm } from "@/model/user";
+import UserModel, { Algorithm, Module } from "@/models/user.model";
 import dbConnect from "@/dbConnect";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -29,14 +29,14 @@ const sendAlgoData = async (req: Request) => {
       );
     }
 
-    const { _id, modules } = reqUser;
+    const { _id, modules }: { _id: string; modules: Module[] } = reqUser;
 
     let isAlgoExist = false;
 
     // Checking whether requested Algorithm already visited or not
     if (modules.length > 0) {
       const existingAlgo = modules.filter((module) => {
-        return module.algos[0].algoID == algorithm.algoID;
+        return module?.algorithm?.algoID == algorithm.algoID;
       });
 
       if (existingAlgo.length === 1) {
@@ -60,7 +60,7 @@ const sendAlgoData = async (req: Request) => {
         );
       }
 
-      reqUser.modules.push({ algos: algorithm });
+      modules.push({ algorithm, state: "pending", conversation: [] });
       await UserModel.findOneAndUpdate({ _id }, { modules });
     }
 
