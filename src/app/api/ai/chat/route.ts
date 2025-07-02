@@ -1,5 +1,7 @@
+import { auth } from "@/auth";
+import dbConnect from "@/dbConnect";
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
-import { Conversation } from "@/models/user.model";
+import UserModel, { Conversation, Module } from "@/models/user.model";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateId, Message, streamText } from "ai";
 
@@ -74,8 +76,33 @@ const saveMessage = async ({
   message: Conversation;
   algoName: string;
 }): Promise<void> => {
-  // Implement the logic to save the message to the database
-  // This function should be called in the onFinish callback of streamText
   console.log("Saving message to the database...", message);
-  // Example: await saveToDatabase(message);
+  const session = await auth();
+  // Saving the message to the database
+  try {
+    await dbConnect();
+    const reqUser = await UserModel.findOne({
+      email: session?.user?.email || "",
+    });
+    if (!reqUser) {
+      console.error("User not found:", session?.user?.email);
+      return;
+    }
+    const { modules }: { modules: Module[] } = reqUser;
+    if (!modules) {
+      console.error("Modules not found for user:", session?.user?.email);
+      return;
+    }
+    const algoModule = modules.find(
+      (module) => module.algorithm?.title === algoName
+    );
+    if (!algoModule) {
+      console.error("Algorithm module not found for:", algoName);
+      return;
+    }
+    algoModule.conversation.push(message);
+    await reqUser.save();
+  } catch (error) {
+    console.error("Error saving message:", message);
+  }
 };
