@@ -1,4 +1,5 @@
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
+import { Conversation } from "@/models/user.model";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateId, Message, streamText } from "ai";
 
@@ -24,13 +25,57 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
+  // Getting the algorithm name from the referer header
+  const algoNameParts = req.headers
+    .get("referer")
+    ?.split("/")
+    .pop()
+    ?.split("-");
+  const algoName =
+    algoNameParts
+      ?.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ") || "";
+
+  const lastUserMessage = messages[messages.length - 1];
+  const id = lastUserMessage.id || generateId();
+  const createdAt = lastUserMessage.createdAt || new Date();
+  const userMessage: Conversation = {
+    id,
+    role: "user",
+    content: lastUserMessage.content,
+    createdAt,
+  };
+  await saveMessage({ message: userMessage, algoName });
 
   const result = await streamText({
     model: google("gemini-2.0-flash-001"),
     messages: buildGoogleGenAIPrompt(messages),
     temperature: 0.8,
     system: SOCRATIC_AI_GUIDELINES,
+    onFinish: async (message) => {
+      // store message in the database
+      const assistantMessage: Conversation = {
+        id: generateId(),
+        role: "assistant",
+        content: message.text,
+        createdAt: new Date(),
+      };
+      await saveMessage({ message: assistantMessage, algoName });
+    },
   });
 
   return result?.toDataStreamResponse();
 }
+
+const saveMessage = async ({
+  message,
+  algoName,
+}: {
+  message: Conversation;
+  algoName: string;
+}): Promise<void> => {
+  // Implement the logic to save the message to the database
+  // This function should be called in the onFinish callback of streamText
+  console.log("Saving message to the database...", message);
+  // Example: await saveToDatabase(message);
+};
