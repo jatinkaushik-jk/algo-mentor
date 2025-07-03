@@ -76,7 +76,6 @@ const saveMessage = async ({
   message: Conversation;
   algoName: string;
 }): Promise<void> => {
-  console.log("Saving message to the database...", message);
   const session = await auth();
   // Saving the message to the database
   try {
@@ -103,6 +102,6 @@ const saveMessage = async ({
     algoModule.conversation.push(message);
     await reqUser.save();
   } catch (error) {
-    console.error("Error saving message:", message);
+    console.error("Error saving message:", error);
   }
 };

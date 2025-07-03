@@ -1,17 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Calender from "./components/calender";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import AlgorithmTable from "./components/algorithm-table";
 import Header from "@/components/ui/header";
 import Image from "next/image";
 // import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
-  console.log(session);
   // const router = useRouter();
   // useEffect(() => {
   //   if (!session) {

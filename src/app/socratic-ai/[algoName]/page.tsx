@@ -1,75 +1,17 @@
 "use client";
 import React, { useEffect } from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
-// import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
-
-// import { Button } from "@/components/ui/button";
-// import { Label } from "@/components/ui/label";
-// import { Textarea } from "@/components/ui/textarea";
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipProvider,
-//   TooltipTrigger,
-// } from "@/components/ui/tooltip";
-// import { DialogUpdate } from "../DialogUpdate";
-// import { marked } from "marked";
 import Header from "@/components/ui/header";
 import AlgoNav from "../components/AlgoNav";
 import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
 import ChatBotUI from "../ChatBotUI";
+import { useParams } from "next/navigation";
 
-export default function SocraticAI({
-  params,
-}: {
-  params: { algoName: string };
-}) {
+export default function SocraticAI() {
   const { data: session } = useSession();
   const userData = session?.user;
-  const algoName = params.algoName.toLowerCase().replace("-", " ");
-
-  // const router = useRouter();
-
-  if (!session) {
-    // router.push("/login");
-    console.log("No session");
-  }
-
-  // useEffect(() => {
-  //   // Fetch chat history when page loads
-  //   const fetchHistory = async () => {
-  //     try {
-  //       const response = await fetch(`/api/conversations/getHistory`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           userEmail: userData?.email,
-  //           algoName: algoName,
-  //         }),
-  //       });
-  //       const data = await response.json();
-  //       if (response.status === 200) {
-  //         return data.length != 0 ? true : false;
-  //       } else {
-  //         alert(data?.message);
-  //         return true;
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching history:", error);
-  //       return true;
-  //     }
-  //   };
-
-  //   if (userData) {
-  //     console.log("Fetching history...");
-  //     fetchHistory();
-  //   }
-
-  //   return () => {};
-  // }, []);
+  const params = useParams<{ algoName: string }>();
+  const algoName = params?.algoName?.toLowerCase().replace("-", " ");
 
   const endConversation = async () => {
     console.log("end conversation");
@@ -204,7 +146,7 @@ export default function SocraticAI({
               </form>
             </div> */}
             <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
-              <ChatBotUI initialInput={algoName} algoName={algoName} />
+              <ChatBotUI algoName={algoName} />
             </div>
           </div>
         </main>

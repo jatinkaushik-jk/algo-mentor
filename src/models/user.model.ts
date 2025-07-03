@@ -15,12 +15,12 @@ export interface Conversation {
   role: "user" | "assistant";
   content: string;
   createdAt?: Date;
-  parts?: [
-    {
-      type: string;
-      text: string;
-    },
-  ];
+  // parts?: [
+  //   {
+  //     type: string;
+  //     text: string;
+  //   },
+  // ];
 }
 export interface Module {
   state: string;
@@ -55,13 +55,13 @@ const ConversationSchema = new Schema(
       required: true,
     },
     content: String,
-    createdAt: { type: Date, default: Date.now() },
-    parts: [
-      {
-        type: String,
-        text: String,
-      },
-    ],
+    createdAt: { type: Date, default: new Date() },
+    // parts: [
+    //   {
+    //     type: String,
+    //     text: String,
+    //   },
+    // ],
   },
   { _id: false }
 );

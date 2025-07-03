@@ -4,19 +4,15 @@ import { useChat } from "@ai-sdk/react";
 
 import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useUserContext } from "@/context/UserProvider";
 import { Conversation } from "@/models/user.model";
 
-export default function ChatBotUI({
-  initialInput = "",
-  algoName = "",
-}: {
-  initialInput?: string;
-  algoName?: string;
-}) {
+export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   const { data: session } = useSession();
+  const [initMessage, setInitMessage] = useState<Conversation[]>([]);
+  const [initInput, setInitInput] = useState<string>("");
   const userData = session?.user;
   const { user } = useUserContext();
   const {
@@ -29,56 +25,65 @@ export default function ChatBotUI({
     stop,
   } = useChat({
     api: "/api/ai/chat",
-    initialInput: initialInput,
-    initialMessages:
-      user?.modules?.find(
-        (mod) => mod?.algorithm?.title?.toLowerCase() === algoName.toLowerCase()
-      )?.conversation || [],
+    initialInput: initInput,
+    initialMessages: initMessage.length > 0 ? initMessage : [],
   });
 
-  // useEffect(() => {
-  //   const fetchHistory = async () => {
-  //     try {
-  //       const response = await fetch(`/api/conversations/getHistory`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           userEmail: userData?.email,
-  //           algoName: algoName || "",
-  //         }),
-  //       });
-  //       const data = await response.json();
-  //       if (response.status === 200) {
-  //         setMessages(data);
-  //         return data.length != 0 ? true : false;
-  //       } else {
-  //         alert(data?.message);
-  //         return true;
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching history:", error);
-  //       return true;
-  //     }
-  //   };
-  // });
-
-  // useEffect(() => {
-  //   // save the messages to the database when they change
-  //   console.log("Messages: ", messages[messages.length - 1]);
-  //   algoName.length > 0 &&
-  //     saveMessages({
-  //       email: userData?.email || "",
-  //       algoName,
-  //       message: messages[messages.length - 1] as Conversation,
-  //     });
-  // }, [messages]);
   useEffect(() => {
-    if (initialInput && messages.length === 0) {
-      handleSubmit();
+    async function fetchInitialMessages() {
+      const res =
+        user?.modules?.find(
+          (mod) =>
+            mod?.algorithm?.title?.toLowerCase() === algoName.toLowerCase()
+        )?.conversation || [];
+      console.log("sjdfhjkah adata: ", res);
+      setInitMessage([
+        ...res.map((msg) => ({
+          role: msg.role,
+          content: msg.content,
+          id: msg.id,
+          createdAt: new Date(msg.createdAt || ""),
+        })),
+      ]);
+      setInitInput(res.length > 0 ? "" : algoName);
     }
-  });
+
+    fetchInitialMessages();
+  }, [algoName, user?.modules]);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(`/api/conversations/getHistory`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: userData?.email,
+            algoName: algoName,
+          }),
+        });
+        const data = await response.json();
+        if (response.status === 200) {
+          console.log("Fetched history:", data);
+          return data.length != 0 ? true : false;
+        } else {
+          alert(data?.message);
+          return true;
+        }
+      } catch (error) {
+        console.error("Error fetching history:", error);
+        return true;
+      }
+    };
+    // fetchHistory();
+    if (initMessage.length === 0 && initInput.length > 0) {
+      // handleSubmit();
+      console.log("Initial input set, submitting...", initInput);
+    }
+  }, [initInput, initMessage]);
+
   return (
     <Chat
       messages={messages as Array<Message>}
