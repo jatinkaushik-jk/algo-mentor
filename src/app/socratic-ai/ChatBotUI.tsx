@@ -36,19 +36,28 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
           (mod) =>
             mod?.algorithm?.title?.toLowerCase() === algoName.toLowerCase()
         )?.conversation || [];
-      console.log("sjdfhjkah adata: ", res);
-      setInitMessage([
-        ...res.map((msg) => ({
-          role: msg.role,
-          content: msg.content,
-          id: msg.id,
-          createdAt: new Date(msg.createdAt || ""),
-        })),
-      ]);
-      setInitInput(res.length > 0 ? "" : algoName);
+      // console.log("sjdfhjkah adata: ", res);
+      const formatted = res.map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+        id: msg.id,
+        createdAt: new Date(msg.createdAt || ""),
+      }));
+      setInitMessage(formatted);
+      // Update initial input only if no history
+      if (formatted.length === 0) {
+        setInitInput(algoName);
+        console.log("Setting initial input:", algoName);
+        append({
+          role: "user",
+          content: algoName,
+          createdAt: new Date(),
+          id: crypto.randomUUID(),
+        });
+      }
     }
 
-    fetchInitialMessages();
+    if (user?.modules) fetchInitialMessages();
   }, [algoName, user?.modules]);
 
   useEffect(() => {
