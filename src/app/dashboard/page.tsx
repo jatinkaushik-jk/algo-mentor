@@ -7,16 +7,27 @@ import Header from "@/components/ui/header";
 import Image from "next/image";
 // import { useSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
-  // const router = useRouter();
-  // useEffect(() => {
-  //   if (!session) {
-  //     // Redirect to sign-in if the user is not authenticated
-  //     router.push("/login");
-  //   }
-  // });
+  const router = useRouter();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect to the login page if not authenticated
+      router.push("/login");
+    },
+  });
+
+  if (status === "loading") {
+    return (
+      <div className="w-full h-full min-h-40 grid place-content-center text-center">
+        <LoaderCircle className="animate-spin mx-auto" />
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <>

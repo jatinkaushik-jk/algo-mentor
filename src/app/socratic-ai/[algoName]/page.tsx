@@ -5,14 +5,31 @@ import Header from "@/components/ui/header";
 import AlgoNav from "../components/AlgoNav";
 // import { useSession } from "next-auth/react";
 import ChatBotUI from "../ChatBotUI";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function SocraticAI() {
-  // const { data: session } = useSession();
-  // const userData = session?.user;
   const params = useParams<{ algoName: string }>();
   const algoName = params?.algoName?.toLowerCase().replace("-", " ");
 
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect to the login page if not authenticated
+      router.push("/login");
+    },
+  });
+
+  if (status === "loading") {
+    return (
+      <div className="w-full h-full min-h-40 grid place-content-center text-center">
+        <LoaderCircle className="animate-spin mx-auto" />
+        Loading...
+      </div>
+    );
+  }
   // Need to handle the conversation end status
   // use this string "Do you have any further questions about [topic], or would you like to explore another algorithm?" to check if the conversation is ended
   // const [conversationEnded, setConversationEnded] = React.useState(false);

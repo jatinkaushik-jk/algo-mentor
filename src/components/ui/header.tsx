@@ -183,7 +183,10 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-500" onClick={() => signOut}>
+            <DropdownMenuItem
+              className="text-red-500"
+              onClick={() => signOut({ redirectTo: "/" })}
+            >
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>

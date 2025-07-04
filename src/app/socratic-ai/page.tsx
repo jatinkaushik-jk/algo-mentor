@@ -2,8 +2,28 @@
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import Header from "@/components/ui/header";
 import AlgoNav from "./components/AlgoNav";
+import { LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function SocraticAI() {
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // Redirect to the login page if not authenticated
+      router.push("/login");
+    },
+  });
+
+  if (status === "loading") {
+    return (
+      <div className="w-full h-full min-h-40 grid place-content-center text-center">
+        <LoaderCircle className="animate-spin mx-auto" />
+        Loading...
+      </div>
+    );
+  }
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SidebarNavigations></SidebarNavigations>

@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/ui/navbar";
 import Link from "next/link";
 import { CircleArrowUp } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
   const scrollToTopBtn = useRef<HTMLDivElement>(null);
-  useState;
   const { status } = useSession();
 
   const handleScroll = () => {
@@ -18,9 +17,9 @@ export default function Home() {
         document.documentElement.scrollTop > 40
       ) {
         scrollToTopBtn.current.classList.remove("bottom-[-100%]");
-        scrollToTopBtn.current.classList.add("bottom-28");
+        scrollToTopBtn.current.classList.add("bottom-10");
       } else {
-        scrollToTopBtn.current.classList.remove("bottom-28");
+        scrollToTopBtn.current.classList.remove("bottom-10");
         scrollToTopBtn.current.classList.add("bottom-[-100%]");
       }
     }
@@ -138,7 +137,9 @@ export default function Home() {
                 mastering Algorithms.
               </p>
               <div className="flex flex-row justify-center items-center gap-x-6">
-                <Button>Start Learning</Button>
+                <Button>
+                  <Link href="/dashboard">Start Learning</Link>
+                </Button>
                 <Button variant="outline">
                   <Link
                     href="https://github.com/jatinkaushik-jk"
@@ -265,9 +266,7 @@ export default function Home() {
               with AlgoMentor.
             </p>
             <Button className="mt-6 bg-primary ">
-              <Link href="/signup" legacyBehavior passHref>
-                Sign Up Today
-              </Link>
+              <Link href="/signup">Sign Up Today</Link>
             </Button>
           </section>
         </main>
@@ -281,7 +280,7 @@ export default function Home() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <CircleArrowUp className="size-16 animate-bounce cursor-pointer text-primary" />
+            <CircleArrowUp className="size-10 animate-bounce cursor-pointer text-primary" />
           </Button>
         </div>
       </div>

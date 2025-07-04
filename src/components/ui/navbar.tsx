@@ -62,13 +62,13 @@ export function Navbar({ authStatus = "loading" }) {
     <NavigationMenu className="p-4 lg:px-10 xs:px-6">
       <NavigationMenuList className="flex flex-row justify-between items-center">
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink>
+          <NavigationMenuLink asChild>
+            <Link href="/">
               <div className="lg:text-3xl text-2xl font-bold text-primary text-nowrap">
                 Algo Mentor
               </div>
-            </NavigationMenuLink>
-          </Link>
+            </Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuList className="hidden md:flex">
           <NavigationMenuItem>
@@ -122,39 +122,39 @@ export function Navbar({ authStatus = "loading" }) {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link
-              href="https://github.com/jatinkaushik-jk"
-              legacyBehavior
-              passHref
+            <NavigationMenuLink
+              asChild
+              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
             >
-              <NavigationMenuLink
-                className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
-              >
+              <Link href="https://github.com/jatinkaushik-jk">
                 <div className="text-xs lg:text-base">Documentation</div>
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/dashboard" legacyBehavior passHref>
-              <NavigationMenuLink
-                className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
-              >
+            <NavigationMenuLink
+              asChild
+              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
+            >
+              <Link href="/dashboard">
                 <div className="text-xs lg:text-base">Dashboard</div>
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
-            <Link href="/login" legacyBehavior passHref>
-              <NavigationMenuLink>
-                {authStatus === "authenticated" ? (
-                  <Button onClick={() => signOut()}>Log out</Button>
-                ) : (
+            <NavigationMenuLink asChild>
+              {authStatus === "authenticated" ? (
+                <Button onClick={() => signOut({ redirectTo: "/" })}>
+                  Log out
+                </Button>
+              ) : (
+                <Link href="/login">
                   <Button>Login</Button>
-                )}
-              </NavigationMenuLink>
-            </Link>
+                </Link>
+              )}
+            </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex items-center gap-4">
             <Sheet>
@@ -208,7 +208,7 @@ export function Navbar({ authStatus = "loading" }) {
                   {authStatus === "authenticated" ? (
                     <Link
                       href="#"
-                      onClick={() => signOut()}
+                      onClick={() => signOut({ redirectTo: "/" })}
                       className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-red-600"
                     >
                       <LogOut /> Log out
