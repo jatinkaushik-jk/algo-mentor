@@ -47,6 +47,8 @@ const AlgoNav = () => {
   return (
     <>
       <div className="hidden md:flex flex-col w-80 bg-muted/50 rounded-xl p-2 gap-y-2 py-4 shadow-lg">
+        <h3 className="font-semibold text-lg pl-1">Algorithms</h3>
+        <hr />
         {!user ? (
           <p>Loading algorithms...</p>
         ) : algoList.length === 0 ? (

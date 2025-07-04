@@ -34,7 +34,6 @@ import {
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {

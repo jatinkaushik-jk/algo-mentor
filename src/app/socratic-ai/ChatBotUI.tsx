@@ -1,27 +1,25 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-
 import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { useUserContext } from "@/context/UserProvider";
 import { Conversation } from "@/models/user.model";
+import { LoaderCircle } from "lucide-react";
 
 export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
-  const { data: session } = useSession();
   const [initMessage, setInitMessage] = useState<Conversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
-  const userData = session?.user;
-  const { user } = useUserContext();
+  const { user, fetchAlgoMessages } = useUserContext();
+  const [isLoading, setIsLoading] = useState(true);
   const {
     messages,
     input,
     handleInputChange,
     handleSubmit,
     append,
-    isLoading,
+    // isLoading,
     stop,
   } = useChat({
     api: "/api/ai/chat",
@@ -31,21 +29,10 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
 
   useEffect(() => {
     async function fetchInitialMessages() {
-      const res =
-        user?.modules?.find(
-          (mod) =>
-            mod?.algorithm?.title?.toLowerCase() === algoName.toLowerCase()
-        )?.conversation || [];
-      // console.log("sjdfhjkah adata: ", res);
-      const formatted = res.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-        id: msg.id,
-        createdAt: new Date(msg.createdAt || ""),
-      }));
-      setInitMessage(formatted);
+      const data = await fetchAlgoMessages(algoName.toLowerCase());
       // Update initial input only if no history
-      if (formatted.length === 0) {
+      setIsLoading(false);
+      if (data?.length === 0) {
         setInitInput(algoName);
         console.log("Setting initial input:", algoName);
         append({
@@ -54,6 +41,15 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
           createdAt: new Date(),
           id: crypto.randomUUID(),
         });
+      } else {
+        setInitMessage(
+          data?.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            id: msg.id,
+            createdAt: new Date(msg.createdAt || ""),
+          })) || []
+        );
       }
     }
 
@@ -61,31 +57,6 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   }, [algoName, user?.modules]);
 
   useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const response = await fetch(`/api/conversations/getHistory`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: userData?.email,
-            algoName: algoName,
-          }),
-        });
-        const data = await response.json();
-        if (response.status === 200) {
-          console.log("Fetched history:", data);
-          return data.length != 0 ? true : false;
-        } else {
-          alert(data?.message);
-          return true;
-        }
-      } catch (error) {
-        console.error("Error fetching history:", error);
-        return true;
-      }
-    };
     // fetchHistory();
     if (initMessage.length === 0 && initInput.length > 0) {
       // handleSubmit();
@@ -94,19 +65,31 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   }, [initInput, initMessage]);
 
   return (
-    <Chat
-      messages={messages as Array<Message>}
-      input={input}
-      handleInputChange={handleInputChange}
-      handleSubmit={handleSubmit}
-      isGenerating={isLoading}
-      stop={stop}
-      append={append}
-      suggestions={[
-        `What is the Socratic method and how is it used in this AI tool?`,
-        `How does Socratic AI help me learn algorithms differently than traditional methods?`,
-        `Can you walk me through how to get started with Socratic AI?`,
-      ]}
-    />
+    <>
+      {isLoading ? (
+        <div className="w-full h-full grid place-content-center text-center">
+          <LoaderCircle className="animate-spin mx-auto mb-4" />
+          Loading Socratic AI...
+          <p className="text-muted-foreground text-sm">
+            This may take a few seconds, please wait...
+          </p>
+        </div>
+      ) : (
+        <Chat
+          messages={messages as Array<Message>}
+          input={input}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          isGenerating={isLoading}
+          stop={stop}
+          append={append}
+          suggestions={[
+            `What is the Socratic method and how is it used in this AI tool?`,
+            `How does Socratic AI help me learn algorithms differently than traditional methods?`,
+            `Can you walk me through how to get started with Socratic AI?`,
+          ]}
+        />
+      )}
+    </>
   );
 }
