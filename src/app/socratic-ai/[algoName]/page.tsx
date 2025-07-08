@@ -3,11 +3,10 @@ import React from "react";
 import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import Header from "@/components/ui/header";
 import AlgoNav from "../components/AlgoNav";
-// import { useSession } from "next-auth/react";
 import ChatBotUI from "../ChatBotUI";
 import { useParams, useRouter } from "next/navigation";
-import { LoaderCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Loader from "@/components/Loader";
 
 export default function SocraticAI() {
   const params = useParams<{ algoName: string }>();
@@ -24,10 +23,7 @@ export default function SocraticAI() {
 
   if (status === "loading") {
     return (
-      <div className="w-full h-full min-h-40 grid place-content-center text-center">
-        <LoaderCircle className="animate-spin mx-auto" />
-        Loading...
-      </div>
+      <Loader />
     );
   }
   // Need to handle the conversation end status

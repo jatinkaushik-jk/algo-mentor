@@ -5,10 +5,9 @@ import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import AlgorithmTable from "./components/algorithm-table";
 import Header from "@/components/ui/header";
 import Image from "next/image";
-// import { useSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { LoaderCircle } from "lucide-react";
+import Loader from "@/components/Loader";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -22,10 +21,7 @@ const Dashboard = () => {
 
   if (status === "loading") {
     return (
-      <div className="w-full h-full min-h-40 grid place-content-center text-center">
-        <LoaderCircle className="animate-spin mx-auto" />
-        Loading...
-      </div>
+      <Loader />
     );
   }
 

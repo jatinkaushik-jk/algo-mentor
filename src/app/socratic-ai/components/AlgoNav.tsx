@@ -1,56 +1,47 @@
 "use client";
+import Loader from "@/components/Loader";
 import { useUserContext } from "@/context/UserProvider";
 import { Module } from "@/models/user.model";
 import { ArrowRightCircleIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const AlgoNav = () => {
   const [algoList, setAlgoList] = useState<Module[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const currentPath = usePathname();
   const router = useRouter();
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
+  const { fetchAlgoList } = useUserContext();
 
-  // useEffect(() => {
-  //   const getAlgorithmsList = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await fetch("/api/actions/algo-list", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(session?.user),
-  //       });
-
-  //       const data = await response.json();
-  //       if (response.ok) {
-  //         setAlgoList(data.algoList); // Directly set the list from the response
-  //         console.log("AlgoList: ", data.algoList);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching algorithms:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   if (session?.user) {
-  //     //   getAlgorithmsList();
-  //   }
-  // }, [session?.user]);
-
-  const { user } = useUserContext();
   useEffect(() => {
-    if (user?.modules) setAlgoList(user.modules);
-  }, [user]);
+    const getAlgorithmsList = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchAlgoList();
+        if(data) {
+          setAlgoList(data); // Directly set the list from the response
+        }
+      } catch (error) {
+        console.error("Error fetching algorithms:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (session?.user) {
+        getAlgorithmsList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.user]);
 
   return (
     <>
       <div className="hidden md:flex flex-col w-80 bg-muted/50 rounded-xl p-2 gap-y-2 py-4 shadow-lg">
         <h3 className="font-semibold text-lg pl-1">Algorithms</h3>
         <hr />
-        {!user ? (
-          <p>Loading algorithms...</p>
+        {isLoading ? (
+          <Loader />
         ) : algoList.length === 0 ? (
           <p>Not Started yet!</p>
         ) : (

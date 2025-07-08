@@ -1,5 +1,5 @@
 "use client";
-import { Conversation, User } from "@/models/user.model";
+import { Conversation, Module, User } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
@@ -7,6 +7,7 @@ import { createContext, useState } from "react";
 interface UserContextType {
   user: User | undefined;
   fetchAlgoMessages: (algoName: string) => Promise<Conversation[] | undefined>;
+  fetchAlgoList: () => Promise<Module[] | undefined>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -56,6 +57,25 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const fetchAlgoList = async () => {
+    try {
+      const response = await fetch("/api/actions/getAlgorithms", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const jsonData = await response.json();
+      if (response.status === 200) {
+        return jsonData.data;
+      } else {
+        console.error("Error fetching algorithm list:", jsonData.message);
+      }
+    } catch (error) {
+      console.error("Error fetching algorithm list:", error);
+    }
+  };
+
   useEffect(() => {
     if (status === "authenticated") {
       fetchUsersData();
@@ -63,11 +83,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, [session, status]);
 
   return (
-    <UserContext.Provider value={{ user, fetchAlgoMessages }}>
+    <UserContext.Provider value={{ user, fetchAlgoMessages, fetchAlgoList }}>
       {children}
     </UserContext.Provider>
   );
-  //   return <UserContext.Provider value={} {...props}>{children}</UserContext.Provider>;
 }
 
 export const useUserContext = () => {

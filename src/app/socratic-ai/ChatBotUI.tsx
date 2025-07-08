@@ -54,6 +54,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     }
 
     if (user?.modules) fetchInitialMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [algoName, user?.modules]);
 
   useEffect(() => {
