@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserProvider";
 import { Conversation } from "@/models/user.model";
 import { LoaderCircle } from "lucide-react";
+import EndChatDialog from "./components/EndChatDialog";
 
 export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   const [initMessage, setInitMessage] = useState<Conversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
   const { user, fetchAlgoMessages } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
   const {
     messages,
     input,
@@ -27,14 +29,23 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     initialMessages: initMessage.length > 0 ? initMessage : [],
   });
 
+  function endConversation(){
+    console.log("Ending conversation and resetting state");
+    // Mark module status as completed
+    // Redirect to dashboard for selecting another algorithm
+  }
+  function continueConversation(){
+    console.log("Continuing conversation");
+    // append a new message to continue the conversation
+  }
+
   useEffect(() => {
     async function fetchInitialMessages() {
       const data = await fetchAlgoMessages(algoName.toLowerCase());
       // Update initial input only if no history
       setIsLoading(false);
       if (data?.length === 0) {
-        setInitInput(algoName);
-        console.log("Setting initial input:", algoName);
+        setInitInput(algoName); // check whether this is needed
         append({
           role: "user",
           content: algoName,
@@ -58,12 +69,14 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   }, [algoName, user?.modules]);
 
   useEffect(() => {
-    // fetchHistory();
-    if (initMessage.length === 0 && initInput.length > 0) {
-      // handleSubmit();
-      console.log("Initial input set, submitting...", initInput);
+    if(messages.length > 0 && messages[messages.length - 1]?.role === "assistant") {
+      const lastMessage = messages[messages.length - 1];
+      if(lastMessage.content.includes("Do you have any further questions about") && lastMessage.content.includes("would you like to explore another algorithm")){
+        // Show dialogue options to end conversation
+        setIsEnd(true);
+      }
     }
-  }, [initInput, initMessage]);
+  }, [messages]);
 
   return (
     <>
@@ -76,6 +89,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
           </p>
         </div>
       ) : (
+        <>
         <Chat
           messages={messages as Array<Message>}
           input={input}
@@ -90,6 +104,8 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
             `Can you walk me through how to get started with Socratic AI?`,
           ]}
         />
+        <EndChatDialog isOpen={!isEnd} onClose={() => setIsEnd(true)} endConversation={endConversation} continueConversation={continueConversation} /> {/* Later setIsEnd(false) isOpen={isEnd} */}
+        </>
       )}
     </>
   );
