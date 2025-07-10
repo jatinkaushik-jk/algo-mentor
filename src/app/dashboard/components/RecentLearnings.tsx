@@ -65,7 +65,7 @@ const RecentLearnings = () => {
           width={150}
           height={150}
           alt="404 Illustration"
-          className="max-w-[100px] sm:max-w-[125px] md:max-w-[140px] lg:max-w-[150px] h-auto mx-auto m-6"
+          className="max-w-[100px] sm:max-w-[125px] md:max-w-[140px] lg:max-w-[150px] h-auto w-auto mx-auto m-6"
           style={{
             aspectRatio: "3/2",
             objectFit: "contain",

@@ -22,8 +22,13 @@ export interface Conversation {
   //   },
   // ];
 }
+export enum StateValues{
+  pending = "PENDING",
+  completed = "COMPLETED"
+}
+
 export interface Module {
-  state: string;
+  state: StateValues;
   algorithm: Algorithm;
   conversation: Conversation[];
 }
@@ -70,7 +75,8 @@ const ModuleSchema = new Schema(
   {
     state: {
       type: String,
-      default: "pending",
+      enum: ["PENDING","COMPLETED"],
+      default: "PENDING",
     },
     algorithm: AlgorithmSchema,
     conversation: [ConversationSchema],

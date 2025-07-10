@@ -8,7 +8,11 @@ interface UserContextType {
   user: User | undefined;
   fetchAlgoMessages: (algoName: string) => Promise<Conversation[] | undefined>;
   fetchAlgoList: () => Promise<Module[] | undefined>;
-  fetchRecentLearnings: () => Promise< Algorithm[] | undefined>;
+  fetchRecentLearnings: () => Promise<Algorithm[] | undefined>;
+  markModuleStatus: (
+    algoName: string,
+    status: string
+  ) => Promise<boolean | undefined>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -87,7 +91,28 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       const jsonData = await response.json();
       if (response.status === 200) {
         const modules = jsonData.data as Module[];
-        return modules.filter((mod)=> mod.state === "pending").map((mod)=> mod.algorithm)
+        return modules
+          .filter((mod) => mod.state === "PENDING")
+          .map((mod) => mod.algorithm);
+      } else {
+        console.error("Error fetching recent learnings:", jsonData.message);
+      }
+    } catch (error) {
+      console.error("Error fetching recent learnings:", error);
+    }
+  };
+  const markModuleStatus = async (algoName: string, status: string) => {
+    try {
+      const response = await fetch("/api/conversations/set-module-status", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ algoName, status: status.toUpperCase() }),
+      });
+      const jsonData = await response.json();
+      if (response.status === 200) {
+        return true;
       } else {
         console.error("Error fetching recent learnings:", jsonData.message);
       }
@@ -103,7 +128,15 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, [session, status]);
 
   return (
-    <UserContext.Provider value={{ user, fetchAlgoMessages, fetchAlgoList, fetchRecentLearnings }}>
+    <UserContext.Provider
+      value={{
+        user,
+        fetchAlgoMessages,
+        fetchAlgoList,
+        fetchRecentLearnings,
+        markModuleStatus,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

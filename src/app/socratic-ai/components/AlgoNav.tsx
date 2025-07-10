@@ -67,9 +67,9 @@ const AlgoNav = () => {
               <ArrowRightCircleIcon
                 style={{
                   color: `${
-                    module.state === "pending"
-                      ? "rgb(255,191,0)" // yellow for pendings
-                      : "rgb(124,252,0)" // green for completed
+                    module.state === "PENDING"
+                      ? "rgb(255,191,0)" // yellow for PENDING
+                      : "rgb(124,252,0)" // green for COMPLETED
                   }`,
                 }}
               />

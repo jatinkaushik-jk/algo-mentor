@@ -55,7 +55,7 @@ export const columns: ColumnDef<Task>[] = [
                     .toLowerCase()
                     .replace(/ /g, "-")}`;
                 }
-              } catch (error) {}
+              } catch (error) {console.log("Error: ", error)}
               console.log(row.original);
             }}
             className="max-w-[500px] truncate font-medium hover:text-primary cursor-pointer"

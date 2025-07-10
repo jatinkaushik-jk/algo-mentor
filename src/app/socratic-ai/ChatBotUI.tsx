@@ -1,5 +1,4 @@
 "use client";
-
 import { useChat } from "@ai-sdk/react";
 import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
@@ -8,13 +7,16 @@ import { useUserContext } from "@/context/UserProvider";
 import { Conversation } from "@/models/user.model";
 import { LoaderCircle } from "lucide-react";
 import EndChatDialog from "./components/EndChatDialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   const [initMessage, setInitMessage] = useState<Conversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
-  const { user, fetchAlgoMessages } = useUserContext();
+  const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const router = useRouter();
   const {
     messages,
     input,
@@ -29,14 +31,27 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     initialMessages: initMessage.length > 0 ? initMessage : [],
   });
 
-  function endConversation(){
-    console.log("Ending conversation and resetting state");
+  function endConversation() {
     // Mark module status as completed
+    markModuleStatus(algoName, "COMPLETED").then(
+      (res) =>
+        res &&
+        toast("Module Completed", {
+          description: "You can still interact with AI for this module!",
+        })
+    );
     // Redirect to dashboard for selecting another algorithm
+    router.push("/dashboard");
   }
-  function continueConversation(){
+  function continueConversation() {
     console.log("Continuing conversation");
     // append a new message to continue the conversation
+    append({
+      role: "user",
+      content: "Continue with this algorithm",
+      createdAt: new Date(),
+      id: crypto.randomUUID(),
+    });
   }
 
   useEffect(() => {
@@ -69,9 +84,19 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   }, [algoName, user?.modules]);
 
   useEffect(() => {
-    if(messages.length > 0 && messages[messages.length - 1]?.role === "assistant") {
+    if (
+      messages.length > 0 &&
+      messages[messages.length - 1]?.role === "assistant"
+    ) {
       const lastMessage = messages[messages.length - 1];
-      if(lastMessage.content.includes("Do you have any further questions about") && lastMessage.content.includes("would you like to explore another algorithm")){
+      if (
+        lastMessage.content.includes(
+          "Do you have any further questions about"
+        ) &&
+        lastMessage.content.includes(
+          "would you like to explore another algorithm"
+        )
+      ) {
         // Show dialogue options to end conversation
         setIsEnd(true);
       }
@@ -90,21 +115,26 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
         </div>
       ) : (
         <>
-        <Chat
-          messages={messages as Array<Message>}
-          input={input}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          isGenerating={isLoading}
-          stop={stop}
-          append={append}
-          suggestions={[
-            `What is the Socratic method and how is it used in this AI tool?`,
-            `How does Socratic AI help me learn algorithms differently than traditional methods?`,
-            `Can you walk me through how to get started with Socratic AI?`,
-          ]}
-        />
-        <EndChatDialog isOpen={!isEnd} onClose={() => setIsEnd(true)} endConversation={endConversation} continueConversation={continueConversation} /> {/* Later setIsEnd(false) isOpen={isEnd} */}
+          <Chat
+            messages={messages as Array<Message>}
+            input={input}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            isGenerating={isLoading}
+            stop={stop}
+            append={append}
+            suggestions={[
+              `What is the Socratic method and how is it used in this AI tool?`,
+              `How does Socratic AI help me learn algorithms differently than traditional methods?`,
+              `Can you walk me through how to get started with Socratic AI?`,
+            ]}
+          />
+          <EndChatDialog
+            isOpen={isEnd}
+            onClose={() => setIsEnd(false)}
+            endConversation={endConversation}
+            continueConversation={continueConversation}
+          />{" "}
         </>
       )}
     </>
