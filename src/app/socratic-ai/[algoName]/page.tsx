@@ -26,32 +26,6 @@ export default function SocraticAI() {
       <Loader />
     );
   }
-  // Need to handle the conversation end status
-  // use this string "Do you have any further questions about [topic], or would you like to explore another algorithm?" to check if the conversation is ended
-  // const [conversationEnded, setConversationEnded] = React.useState(false);
-  // const endConversation = async () => {
-  //   console.log("end conversation");
-  //   try {
-  //     const response = await fetch(`/api/conversations/module-status`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userEmail: userData?.email,
-  //         algoName: algoName,
-  //         status: "completed",
-  //       }),
-  //     });
-
-  //     if (response.status !== 200) {
-  //       const data = await response.json();
-  //       console.log(data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error saving Module status", error);
-  //   }
-  // };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
