@@ -1,4 +1,4 @@
-import UserModel, { Algorithm, Module } from "@/models/user.model";
+import UserModel, { Algorithm, Module, StateValues } from "@/models/user.model";
 import dbConnect from "@/dbConnect";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -47,7 +47,7 @@ const sendAlgoData = async (req: Request) => {
     // Responding when requesting new Algorithm
     if (!isAlgoExist) {
       const pendingStates = modules.filter((module) => {
-        return module.state === "pending";
+        return module.state === "PENDING";
       });
 
       if (pendingStates.length >= 3) {
@@ -60,7 +60,7 @@ const sendAlgoData = async (req: Request) => {
         );
       }
 
-      modules.push({ algorithm, state: "pending", conversation: [] });
+      modules.push({ algorithm, state: StateValues.pending, conversation: [] });
       await UserModel.findOneAndUpdate({ _id }, { modules });
     }
 
