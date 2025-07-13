@@ -20,7 +20,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "AlgoMentor",
   description:
-    "AlgoMentor is a Socratic AI tutor who can help you to master Algorithm",
+    "AlgoMentor is a Socratic AI tutor who can help you to master Algorithms.",
 };
 
 export default function RootLayout({
