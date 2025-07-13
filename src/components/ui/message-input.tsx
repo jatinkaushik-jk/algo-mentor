@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip";
-import { DialogUpdate } from "@/app/socratic-ai/DialogUpdate";
+import { DialogUpdate } from "@/app/(overview)/socratic-ai/DialogUpdate";
 
 interface MessageInputBaseProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

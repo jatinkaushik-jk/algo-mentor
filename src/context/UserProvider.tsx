@@ -13,6 +13,8 @@ interface UserContextType {
     algoName: string,
     status: string
   ) => Promise<boolean | undefined>;
+  getLoginHistory: () => Promise<string[]>;
+  getAlgoStats: () => Promise<{ category: string; difficulty: string }[]>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -121,6 +123,19 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getLoginHistory = async () => {
+  // Returns: ["2024-06-01", "2024-06-02", ...]
+  return ["2024-06-01", "2024-06-02"];
+};
+const getAlgoStats = async () => {
+  // Returns: [{ category: "Sorting", difficulty: "Easy" }, { category: "Graph", difficulty: "Hard" }, ...]
+  return [
+    { category: "Sorting", difficulty: "Easy" },
+    { category: "Graph", difficulty: "Hard" },
+    { category: "Array", difficulty: "Medium" },
+  ];
+};
+
   useEffect(() => {
     if (status === "authenticated") {
       fetchUsersData();
@@ -135,6 +150,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         fetchAlgoList,
         fetchRecentLearnings,
         markModuleStatus,
+        getLoginHistory,
+        getAlgoStats,
       }}
     >
       {children}
