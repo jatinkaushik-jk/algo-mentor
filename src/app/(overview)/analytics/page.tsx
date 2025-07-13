@@ -65,6 +65,7 @@ export default function Analytics() {
     };
 
     fetchAnalyticsData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -42,7 +42,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const fetchAlgoMessages = async (algoName: string) => {
+  const fetchAlgoMessages = async (algoName: string): Promise<Conversation[] | undefined> => {
     try {
       const response = await fetch(
         `/api/conversations/getHistory?algoName=${algoName}`,
@@ -64,7 +64,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const fetchAlgoList = async () => {
+  const fetchAlgoList = async (): Promise<Module[] | undefined> => {
     try {
       const response = await fetch("/api/actions/getAlgorithms", {
         method: "GET",
@@ -82,7 +82,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       console.error("Error fetching algorithm list:", error);
     }
   };
-  const fetchRecentLearnings = async () => {
+  const fetchRecentLearnings = async (): Promise<Algorithm[] | undefined> => {
     try {
       const response = await fetch("/api/actions/getAlgorithms", {
         method: "GET",
@@ -103,7 +103,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       console.error("Error fetching recent learnings:", error);
     }
   };
-  const markModuleStatus = async (algoName: string, status: string) => {
+  const markModuleStatus = async (algoName: string, status: string): Promise<boolean | undefined> => {
     try {
       const response = await fetch("/api/conversations/set-module-status", {
         method: "PATCH",
@@ -128,12 +128,15 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   return ["2024-06-01", "2024-06-02"];
 };
 const getAlgoStats = async () => {
+  const res = await fetchAlgoList();
+    if (!res) return [];
+    const data = res.map((module)=>({
+      category: module.algorithm.category,
+      difficulty: module.algorithm.difficulty
+    }));
+    console.log("Algo Stats Data:", data);
   // Returns: [{ category: "Sorting", difficulty: "Easy" }, { category: "Graph", difficulty: "Hard" }, ...]
-  return [
-    { category: "Sorting", difficulty: "Easy" },
-    { category: "Graph", difficulty: "Hard" },
-    { category: "Array", difficulty: "Medium" },
-  ];
+  return data;
 };
 
   useEffect(() => {

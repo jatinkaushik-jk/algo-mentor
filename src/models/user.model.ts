@@ -8,7 +8,8 @@ export interface Algorithm {
   description: string;
   timeComplexity: string;
   label: string;
-  difficulty: string;
+  category: string;
+  difficulty: DifficultyValues;
 }
 export interface Conversation {
   id: string;
@@ -21,6 +22,11 @@ export interface Conversation {
   //     text: string;
   //   },
   // ];
+}
+export enum DifficultyValues{
+  easy = "Easy",
+  medium = "Medium",
+  hard = "Hard"
 }
 export enum StateValues{
   pending = "PENDING",
@@ -47,7 +53,11 @@ const AlgorithmSchema = new Schema(
     description: String,
     timeComplexity: String,
     label: String,
-    difficulty: String,
+    category: String,
+    difficulty: {
+      type: String,
+      enum: Object.values(DifficultyValues)
+    },
   },
   { _id: false }
 );
@@ -75,8 +85,8 @@ const ModuleSchema = new Schema(
   {
     state: {
       type: String,
-      enum: ["PENDING","COMPLETED"],
-      default: "PENDING",
+      enum: Object.values(StateValues),
+      default: StateValues.pending,
     },
     algorithm: AlgorithmSchema,
     conversation: [ConversationSchema],
