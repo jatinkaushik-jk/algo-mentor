@@ -4,6 +4,8 @@ import Calender from "./components/calender";
 import AlgorithmTable from "./components/algorithm-table";
 import { useSession } from "next-auth/react";
 import RecentLearnings from "./components/RecentLearnings";
+import { useUserContext } from "@/context/UserProvider";
+import { FlameIcon } from "lucide-react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
@@ -24,7 +26,8 @@ const Dashboard = () => {
             <AlgorithmTable />
           </div>
         </section>
-        <section className="hidden lg:block w-full">
+        <section className="hidden lg:block w-full space-y-2">
+          <StreakTab/>
           <Calender />
           <RecentLearnings />
         </section>
@@ -32,5 +35,21 @@ const Dashboard = () => {
     </>
   );
 };
+
+function StreakTab() {
+  const { user } = useUserContext();
+
+  return (
+    <div className="rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] max-w-[16rem] w-full p-4 aspect-auto mx-auto text-center">
+      <div className="flex flex-row items-center justify-center gap-6">
+        <div className="p-2 bg-orange-200 dark:bg-orange-400/90 dark:shadow-[0_0_10px_rgba(255,165,0,0.5)] rounded-full"><FlameIcon className="text-orange-500 dark:text-white drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]" size={50} /></div>
+        <div>
+          <p className="text-2xl font-bold text-start">{user?.streak.current}</p>
+          <p className="text-base">Streak Days</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Dashboard;

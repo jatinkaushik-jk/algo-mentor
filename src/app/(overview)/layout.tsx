@@ -5,6 +5,7 @@ import SidebarNavigations from "@/components/ui/sidebarNavigations";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
+import { useUserContext } from "@/context/UserProvider";
 
 export default function DashboardLayout({
   children,
@@ -21,6 +22,7 @@ export default function DashboardLayout({
       router.push("/login");
     },
   });
+  const {updateStreak} = useUserContext();
 
   React.useEffect(() => {
     switch (currentPath) {
@@ -42,6 +44,13 @@ export default function DashboardLayout({
         break;
     }
   }, [currentPath]);
+
+  React.useEffect(() => {
+    if (status === "authenticated") {
+      updateStreak();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
 
   if (status === "loading") {
     return <Loader />;

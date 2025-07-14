@@ -33,7 +33,7 @@ const RecentLearnings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user]);
   return (
-    <div className="rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] max-w-[16rem] w-full p-4 aspect-auto mx-auto text-center mt-4">
+    <div className="rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] max-w-[16rem] w-full p-4 aspect-auto mx-auto text-center">
       <h3 className="font-semibold text-xl mb-2">Recent Learnings</h3>
       <hr />
       {isLoading ? (

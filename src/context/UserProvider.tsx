@@ -15,6 +15,7 @@ interface UserContextType {
   ) => Promise<boolean | undefined>;
   getLoginHistory: () => Promise<string[]>;
   getAlgoStats: () => Promise<{ category: string; difficulty: string }[]>;
+  updateStreak: () => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -42,7 +43,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const fetchAlgoMessages = async (algoName: string): Promise<Conversation[] | undefined> => {
+  const fetchAlgoMessages = async (
+    algoName: string
+  ): Promise<Conversation[] | undefined> => {
     try {
       const response = await fetch(
         `/api/conversations/getHistory?algoName=${algoName}`,
@@ -103,7 +106,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       console.error("Error fetching recent learnings:", error);
     }
   };
-  const markModuleStatus = async (algoName: string, status: string): Promise<boolean | undefined> => {
+  const markModuleStatus = async (
+    algoName: string,
+    status: string
+  ): Promise<boolean | undefined> => {
     try {
       const response = await fetch("/api/conversations/set-module-status", {
         method: "PATCH",
@@ -124,20 +130,33 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   };
 
   const getLoginHistory = async () => {
-  // Returns: ["2024-06-01", "2024-06-02", ...]
-  return ["2024-06-01", "2024-06-02"];
-};
-const getAlgoStats = async () => {
-  const res = await fetchAlgoList();
+    // Returns: ["2024-06-01", "2024-06-02", ...]
+    return ["2024-06-01", "2024-06-02"];
+  };
+
+  const getAlgoStats = async () => {
+    const res = await fetchAlgoList();
     if (!res) return [];
-    const data = res.map((module)=>({
+    const data = res.map((module) => ({
       category: module.algorithm.category,
-      difficulty: module.algorithm.difficulty
+      difficulty: module.algorithm.difficulty,
     }));
-    console.log("Algo Stats Data:", data);
-  // Returns: [{ category: "Sorting", difficulty: "Easy" }, { category: "Graph", difficulty: "Hard" }, ...]
-  return data;
-};
+    // Returns: [{ category: "Sorting", difficulty: "Easy" }, { category: "Graph", difficulty: "Hard" }, ...]
+    return data;
+  };
+
+  const updateStreak = async (): Promise<void> => {
+    try {
+      await fetch("/api/actions/streak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("Error updating streak:", error);
+    }
+  };
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -155,6 +174,7 @@ const getAlgoStats = async () => {
         markModuleStatus,
         getLoginHistory,
         getAlgoStats,
+        updateStreak,
       }}
     >
       {children}

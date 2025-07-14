@@ -10,7 +10,7 @@ const sendAlgoData = async (req: Request) => {
     const session = await auth();
     if (!session?.user) {
       return NextResponse.json(
-        { message: "user session expires! Try loging in again" },
+        { message: "user session expires! Try logging in again" },
         { status: 400 }
       );
     }
@@ -24,7 +24,7 @@ const sendAlgoData = async (req: Request) => {
     // Response if user doesn't exist
     if (!reqUser) {
       return NextResponse.json(
-        { message: "Internal serval error" },
+        { message: "Internal server error" },
         { status: 500 }
       );
     }

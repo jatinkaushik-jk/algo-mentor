@@ -38,11 +38,16 @@ export interface Module {
   algorithm: Algorithm;
   conversation: Conversation[];
 }
-
+export interface Streak{
+  current: number,
+  highest: number,
+  lastLoginDate: Date | null,
+}
 export interface User {
   email: string;
   username: string;
   password: string;
+  streak: Streak;
   modules: Module[];
 }
 
@@ -116,6 +121,11 @@ const UserSchema = new Schema({
     type: String,
     minlength: 8,
     required: [true, "Password is required"],
+  },
+  streak: {
+    current: { type: Number, default: 1 },
+    highest: { type: Number, default: 1 },
+    lastLoginDate: { type: Date, default: null },
   },
   modules: [ModuleSchema],
 });
