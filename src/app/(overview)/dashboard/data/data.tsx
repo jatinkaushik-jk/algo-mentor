@@ -47,17 +47,17 @@ export const timeComplexity = [
 export const difficulty = [
   {
     label: "Easy",
-    value: "easy",
+    value: "Easy",
     color: "#22c55e",
   },
   {
     label: "Medium",
-    value: "medium",
+    value: "Medium",
     color: "#eab308",
   },
   {
     label: "Hard",
-    value: "hard",
+    value: "Hard",
     color: "#ef4444",
   },
 ];
