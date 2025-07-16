@@ -1,10 +1,10 @@
 "use client";
-
 import { useUserContext } from "@/context/UserProvider";
 import { FlameIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { DifficultyPieChart } from "./DifficultyPieChart";
 import { CategoryPieChart } from "./CategoryPieChart";
+import ActivityCalenderHeatMap from "./ActivityCalenderHeatMap";
 
 export default function AnalyticsPage() {
   const { getAlgoStats } = useUserContext(); /// add getLoginHistory if needed
@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Algorithm Category Chart */}
       <CategoryPieChart categoryStats={categoryStats} />
 
@@ -74,6 +74,11 @@ export default function AnalyticsPage() {
       <DifficultyPieChart difficultyStats={difficultyStats} totalAlgos={totalAlgos} />
 
       {/* Login Streak Heatmap */}
+      <div className="col-span-1 md:col-span-2">
+        <ActivityCalenderHeatMap />
+      </div>
+
+      {/* Daily Login Streak Widget */}
       <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-md col-span-1 md:col-span-2">
         <h2 className="text-lg font-semibold mb-4 text-foreground">
           📅 Daily Login Streak
