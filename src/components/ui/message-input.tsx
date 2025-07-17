@@ -10,7 +10,7 @@ import { useAudioRecording } from "@/hooks/use-audio-recording";
 import { useAutosizeTextArea } from "@/hooks/use-autosize-textarea";
 import { AudioVisualizer } from "@/components/ui/audio-visualizer";
 import { Button } from "@/components/ui/button";
-import { FilePreview } from "@/components/ui/file-preview";
+// import { FilePreview } from "@/components/ui/file-preview";
 import { InterruptPrompt } from "@/components/ui/interrupt-prompt";
 import {
   Tooltip,
@@ -69,7 +69,7 @@ export function MessageInput({
   } = useAudioRecording({
     transcribeAudio,
     onTranscriptionComplete: (text) => {
-      props.onChange?.({ target: { value: text } } as any);
+      props.onChange?.({ target: { value: text } } as React.ChangeEvent<HTMLTextAreaElement>);
     },
   });
 
@@ -227,7 +227,7 @@ export function MessageInput({
             <div className="absolute inset-x-3 bottom-0 z-20 overflow-x-scroll py-3">
               <div className="flex space-x-3">
                 <AnimatePresence mode="popLayout">
-                  {props.files?.map((file) => {
+                  {/* {props.files?.map((file) => {
                     return (
                       <FilePreview
                         key={file.name + String(file.lastModified)}
@@ -245,7 +245,7 @@ export function MessageInput({
                         }}
                       />
                     );
-                  })}
+                  })} */}
                 </AnimatePresence>
               </div>
             </div>
@@ -353,27 +353,27 @@ function FileUploadOverlay({ isDragging }: FileUploadOverlayProps) {
   );
 }
 
-function showFileUploadDialog() {
-  const input = document.createElement("input");
+// function showFileUploadDialog() {
+//   const input = document.createElement("input");
 
-  input.type = "file";
-  input.multiple = true;
-  input.accept = "*/*";
-  input.click();
+//   input.type = "file";
+//   input.multiple = true;
+//   input.accept = "*/*";
+//   input.click();
 
-  return new Promise<File[] | null>((resolve) => {
-    input.onchange = (e) => {
-      const files = (e.currentTarget as HTMLInputElement).files;
+//   return new Promise<File[] | null>((resolve) => {
+//     input.onchange = (e) => {
+//       const files = (e.currentTarget as HTMLInputElement).files;
 
-      if (files) {
-        resolve(Array.from(files));
-        return;
-      }
+//       if (files) {
+//         resolve(Array.from(files));
+//         return;
+//       }
 
-      resolve(null);
-    };
-  });
-}
+//       resolve(null);
+//     };
+//   });
+// }
 
 function TranscribingOverlay() {
   return (
