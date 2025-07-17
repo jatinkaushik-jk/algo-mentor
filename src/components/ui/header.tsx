@@ -97,15 +97,15 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
                 Products
               </Link>
               <Link
-                href="/collab"
+                href="/community"
                 className={`flex items-center gap-4 px-2.5 transition-colors hover:text-foreground ${
-                  currentPath.startsWith("/collab")
+                  currentPath.startsWith("/community")
                     ? "text-foreground"
                     : "text-muted-foreground"
                 }`}
               >
                 <Users2 className="h-5 w-5" />
-                Collaborate
+                Community
               </Link>
               <Link
                 href="/analytics"

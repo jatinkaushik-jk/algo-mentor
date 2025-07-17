@@ -26,7 +26,7 @@ export async function POST() {
     }
 
     const today = new Date().setHours(0, 0, 0, 0);
-    const yesterday = new Date(today - 86400000);
+    const yesterday = new Date(today - 86400000).setHours(0, 0, 0, 0);
     const last = reqUser.streak.lastLoginDate?.setHours(0, 0, 0, 0);
 
     if (!last || last < yesterday) reqUser.streak.current = 1;

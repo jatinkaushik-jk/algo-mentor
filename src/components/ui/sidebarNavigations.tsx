@@ -83,18 +83,18 @@ const SidebarNavigations = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/collab-with-us"
+                href="/community"
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 ${
-                  currentPath.startsWith("/collab-with-us")
+                  currentPath.startsWith("/community")
                     ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground"
                 }`}
               >
                 <Users2 className="h-5 w-5" />
-                <span className="sr-only">Collab</span>
+                <span className="sr-only">Community</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Collab</TooltipContent>
+            <TooltipContent side="right">Community</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>

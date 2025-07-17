@@ -53,7 +53,7 @@ const RecentLearnings = () => {
               }
                 variant={"outline"} 
                 className="group w-full flex justify-between items-center">
-                  {learnings.title} <ArrowRightCircle size={"sm"} width={20} className="group-hover:translate-x-1 transition"/>
+                  {learnings.title} <ArrowRightCircle size={20} width={20} className="group-hover:translate-x-1 transition"/>
                 </Button>
               </li>
             ))}
