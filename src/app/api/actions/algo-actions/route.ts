@@ -1,25 +1,13 @@
 import UserModel, { Algorithm, Module, StateValues } from "@/models/user.model";
-import dbConnect from "@/helpers/dbConnect";
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { getUserFromDatabase } from "@/helpers/user";
 
 const sendAlgoData = async (req: Request) => {
   const algorithm = (await req.json()) as Algorithm;
 
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json(
-        { message: "user session expires! Try logging in again" },
-        { status: 400 }
-      );
-    }
-
-    const { email } = session.user;
-
-    // Database connection
-    await dbConnect();
-    const reqUser = await UserModel.findOne({ email });
+    // Fetching user from database
+    const reqUser = await getUserFromDatabase();
 
     // Response if user doesn't exist
     if (!reqUser) {

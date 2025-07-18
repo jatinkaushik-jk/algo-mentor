@@ -1,7 +1,6 @@
-import { auth } from "@/auth";
-import dbConnect from "@/helpers/dbConnect";
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
-import UserModel, { Conversation, Module } from "@/models/user.model";
+import { getUserFromDatabase } from "@/helpers/user";
+import { Conversation, Module } from "@/models/user.model";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateId, Message, streamText } from "ai";
 
@@ -76,20 +75,16 @@ const saveMessage = async ({
   message: Conversation;
   algoName: string;
 }): Promise<void> => {
-  const session = await auth();
   // Saving the message to the database
   try {
-    await dbConnect();
-    const reqUser = await UserModel.findOne({
-      email: session?.user?.email || "",
-    });
+    const reqUser = await getUserFromDatabase();
     if (!reqUser) {
-      console.error("User not found:", session?.user?.email);
+      console.error("User not found");
       return;
     }
     const { modules }: { modules: Module[] } = reqUser;
     if (!modules) {
-      console.error("Modules not found for user:", session?.user?.email);
+      console.error("Modules not found for user");
       return;
     }
     const algoModule = modules.find(

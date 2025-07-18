@@ -1,14 +1,9 @@
-import { auth } from "@/auth";
-import dbConnect from "@/helpers/dbConnect";
-import UserModel from "@/models/user.model";
+import { getUserFromDatabase } from "@/helpers/user";
 import { NextResponse } from "next/server";
 
 const getUserDetails = async () => {
   try {
-    const session = await auth();
-    const email = session?.user?.email;
-    await dbConnect();
-    const user = await UserModel.findOne({ email });
+    const user = await getUserFromDatabase();
 
     if (!user) {
       return NextResponse.json({ message: "User not Found!" }, { status: 400 });

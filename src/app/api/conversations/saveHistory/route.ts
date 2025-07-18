@@ -1,21 +1,17 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import UserModel, { Conversation } from "@/models/user.model";
-import dbConnect from "@/helpers/dbConnect";
+import { Conversation } from "@/models/user.model";
 import { Module } from "@/models/user.model";
+import { getUserFromDatabase } from "@/helpers/user";
 
 async function saveHistory(req: NextRequest) {
   const {
-    userEmail,
     algoName,
     message,
-  }: { userEmail: string; algoName: string; message: Conversation } =
-    await req.json();
+  }: { algoName: string; message: Conversation } = await req.json();
 
   try {
-    await dbConnect();
-
-    const user = await UserModel.findOne({ email: userEmail });
+    const user = await getUserFromDatabase();
 
     if (!user) {
       return res.json({ error: "User not found" }, { status: 404 });

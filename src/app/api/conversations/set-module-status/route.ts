@@ -1,14 +1,12 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import UserModel, { Module, StateValues } from "@/models/user.model";
-import dbConnect from "@/helpers/dbConnect";
-import { auth } from "@/auth";
+import { Module, StateValues } from "@/models/user.model";
+import { getUserFromDatabase } from "@/helpers/user";
 
 export async function PATCH(req: NextRequest) {
   const { algoName, status }: { algoName: string; status: string } =
     await req.json();
   const state = status.toUpperCase();
-  const session = await auth();
 
   try {
     if(!(Object.values(StateValues).includes(state as StateValues))){
@@ -16,8 +14,7 @@ export async function PATCH(req: NextRequest) {
       return res.json({ error: "Module value is incorrect!" }, { status: 400 });
     }
 
-    await dbConnect();
-    const user = await UserModel.findOne({ email: session?.user?.email || "" });
+    const user = await getUserFromDatabase();
     if (!user) {
       return res.json({ error: "User not found" }, { status: 404 });
     }

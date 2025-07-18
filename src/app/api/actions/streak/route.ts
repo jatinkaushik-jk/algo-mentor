@@ -1,24 +1,11 @@
 import { NextResponse as res } from "next/server";
-import UserModel from "@/models/user.model";
-import { auth } from "@/auth";
-import dbConnect from "@/helpers/dbConnect";
+import { getUserFromDatabase } from "@/helpers/user";
 
 export async function POST() {
 
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return res.json(
-        { message: "user session expires! Try logging in again" },
-        { status: 400 }
-      );
-    }
 
-    const { email } = session.user;
-
-    // Database connection
-    await dbConnect();
-    const reqUser = await UserModel.findOne({ email });
+    const reqUser = await getUserFromDatabase();
 
     // Response if user doesn't exist
     if (!reqUser) {

@@ -1,16 +1,10 @@
-import UserModel, { Module } from "@/models/user.model";
+import { Module } from "@/models/user.model";
 import { NextResponse as response } from "next/server";
-import dbConnect from "@/helpers/dbConnect";
-import { auth } from "@/auth";
+import { getUserFromDatabase } from "@/helpers/user";
 
 export async function GET() {
   try {
-    const session = await auth();
-    if (!session || !session.user?.email) {
-      return response.json({ message: "Unauthorized" }, { status: 401 });
-    }
-    await dbConnect();
-    const user = await UserModel.findOne({email: session?.user?.email});
+    const user = await getUserFromDatabase();
     if (!user) {
       return response.json({ message: "User not found" }, { status: 404 });
     }
