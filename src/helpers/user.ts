@@ -13,13 +13,8 @@ export async function getUserFromDatabase() {
     // Database connection
     await dbConnect();
     const reqUser = await UserModel.findOne({ email });
-
-    // Response if user doesn't exist
-    if (!reqUser) {
-      throw new Error("User not found");
-    }
-
     return reqUser;
+    
   } catch (error) {
     console.error("Error fetching user from database", error);
     throw new Error("Failed to fetch user from database");
