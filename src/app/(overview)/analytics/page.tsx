@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { DifficultyPieChart } from "./DifficultyPieChart";
 import { CategoryPieChart } from "./CategoryPieChart";
 import ActivityCalenderHeatMap from "./ActivityCalenderHeatMap";
+import { ModuleStatusPieChart } from "./ModuleStatusPieChart";
 
 export default function AnalyticsPage() {
   const { getAlgoStats } = useUserContext(); /// add getLoginHistory if needed
@@ -13,6 +14,9 @@ export default function AnalyticsPage() {
     { name: string; value: number }[]
   >([]);
   const [difficultyStats, setDifficultyStats] = useState<
+    { name: string; value: number }[]
+  >([]);
+  const [moduleStats, setModuleStats] = useState<
     { name: string; value: number }[]
   >([]);
 
@@ -36,11 +40,18 @@ export default function AnalyticsPage() {
           Medium: 0,
           Hard: 0,
         };
+        const moduleMap: { [key: string]: number } = {
+          COMPLETED: 0,
+          PENDING: 0,
+        };
 
-        algoStats.forEach((item: { category: string; difficulty: string }) => {
-          categoryMap[item.category] = (categoryMap[item.category] || 0) + 1;
-          difficultyMap[item.difficulty] += 1;
-        });
+        algoStats.forEach(
+          (item: { category: string; difficulty: string; module: string }) => {
+            categoryMap[item.category] = (categoryMap[item.category] || 0) + 1;
+            difficultyMap[item.difficulty] += 1;
+            moduleMap[item.module] += 1;
+          }
+        );
 
         setCategoryStats(
           Object.keys(categoryMap).map((key) => ({
@@ -55,7 +66,13 @@ export default function AnalyticsPage() {
             value: difficultyMap[key],
           }))
         );
-        
+
+        setModuleStats(
+          Object.keys(moduleMap).map((key) => ({
+            name: key,
+            value: moduleMap[key],
+          }))
+        );
       } catch (error) {
         console.error("Error fetching analytics:", error);
       }
@@ -66,12 +83,21 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Algorithm Category Chart */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Module Status Chart */}
+      <ModuleStatusPieChart
+        moduleStats={moduleStats}
+        totalModules={totalAlgos}
+      />
+
+      {/* Category Chart */}
       <CategoryPieChart categoryStats={categoryStats} />
 
       {/* Difficulty Chart */}
-      <DifficultyPieChart difficultyStats={difficultyStats} totalAlgos={totalAlgos} />
+      <DifficultyPieChart
+        difficultyStats={difficultyStats}
+        totalAlgos={totalAlgos}
+      />
 
       {/* Login Streak Heatmap */}
       <div className="col-span-1 md:col-span-2">

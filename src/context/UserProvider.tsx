@@ -14,7 +14,7 @@ interface UserContextType {
     status: string
   ) => Promise<boolean | undefined>;
   getLoginHistory: () => Promise<string[]>;
-  getAlgoStats: () => Promise<{ category: string; difficulty: string }[]>;
+  getAlgoStats: () => Promise<{ category: string; difficulty: string; module: string }[]>;
   updateStreak: () => Promise<void>;
 }
 
@@ -140,6 +140,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     const data = res.map((module) => ({
       category: module.algorithm.category,
       difficulty: module.algorithm.difficulty,
+      module: module.state,
     }));
     // Returns: [{ category: "Sorting", difficulty: "Easy" }, { category: "Graph", difficulty: "Hard" }, ...]
     return data;
