@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import bcrypt from "bcryptjs";
 import UserModel from "@/models/user.model";
 

@@ -1,7 +1,7 @@
 import { NextResponse as res } from "next/server";
 import UserModel from "@/models/user.model";
 import { auth } from "@/auth";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 
 export async function POST() {
 

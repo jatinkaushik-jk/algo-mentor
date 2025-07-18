@@ -1,6 +1,6 @@
 import UserModel, { Module } from "@/models/user.model";
 import { NextResponse as response } from "next/server";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import { auth } from "@/auth";
 
 export async function GET() {

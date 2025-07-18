@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
 

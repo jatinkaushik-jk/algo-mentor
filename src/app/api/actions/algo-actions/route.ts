@@ -1,5 +1,5 @@
 import UserModel, { Algorithm, Module, StateValues } from "@/models/user.model";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 

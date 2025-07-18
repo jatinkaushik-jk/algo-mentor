@@ -3,7 +3,7 @@ import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import UserModel from "./models/user.model";
 import bcrypt from "bcryptjs";
-import dbConnect from "./dbConnect";
+import dbConnect from "./helpers/dbConnect";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -84,6 +84,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
           return true;
         } catch (error) {
+          console.error("Error during GitHub sign-in:", error);
           throw new AuthError("Error Authenticating User!");
         }
       }

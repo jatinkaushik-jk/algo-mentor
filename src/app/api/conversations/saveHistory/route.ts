@@ -1,7 +1,7 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
 import UserModel, { Conversation } from "@/models/user.model";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import { Module } from "@/models/user.model";
 
 async function saveHistory(req: NextRequest) {

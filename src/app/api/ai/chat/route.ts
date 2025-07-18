@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import dbConnect from "@/dbConnect";
+import dbConnect from "@/helpers/dbConnect";
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
 import UserModel, { Conversation, Module } from "@/models/user.model";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
