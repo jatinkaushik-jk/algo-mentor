@@ -16,6 +16,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [isModuleCompleted, setIsModuleCompleted] = useState<boolean>(false);
   const router = useRouter();
   const {
     messages,
@@ -83,11 +84,23 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [algoName, user?.modules]);
 
+  useEffect(()=>{
+    if (user?.modules) {
+      // Check if the user has completed this module
+      const algoModule = user.modules.find(
+        (mod) => mod.algorithm?.title.toLowerCase() === algoName.toLowerCase()
+      );
+      if (algoModule?.state === "COMPLETED") {
+        toast("Module already completed", {
+          description: "You can still interact with AI for this module!",
+        });
+        setIsModuleCompleted(true);
+      }
+    }
+  }, [user?.modules, algoName]);
+
   useEffect(() => {
-    if (
-      messages.length > 0 &&
-      messages[messages.length - 1]?.role === "assistant"
-    ) {
+    if (!isModuleCompleted && messages.length > 0 && messages[messages.length - 1]?.role === "assistant") {
       const lastMessage = messages[messages.length - 1];
       if (
         lastMessage.content.includes(
@@ -101,7 +114,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
         setIsEnd(true);
       }
     }
-  }, [messages]);
+  }, [messages, isModuleCompleted]);
 
   return (
     <>
