@@ -105,14 +105,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Daily Login Streak Widget */}
-      <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-md col-span-1 md:col-span-2">
-        <h2 className="text-lg font-semibold mb-4 text-foreground">
-          📅 Daily Login Streak
-        </h2>
-        <div className="w-full h-64 flex items-center justify-center rounded-lg">
-          <StreakWidget />
-        </div>
-      </div>
+      <StreakWidget />
     </div>
   );
 }
@@ -121,8 +114,8 @@ function StreakWidget() {
   const { user } = useUserContext();
 
   return (
-    <div className="rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] max-w-[16rem] w-full p-4 aspect-auto mx-auto text-center">
-      <div className="flex flex-col items-center justify-center gap-6">
+    <div className="rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] w-full p-4 aspect-auto mx-auto text-center">
+      <div className="flex flex-col items-center justify-center w-full h-full gap-6">
         <div className="p-2 bg-orange-200 dark:bg-orange-400/90 dark:shadow-[0_0_10px_rgba(255,165,0,0.5)] rounded-full">
           <FlameIcon
             className="text-orange-500 dark:text-white drop-shadow-[0_0_10px_rgba(255,165,0,0.5)]"

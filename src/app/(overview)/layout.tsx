@@ -35,6 +35,9 @@ export default function DashboardLayout({
       case "/analytics":
         setPageHeading("Analytics");
         break;
+      case "/community":
+        setPageHeading("Community");
+        break;
       case "/settings":
         setPageHeading("Settings");
         break;
