@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Header from "@/components/ui/header";
-import SidebarNavigations from "@/components/ui/sidebarNavigations";
+import Header from "@/components/header";
+import SidebarNavigations from "@/components/sidebarNavigations";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";

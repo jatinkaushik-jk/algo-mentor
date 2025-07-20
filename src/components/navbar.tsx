@@ -22,7 +22,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "./ui/mode-toggle";
 
 const components: { title: string; href: string; description: string }[] = [
   {

@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/ui/navbar";
+import { Navbar } from "@/components/navbar";
 import Link from "next/link";
 import { CircleArrowUp } from "lucide-react";
 import { useEffect, useRef } from "react";
