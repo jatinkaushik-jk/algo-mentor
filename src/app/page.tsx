@@ -5,6 +5,7 @@ import { Navbar } from "@/components/navbar";
 import Link from "next/link";
 import { CircleArrowUp } from "lucide-react";
 import { useEffect, useRef } from "react";
+import FAQSection, { FaqStructuredData } from "@/components/FAQSection";
 
 export default function Home() {
   const scrollToTopBtn = useRef<HTMLDivElement>(null);
@@ -37,6 +38,7 @@ export default function Home() {
 
   return (
     <>
+    <FaqStructuredData/>
       <Navbar authStatus={status} />
       <div
         id="top"
@@ -255,6 +257,8 @@ export default function Home() {
               </div>
             </div>
           </section>
+
+            <FAQSection/>
 
           {/* Call-to-Action Section */}
           <section className="p-8 sm:p-20 text-center w-full mt-20">
