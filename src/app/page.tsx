@@ -1,5 +1,4 @@
 "use client";
-import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
 import Link from "next/link";
@@ -9,7 +8,6 @@ import FAQSection, { FaqStructuredData } from "@/components/FAQSection";
 
 export default function Home() {
   const scrollToTopBtn = useRef<HTMLDivElement>(null);
-  const { status } = useSession();
 
   const handleScroll = () => {
     if (scrollToTopBtn.current) {
@@ -39,12 +37,12 @@ export default function Home() {
   return (
     <>
     <FaqStructuredData/>
-      <Navbar authStatus={status} />
+      <Navbar/>
       <div
         id="top"
         className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)]"
       >
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
           {/* Free elements */}
           <div className="absolute w-full h-screen flex items-center justify-center  top-0 left-0 z-[-1]">
             <div className="relative  w-full h-4/5 flex justify-between items-center ">
@@ -130,6 +128,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {/* Hero Section */}
           <div className="min-h-screen flex flex-col items-center justify-center">
             <section id="hero" className="text-center">
               <h1 className="text-5xl font-bold mb-4">Welcome to AlgoMentor</h1>
@@ -153,21 +152,22 @@ export default function Home() {
                 </Button>
               </div>
             </section>
+            {/* Hero Description Section */}
             <section className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="p-6 shadow-lg rounded-lg dark:border-2 ">
+              <div className="p-6 border-2 rounded-lg">
                 <h2 className="text-2xl font-semibold">Socratic Learning</h2>
                 <p>
                   Guided questions to help you think through problems and
                   solutions.
                 </p>
               </div>
-              <div className="p-6 shadow-lg rounded-lg dark:border-2 ">
+              <div className="p-6 border-2 rounded-lg">
                 <h2 className="text-2xl font-semibold">
                   Visual Algorithm Demos
                 </h2>
                 <p>Watch how sorting algorithms work step-by-step.</p>
               </div>
-              <div className="p-6 shadow-lg rounded-lg dark:border-2 ">
+              <div className="p-6 border-2 rounded-lg">
                 <h2 className="text-2xl font-semibold">Interactive Coding</h2>
                 <p>
                   Practice algorithm problems in real-time with instant
@@ -176,6 +176,7 @@ export default function Home() {
               </div>
             </section>
           </div>
+          {/* About Section */}
           <section
             id="about"
             className="min-h-[40rem] p-4 flex lg:flex-row flex-col items-center justify-center gap-20 mb-10"
@@ -197,6 +198,7 @@ export default function Home() {
               </p>
             </div>
           </section>
+          {/* Features Section */}
           <section id="features" className="py-8 my-10 text-center">
             <h2 className="text-4xl font-semibold">Why Choose AlgoMentor?</h2>
             <p className="text-lg mt-4">
@@ -289,7 +291,7 @@ export default function Home() {
         </div>
       </div>
       {/* Footer Section */}
-      <footer className="p-8 ">
+      <footer className="p-8 pb-4">
         <div className="text-center flex gap-6 flex-wrap items-center justify-between">
           <p className="text-sm">
             © {new Date().getFullYear()} AlgoMentor | All rights reserved.

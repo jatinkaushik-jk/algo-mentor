@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -57,7 +57,8 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function Navbar({ authStatus = "loading" }) {
+export function Navbar() {
+  const { status } = useSession();
   return (
     <NavigationMenu className="p-4 lg:px-10 xs:px-6">
       <NavigationMenuList className="flex flex-row justify-between items-center">
@@ -145,7 +146,7 @@ export function Navbar({ authStatus = "loading" }) {
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
             <NavigationMenuLink asChild>
-              {authStatus === "authenticated" ? (
+              {status === "authenticated" ? (
                 <Button onClick={() => signOut({ redirectTo: "/" })}>
                   Log out
                 </Button>
@@ -195,7 +196,7 @@ export function Navbar({ authStatus = "loading" }) {
                     <Book className="h-5 w-5" />
                     Documentation
                   </Link>
-                  {authStatus === "authenticated" && (
+                  {status === "authenticated" && (
                     <Link
                       href="/dashboard"
                       className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
@@ -205,7 +206,7 @@ export function Navbar({ authStatus = "loading" }) {
                     </Link>
                   )}
 
-                  {authStatus === "authenticated" ? (
+                  {status === "authenticated" ? (
                     <Link
                       href="#"
                       onClick={() => signOut({ redirectTo: "/" })}
