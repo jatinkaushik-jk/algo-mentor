@@ -1,53 +1,11 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/navbar";
-import Link from "next/link";
-import { CircleArrowUp } from "lucide-react";
-import { useEffect, useRef } from "react";
-import FAQSection, { FaqStructuredData } from "@/components/FAQSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import AboutSection from "@/components/AboutSection";
+import Link from 'next/link'
+import React from 'react'
+import { Button } from '@/components/ui/button';
 
-export default function Home() {
-  const scrollToTopBtn = useRef<HTMLDivElement>(null);
-
-  const handleScroll = () => {
-    if (scrollToTopBtn.current) {
-      if (
-        document.body.scrollTop > 40 ||
-        document.documentElement.scrollTop > 40
-      ) {
-        scrollToTopBtn.current.classList.remove("bottom-[-100%]");
-        scrollToTopBtn.current.classList.add("bottom-10");
-      } else {
-        scrollToTopBtn.current.classList.remove("bottom-10");
-        scrollToTopBtn.current.classList.add("bottom-[-100%]");
-      }
-    }
-  };
-
-  useEffect(() => {
-    // Attach scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []); // Empty dependency array ensures this runs once on mount
-
+const HeroSection = () => {
   return (
-    <>
-    <FaqStructuredData/>
-      <Navbar/>
-      <div
-        id="top"
-        className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)]"
-      >
-        <main className="flex flex-col gap-4 row-start-2 items-center sm:items-start">
-          {/* Free elements */}
-          <div className="absolute w-full h-screen flex items-center justify-center  top-0 left-0 z-[-1]">
+    <section>
+        <div className="absolute w-full h-screen flex items-center justify-center  top-0 left-0 z-[-1]">
             <div className="relative  w-full h-4/5 flex justify-between items-center ">
               <div className="absolute top-[4%] md:top-[10%] lg:top-[15%] left-1/2 translate-x-[-50%]">
                 <svg
@@ -179,57 +137,8 @@ export default function Home() {
               </div>
             </section>
           </div>
-          {/* About Section */}
-          <AboutSection />
-          {/* Features Section */}
-          <FeaturesSection />
-
-          {/* Testimonials Section */}
-          <TestimonialsSection/>
-
-            <FAQSection/>
-
-          {/* Call-to-Action Section */}
-          <section className="p-8 sm:p-20 text-center w-full mt-20">
-            <h2 className="text-3xl font-semibold">
-              Start Your Coding Journey Now!
-            </h2>
-            <p className="mt-4 text-lg">
-              Join thousands of learners who are leveling up their coding skills
-              with AlgoMentor.
-            </p>
-            <Button className="mt-6 bg-primary ">
-              <Link href="/signup">Sign Up Today</Link>
-            </Button>
-          </section>
-        </main>
-        <div
-          className="fixed bottom-[-100%] right-8 transition-all duration-500"
-          ref={scrollToTopBtn}
-        >
-          <Button
-            variant={"link"}
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            <CircleArrowUp className="size-10 animate-bounce cursor-pointer text-primary" />
-          </Button>
-        </div>
-      </div>
-      {/* Footer Section */}
-      <footer className="p-8 pb-4">
-        <div className="text-center flex gap-6 flex-wrap items-center justify-between">
-          <p className="text-sm">
-            © {new Date().getFullYear()} AlgoMentor | All rights reserved.
-          </p>
-          <div className="flex justify-center items-center gap-4">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Us</a>
-          </div>
-        </div>
-      </footer>
-    </>
-  );
+    </section>
+  )
 }
+
+export default HeroSection
