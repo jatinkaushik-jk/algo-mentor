@@ -9,9 +9,9 @@ const plans = [
     price: 0,
     description: "Free plan for individuals",
     features: [
-      "Access to public posts",
-      "Basic discussion tools",
-      "Community support",
+      "Access to 10+ learning modules",
+      "Only 30 minutes of AI interaction per day",
+      "Limited Community support",
     ],
     cta: "Get Started",
   },
@@ -21,9 +21,9 @@ const plans = [
     price: 299,
     description: "Advanced features for professionals",
     features: [
-      "Everything in Free",
-      "Create private posts",
-      "Advanced analytics",
+      "Access to 50+ learning modules",
+      "Community support",
+      "Access to analytics",
     ],
     cta: "Upgrade to Pro",
   },
@@ -34,10 +34,10 @@ const plans = [
     description: "Collaborative tools for teams",
     features: [
       "Everything in Pro",
-      "Team collaboration tools",
-      "Custom branding",
+      "Access to all learning modules",
+      "Advanced analytics",
     ],
-    cta: "Get Team Plan",
+    cta: "Get Mastery Plan",
   },
 ];
 
@@ -45,41 +45,74 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">Choose Your Plan</h2>
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          Choose Your Plan
+        </h2>
         <p className="text-lg text-gray-600 mb-12">
-          Simple and affordable pricing plans for individuals and teams. All prices are in <span className="font-semibold">INR/month</span>.
+          Simple and affordable pricing plans for individuals and teams. All
+          prices are in <span className="font-semibold">INR/month</span>.
         </p>
         <div className="grid gap-8 md:grid-cols-3 px-20">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className="bg-white rounded-3xl shadow-lg p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left"
+              className={`${plan.name == "Pro" ? "bg-primary text-white" : "bg-white translate-y-8"}  rounded-3xl shadow-lg p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left`}
             >
               <div>
-                <div className="flex items-center justify-start mb-4 gap-x-4">
-                    <div className="rounded-lg bg-primary/20 w-12 h-12 grid place-content-center"><Circle className="text-primary"/></div>
-                    <div className="text-start">
-                        <h4 className="text-gray-600 font-semibold -mb-1">{plan.label}</h4>
-                        <h5 className="font-bold text-xl">{plan.name}</h5>
+                {plan.name == "Pro" && (
+                  <div className="flex justify-end">
+                    <div className="bg-white/20 p-2 px-4 rounded-lg text-sm">
+                      Popular
                     </div>
+                  </div>
+                )}
+                <div className="flex items-center justify-start mb-4 gap-x-4">
+                  <div
+                    className={`${plan.name == "Pro" ? "bg-white" : "bg-primary/20"} rounded-lg w-12 h-12 grid place-content-center`}
+                  >
+                    <Circle className={`text-primary`} />
+                  </div>
+                  <div className="text-start">
+                    <h4
+                      className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} -mb-1`}
+                    >
+                      {plan.label}
+                    </h4>
+                    <h5 className="font-bold text-xl">{plan.name}</h5>
+                  </div>
                 </div>
-                <p className="font-medium text-gray-600 mb-4">
+                <p
+                  className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} mb-4`}
+                >
                   {plan.description}
                 </p>
                 <p className="text-4xl font-bold mb-6">
-                  ₹{plan.price} <span className="text-sm font-medium text-gray-500">/month</span>
+                  ₹{plan.price}{" "}
+                  <span
+                    className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} text-sm font-medium`}
+                  >
+                    /month
+                  </span>
                 </p>
                 <p className="font-bold mb-4">What&apos;s included</p>
                 <ul className="space-y-3">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-gray-700 font-medium">
-                        <CheckIcon className="w-5 h-5 p-1 text-white mr-3 bg-primary rounded-full" />
+                    <li
+                      key={i}
+                      className={`flex items-center ${plan.name == "Pro" ? "text-gray-300 " : "text-gray-700 "}`}
+                    >
+                      <CheckIcon
+                        className={`${plan.name == "Pro" ? "text-primary bg-white" : "text-white bg-primary"} w-5 h-5 p-1 mr-3 rounded-full`}
+                      />
                       {feature}
                     </li>
                   ))}
                 </ul>
               </div>
-              <Button className="mt-16 py-6 rounded-full">
+              <Button
+                variant={plan.name == "Pro" ? "secondary" : "default"}
+                className={`mt-16 py-6 rounded-full`}
+              >
                 {plan.cta}
               </Button>
             </div>
