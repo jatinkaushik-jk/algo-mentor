@@ -9,7 +9,7 @@ import Head from 'next/head';
 export const faqs = [
   {
     question: "What is AlgoMentor?",
-    answer: `<p>Our platform, AlgoMentor, helps learners master technical skills through structured roadmaps, curated challenges, and real-time analytics.</p><p>You’ll get access to daily streak tracking, progress heatmaps, and category-wise insights to boost your learning journey.</p>`
+    answer: `<p>Our platform, AlgoMentor, helps learners master technical skills through Socratic learning technique along with structured roadmaps, curated challenges, and real-time analytics.</p><p>You’ll get access to daily streak tracking, progress heatmaps, and category-wise insights to boost your learning journey.</p>`
   },
   {
     question: "Is the Basic plan really free?",
@@ -29,7 +29,7 @@ export const faqs = [
   },
   {
     question: "How is this platform different from others?",
-    answer: `<p>We offer a unique blend of adaptive learning, gamification, and in-depth progress tracking.</p><p>Everything is designed for aspiring developers and learners in a clean, modern interface.</p>`
+    answer: `<p>Our platform implements the Socratic learning technique along with adaptive learning, gamification, and in-depth progress tracking.</p><p>Everything is designed for aspiring developers and learners in a clean, modern interface.</p>`
   },
   {
     question: "What payment methods do you accept?",
@@ -52,7 +52,7 @@ export default function FAQSection() {
         <AccordionItem value={`item-${index + 1}`} key={index}>
         <AccordionTrigger>{faq.question}</AccordionTrigger>
         <AccordionContent className="flex flex-col gap-4 text-balance">
-          <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
+          <div dangerouslySetInnerHTML={{ __html: faq.answer }} className="text-pretty" />
         </AccordionContent>
       </AccordionItem>
       ))}
