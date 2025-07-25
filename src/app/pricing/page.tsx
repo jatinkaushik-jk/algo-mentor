@@ -1,11 +1,14 @@
 import React from "react";
-import { CheckIcon, Circle } from "lucide-react";
+import { ArrowLeftCircleIcon, Award, CheckIcon, GraduationCap, ShieldHalfIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const plans = [
   {
     name: "Basic",
     label: "For Trial",
+    icon: ShieldHalfIcon,
     price: 0,
     description: "Free plan for individuals",
     features: [
@@ -18,6 +21,7 @@ const plans = [
   {
     name: "Pro",
     label: "For Regular",
+    icon: Award,
     price: 299,
     description: "Advanced features for professionals",
     features: [
@@ -30,6 +34,7 @@ const plans = [
   {
     name: "Mastery",
     label: "For Committed Learners",
+    icon: GraduationCap,
     price: 799,
     description: "Collaborative tools for teams",
     features: [
@@ -44,6 +49,12 @@ const plans = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="absolute top-6 left-6">
+        <Link href={"/"}><ArrowLeftCircleIcon className="text-primary hover:-translate-x-1 transition" /></Link>
+      </div>
+      <div className="absolute top-6 right-6">
+        <ModeToggle />
+      </div>
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">
           Choose Your Plan
@@ -70,7 +81,7 @@ export default function PricingPage() {
                   <div
                     className={`${plan.name == "Pro" ? "bg-white" : "bg-primary/20"} rounded-lg w-12 h-12 grid place-content-center`}
                   >
-                    <Circle className={`text-primary`} />
+                    <plan.icon className={`text-primary`} />
                   </div>
                   <div className="text-start">
                     <h4
@@ -111,7 +122,7 @@ export default function PricingPage() {
               </div>
               <Button
                 variant={plan.name == "Pro" ? "secondary" : "default"}
-                className={`mt-16 py-6 rounded-full`}
+                className={`mt-16 py-6 rounded-full ${plan.name == "Pro" ? "bg-white text-primary hover:bg-gray-100" : ""} transition`}
               >
                 {plan.cta}
               </Button>
