@@ -48,7 +48,7 @@ const plans = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="absolute top-6 left-6">
         <Link href={"/"}><ArrowLeftCircleIcon className="text-primary hover:-translate-x-1 transition" /></Link>
       </div>
@@ -56,10 +56,10 @@ export default function PricingPage() {
         <ModeToggle />
       </div>
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <h2 className="text-4xl font-bold mb-4">
           Choose Your Plan
         </h2>
-        <p className="text-lg text-gray-600 mb-12">
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-12">
           Simple and affordable pricing plans for individuals and teams. All
           prices are in <span className="font-semibold">INR/month</span>.
         </p>
@@ -67,7 +67,7 @@ export default function PricingPage() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`${plan.name == "Pro" ? "bg-primary text-white" : "bg-white translate-y-8"}  rounded-3xl shadow-lg p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left`}
+              className={`${plan.name == "Pro" ? "bg-primary text-white" : "translate-y-8"}  rounded-3xl shadow-lg p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left`}
             >
               <div>
                 {plan.name == "Pro" && (
