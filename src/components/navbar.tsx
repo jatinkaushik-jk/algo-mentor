@@ -127,7 +127,7 @@ export function Navbar() {
               asChild
               className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
             >
-              <Link href="https://github.com/jatinkaushik-jk">
+              <Link href="https://github.com/jatinkaushik-jk/algo-mentor" target="_blank">
                 <div className="text-xs lg:text-base">Documentation</div>
               </Link>
             </NavigationMenuLink>
@@ -137,8 +137,8 @@ export function Navbar() {
               asChild
               className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
             >
-              <Link href="/dashboard">
-                <div className="text-xs lg:text-base">Dashboard</div>
+              <Link href="/pricing">
+                <div className="text-xs lg:text-base">Pricing</div>
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -183,18 +183,25 @@ export function Navbar() {
                   <Link
                     href="https:github.com/jatinkaushik-jk"
                     target="_blank"
-                    className="flex items-center gap-4 px-2.5 text-foreground"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <ShoppingCart className="h-5 w-5" />
                     Resources
                   </Link>
                   <Link
-                    href="https:github.com/jatinkaushik-jk"
+                    href="https:github.com/jatinkaushik-jk/algo-mentor"
                     target="_blank"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <Book className="h-5 w-5" />
                     Documentation
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <Book className="h-5 w-5" />
+                    Pricing
                   </Link>
                   {status === "authenticated" && (
                     <Link
