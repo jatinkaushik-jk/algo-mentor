@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -19,10 +19,11 @@ import {
   PanelLeft,
   ShoppingCart,
   Code,
-  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./ui/mode-toggle";
+import LogInButton from "./LogInButton";
+import { LogOutButton } from "./LogOutButton";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -127,7 +128,10 @@ export function Navbar() {
               asChild
               className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
             >
-              <Link href="https://github.com/jatinkaushik-jk/algo-mentor" target="_blank">
+              <Link
+                href="https://github.com/jatinkaushik-jk/algo-mentor"
+                target="_blank"
+              >
                 <div className="text-xs lg:text-base">Documentation</div>
               </Link>
             </NavigationMenuLink>
@@ -146,15 +150,7 @@ export function Navbar() {
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
             <NavigationMenuLink asChild>
-              {status === "authenticated" ? (
-                <Button onClick={() => signOut({ redirectTo: "/" })}>
-                  Log out
-                </Button>
-              ) : (
-                <Link href="/login">
-                  <Button>Login</Button>
-                </Link>
-              )}
+              <LogInButton />
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex items-center gap-4">
@@ -213,22 +209,11 @@ export function Navbar() {
                     </Link>
                   )}
 
-                  {status === "authenticated" ? (
-                    <Link
-                      href="#"
-                      onClick={() => signOut({ redirectTo: "/" })}
-                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-red-600"
-                    >
-                      <LogOut /> Log out
-                    </Link>
-                  ) : (
-                    <Link
-                      href="/login"
-                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                    >
-                      <Button className="w-full">Login</Button>
-                    </Link>
-                  )}
+                  <LogOutButton
+                      showIcon
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground text-lg font-medium hover:text-red-500"
+                    />
+                  <LogInButton className="w-full"/>
                 </nav>
               </SheetContent>
             </Sheet>
