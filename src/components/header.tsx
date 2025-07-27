@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import {
-  User,
   Home,
   LineChart,
   Package,
@@ -15,14 +14,6 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -33,12 +24,10 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ProfileButton from "./ProfileButton";
 
 const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
   const currentPath = usePathname();
-  const { data: session } = useSession();
   return (
     <div>
       <header className="sticky top-0 z-30 flex h-14 py-4 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 ">
@@ -153,44 +142,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
           )}
         </div>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-full"
-            >
-              {session?.user ? (
-                <Avatar>
-                  <AvatarImage
-                    src={session.user.image as string}
-                    alt="user avatar"
-                  />
-                  <AvatarFallback>
-                    <User />
-                  </AvatarFallback>
-                </Avatar>
-              ) : (
-                <User />
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel className="cursor-context-menu">
-              My Account
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="text-red-500"
-              onClick={() => signOut({ redirectTo: "/login" })}
-            >
-              Logout
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ProfileButton />
         <ModeToggle />
       </header>
     </div>
