@@ -1,4 +1,3 @@
-import React from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
@@ -36,15 +35,10 @@ const ProfileButton = () => {
               My Account
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuItem
-              className="text-red-500"
-              onClick={() => signOut({ redirectTo: "/login" })}
-            >
-              Logout
-            </DropdownMenuItem> */}
             <DropdownMenuItem className='py-0'><LogOutButton className='text-start p-0 font-normal '/></DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
