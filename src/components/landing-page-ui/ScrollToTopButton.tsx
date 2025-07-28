@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { CircleArrowUp } from "lucide-react";
 
 const ScrollToTopButton = () => {

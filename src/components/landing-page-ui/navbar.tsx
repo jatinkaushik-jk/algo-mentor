@@ -21,9 +21,9 @@ import {
   Code,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "./ui/mode-toggle";
-import LogInButton from "./LogInButton";
-import { LogOutButton } from "./LogOutButton";
+import { ModeToggle } from "../ui/mode-toggle";
+import LogInButton from "../LogInButton";
+import { LogOutButton } from "../LogOutButton";
 
 const components: { title: string; href: string; description: string }[] = [
   {

@@ -1,12 +1,12 @@
-import { Navbar } from "@/components/navbar";
-import FAQSection, { FaqStructuredData } from "@/components/FAQSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import AboutSection from "@/components/AboutSection";
-import HeroSection from "@/components/HeroSection";
-import CallToActionSection from "@/components/CallToActionSection";
-import Footer from "@/components/Footer";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { Navbar } from "@/components/landing-page-ui/navbar";
+import FAQSection, { FaqStructuredData } from "@/components/landing-page-ui/FAQSection";
+import TestimonialsSection from "@/components/landing-page-ui/TestimonialsSection";
+import FeaturesSection from "@/components/landing-page-ui/FeaturesSection";
+import AboutSection from "@/components/landing-page-ui/AboutSection";
+import HeroSection from "@/components/landing-page-ui/HeroSection";
+import CallToActionSection from "@/components/landing-page-ui/CallToActionSection";
+import Footer from "@/components/landing-page-ui/Footer";
+import ScrollToTopButton from "@/components/landing-page-ui/ScrollToTopButton";
 
 export default function Home() {
 
