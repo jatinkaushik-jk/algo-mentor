@@ -147,6 +147,6 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(√n)",
-    access: "FREE",
+    access: "MASTER",
   },
 ];

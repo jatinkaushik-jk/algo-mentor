@@ -1,3 +1,5 @@
+import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
+
 export const labels = [
   {
     value: "sorting",
@@ -61,3 +63,24 @@ export const difficulty = [
     color: "#ef4444",
   },
 ];
+
+export const access = [
+  {
+    label: "FREE",
+    value: "FREE",
+    icon: ShieldHalfIcon,
+    color: "#1CE3BB",
+  },
+  {
+    label: "PRO",
+    value: "PRO",
+    icon: Award,
+    color: "#1CA7E3",
+  },
+  {
+    label: "MASTER",
+    value: "MASTER",
+    icon: GraduationCap,
+    color: "#1C44E3",
+  },
+]

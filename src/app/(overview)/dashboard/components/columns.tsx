@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 // import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, difficulty, timeComplexity } from "../data/data";
+import { labels, difficulty, timeComplexity, access } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
@@ -31,11 +31,9 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
 
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span
             // get algorithm details for redirection
             onClick={async () => {
@@ -77,9 +75,9 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium">
+          <p className="max-w-[500px] truncate">
             {row.getValue("description")}
-          </span>
+          </p>
         </div>
       );
     },
@@ -130,6 +128,35 @@ export const columns: ColumnDef<Task>[] = [
             style={{ color: difficultyLevel.color }}
           >
             {difficultyLevel.label}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "access",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Access" />
+    ),
+    cell: ({ row }) => {
+      const accessFlags = access.find(
+        (access) => access.value === row.getValue("access")
+      );
+
+      if (!accessFlags) {
+        return null;
+      }
+
+      return (
+        <div className="flex items-center">
+          <span
+            className="font-semibold"
+            style={{ color: accessFlags.color }}
+          >
+            <accessFlags.icon size={16}/>
           </span>
         </div>
       );

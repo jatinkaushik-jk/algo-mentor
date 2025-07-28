@@ -7,6 +7,7 @@ export const algorithmSchema = z.object({
   timeComplexity: z.string(),
   label: z.string(),
   difficulty: z.string(),
+  access: z.string(),
 });
 
 export type Task = z.infer<typeof algorithmSchema>;
