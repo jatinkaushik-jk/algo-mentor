@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/app/(overview)/dashboard/components/data-table-view-options";
 
-import { difficulty, timeComplexity } from "../data/data";
+import { difficulty, timeComplexity, access } from "../data/data";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
@@ -42,6 +42,13 @@ export function DataTableToolbar<TData>({
             column={table.getColumn("difficulty")}
             title="Difficulty"
             options={difficulty}
+          />
+        )}
+        {table.getColumn("access") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("access")}
+            title="Access"
+            options={access}
           />
         )}
         {isFiltered && (
