@@ -32,6 +32,11 @@ export enum StateValues{
   pending = "PENDING",
   completed = "COMPLETED"
 }
+export enum AccessValues{
+  free = "FREE",
+  pro = "PRO",
+  master = "MASTER"
+}
 
 export interface Module {
   state: StateValues;
@@ -63,6 +68,11 @@ const AlgorithmSchema = new Schema(
       type: String,
       enum: Object.values(DifficultyValues)
     },
+    access: {
+      type: String,
+      enum: Object.values(AccessValues),
+      default: AccessValues.free,
+    }
   },
   { _id: false }
 );

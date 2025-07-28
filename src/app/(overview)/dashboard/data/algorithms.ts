@@ -7,6 +7,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n^2)",
+    access: "FREE",
   },
   {
     algoID: "Algo002",
@@ -16,6 +17,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n log n)",
+    access: "FREE",
   },
   {
     algoID: "Algo003",
@@ -25,6 +27,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n log n)",
+    access: "PRO",
   },
   {
     algoID: "Algo004",
@@ -34,6 +37,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n^2)",
+    access: "FREE",
   },
   {
     algoID: "Algo005",
@@ -43,6 +47,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n log n)",
+    access: "FREE",
   },
   {
     algoID: "Algo006",
@@ -52,6 +57,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n^2)",
+    access: "FREE",
   },
   {
     algoID: "Algo007",
@@ -61,6 +67,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(nk)",
+    access: "PRO",
   },
   {
     algoID: "Algo008",
@@ -70,6 +77,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n log n)",
+    access: "PRO",
   },
   {
     algoID: "Algo009",
@@ -79,6 +87,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n + k)",
+    access: "FREE",
   },
   {
     algoID: "Algo010",
@@ -88,6 +97,7 @@ export const algorithms = [
     label: "sorting",
     category: "Sorting",
     timeComplexity: "O(n log n)",
+    access: "PRO",
   },
   {
     algoID: "Algo011",
@@ -97,6 +107,7 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(n)",
+    access: "FREE",
   },
   {
     algoID: "Algo012",
@@ -106,6 +117,7 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(log n)",
+    access: "FREE",
   },
   {
     algoID: "Algo013",
@@ -115,6 +127,7 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(V + E)",
+    access: "PRO",
   },
   {
     algoID: "Algo014",
@@ -124,6 +137,7 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(V + E)",
+    access: "PRO",
   },
   {
     algoID: "Algo015",
@@ -133,5 +147,6 @@ export const algorithms = [
     label: "searching",
     category: "Searching",
     timeComplexity: "O(√n)",
+    access: "FREE",
   },
 ];
