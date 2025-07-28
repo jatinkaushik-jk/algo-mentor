@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/loginSchema";
-// import { useToast } from "@/components/hooks/use-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -47,7 +46,6 @@ function LoginPage() {
     try {
       const res = await signIn("credentials", {
         ...formData,
-        // redirectTo: "/dashboard", // Redirect to dashboard or desired page
         redirect: false, // Prevent automatic redirection
       });
       console.log("Sign-in response:", res);
@@ -65,7 +63,6 @@ function LoginPage() {
         }
       } else if (res?.ok) {
         // Handle successful sign-in
-        console.log("Sign-in successful:");
         router.push("/dashboard"); // Redirect to dashboard or desired page
       }
     } catch (err) {

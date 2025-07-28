@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -64,6 +63,7 @@ function SignUpPage() {
         setError(data.message);
       }
     } catch (error) {
+      console.error("Error during sign up:", error);
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
