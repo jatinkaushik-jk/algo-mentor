@@ -22,19 +22,44 @@ export interface Conversation {
   //   },
   // ];
 }
-export enum DifficultyValues{
+export interface Plan {
+  planID: string;
+  name: string;
+  label: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  price: number;
+  duration: "monthly" | "yearly";
+  description: string;
+  features: string[];
+  cta: string;
+}
+
+export interface Subscription {
+  subscription_id: string;
+  plan: Plan;
+  status: "active" | "inactive";
+  startDate: Date;
+  endDate: Date | null;
+  payment_info: {
+    method: string; // e.g., "credit_card" | "paypal" | "upi"
+    amount: number;
+    status: string; // e.g., "paid" | "unpaid" | "pending" | "failed" | "canceled"
+    transaction_id: string;
+  };
+}
+export enum DifficultyValues {
   easy = "Easy",
   medium = "Medium",
-  hard = "Hard"
+  hard = "Hard",
 }
-export enum StateValues{
+export enum StateValues {
   pending = "PENDING",
-  completed = "COMPLETED"
+  completed = "COMPLETED",
 }
-export enum AccessValues{
+export enum AccessValues {
   free = "FREE",
   pro = "PRO",
-  master = "MASTER"
+  master = "MASTER",
 }
 
 export interface Module {
@@ -42,10 +67,10 @@ export interface Module {
   algorithm: Algorithm;
   conversation: Conversation[];
 }
-export interface Streak{
-  current: number,
-  highest: number,
-  lastLoginDate: Date | null,
+export interface Streak {
+  current: number;
+  highest: number;
+  lastLoginDate: Date | null;
 }
 export interface User {
   email: string;
@@ -67,13 +92,13 @@ const AlgorithmSchema = new Schema(
     category: String,
     difficulty: {
       type: String,
-      enum: Object.values(DifficultyValues)
+      enum: Object.values(DifficultyValues),
     },
     access: {
       type: String,
       enum: Object.values(AccessValues),
       default: AccessValues.free,
-    }
+    },
   },
   { _id: false }
 );
@@ -104,17 +129,15 @@ const ModuleSchema = new Schema(
   { _id: false }
 );
 
-const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+const emailRegExp =
+  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 
 const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
     // Regular expression for email validation
-    match: [
-      emailRegExp,
-      "Please use a valid email address",
-    ],
+    match: [emailRegExp, "Please use a valid email address"],
     trim: true,
     required: [true, "Email is required"],
   },
