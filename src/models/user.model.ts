@@ -1,6 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-// import { Message } from "@/components/ui/chat-message";
-// For type checking by typescript
 
 export interface Algorithm {
   algoID: string;
@@ -54,6 +52,8 @@ export interface User {
   password: string;
   streak: Streak;
   modules: Module[];
+  createdAt: Date;
+  updatedAt: Date | null;
 }
 
 const AlgorithmSchema = new Schema(
@@ -86,12 +86,6 @@ const ConversationSchema = new Schema(
     },
     content: String,
     createdAt: { type: Date, default: new Date() },
-    // parts: [
-    //   {
-    //     type: String,
-    //     text: String,
-    //   },
-    // ],
   },
   { _id: false }
 );
@@ -109,13 +103,15 @@ const ModuleSchema = new Schema(
   { _id: false }
 );
 
+const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+
 const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    // RegeX expression for email validation
+    // Regular expression for email validation
     match: [
-      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+      emailRegExp,
       "Please use a valid email address",
     ],
     trim: true,
@@ -138,6 +134,8 @@ const UserSchema = new Schema({
     lastLoginDate: { type: Date, default: null },
   },
   modules: [ModuleSchema],
+  createdAt: { type: Date, default: new Date() },
+  updatedAt: { type: Date, default: null },
 });
 
 const UserModel = mongoose.models?.User || mongoose.model("User", UserSchema);
