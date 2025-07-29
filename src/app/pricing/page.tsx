@@ -10,6 +10,7 @@ const plans = [
     label: "For Trial",
     icon: ShieldHalfIcon,
     price: 0,
+    duration: "monthly",
     description: "Free plan for individuals",
     features: [
       "Access to 10+ learning modules",
@@ -23,6 +24,7 @@ const plans = [
     label: "For Regular",
     icon: Award,
     price: 299,
+    duration: "monthly",
     description: "Advanced features for professionals",
     features: [
       "Access to 50+ learning modules",
@@ -36,6 +38,7 @@ const plans = [
     label: "For Committed Learners",
     icon: GraduationCap,
     price: 799,
+    duration: "monthly",
     description: "Collaborative tools for teams",
     features: [
       "Everything in Pro",
@@ -50,7 +53,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="absolute top-6 left-6">
-        <Link href={"/"}><ArrowLeftCircleIcon className="text-primary hover:-translate-x-1 transition" /></Link>
+        <Link href={"/"} className="group flex items-center gap-x-1"><ArrowLeftCircleIcon className="text-primary group-hover:-translate-x-1 transition" /><span className="text-sm group-hover:underline underline-offset-2">Back to Home</span></Link>
       </div>
       <div className="absolute top-6 right-6">
         <ModeToggle />
@@ -102,7 +105,7 @@ export default function PricingPage() {
                   <span
                     className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} text-sm font-medium`}
                   >
-                    /month
+                    ({plan.duration})
                   </span>
                 </p>
                 <p className="font-bold mb-4">What&apos;s included</p>
