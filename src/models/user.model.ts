@@ -1,3 +1,4 @@
+import { plans } from "@/app/pricing/plans";
 import mongoose, { Schema } from "mongoose";
 
 export interface Algorithm {
@@ -26,7 +27,7 @@ export interface Plan {
   planID: string;
   name: string;
   label: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; // Store icon as a string (e.g., icon name or path)
   price: number;
   duration: "monthly" | "yearly";
   description: string;
@@ -47,6 +48,19 @@ export interface Subscription {
     transaction_id: string;
   };
 }
+export const defaultSubscription = {
+  subscription_id: "",
+  plan: { ...plans[0], icon: plans[0].icon.displayName },
+  status: "active",
+  startDate: new Date(),
+  endDate: null,
+  payment_info: {
+    method: "",
+    amount: 0,
+    status: "paid",
+    transaction_id: "",
+  },
+};
 export enum DifficultyValues {
   easy = "Easy",
   medium = "Medium",
@@ -192,7 +206,10 @@ const UserSchema = new Schema({
     minlength: 8,
     required: [true, "Password is required"],
   },
-  subscription: SubscriptionSchema,
+  subscription: {
+    type: SubscriptionSchema,
+    default: defaultSubscription,
+  },
   streak: {
     current: { type: Number, default: 1 },
     highest: { type: Number, default: 1 },

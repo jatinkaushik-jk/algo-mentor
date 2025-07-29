@@ -1,7 +1,9 @@
+import { Plan } from "@/models/user.model";
 import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
 
-export const plans = [
+export const plans : Plan[] = [
   {
+    planID: "basic",
     name: "Basic",
     label: "For Trial",
     icon: ShieldHalfIcon,
@@ -16,6 +18,7 @@ export const plans = [
     cta: "Get Started",
   },
   {
+    planID: "pro",
     name: "Pro",
     label: "For Regular",
     icon: Award,
@@ -30,6 +33,7 @@ export const plans = [
     cta: "Upgrade to Pro",
   },
   {
+    planID: "mastery",
     name: "Mastery",
     label: "For Committed Learners",
     icon: GraduationCap,

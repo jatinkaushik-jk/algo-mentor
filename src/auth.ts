@@ -43,8 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!isPasswordCorrect) {
             throw new AuthError("Invalid Credentials!");
           }
-
-          console.log(user);
+          // if user exists, return user object
           return {
             id: user._id as string,
             email: user.email as string,
@@ -74,9 +73,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email, name, id } = user;
           await dbConnect();
-          let existingUser = await UserModel.findOne({ email });
+          const existingUser = await UserModel.findOne({ email });
           if (!existingUser) {
-            existingUser = await UserModel.create({
+            await UserModel.create({
               email,
               username: name,
               password: await bcrypt.hash(id + "github", 8),

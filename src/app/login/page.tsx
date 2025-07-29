@@ -42,13 +42,12 @@ function LoginPage() {
   const handleLogin = async (formData: z.infer<typeof LoginSchema>) => {
     setIsLoading(true);
     setError(null);
-    console.log(formData);
     try {
       const res = await signIn("credentials", {
         ...formData,
         redirect: false, // Prevent automatic redirection
       });
-      console.log("Sign-in response:", res);
+      // console.log("Sign-in response:", res);
       // Check if the response contains an error
       if (res?.error) {
         // Handle sign-in failure
