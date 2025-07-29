@@ -8,6 +8,7 @@ export interface Algorithm {
   label: string;
   category: string;
   difficulty: DifficultyValues;
+  access: AccessValues;
 }
 export interface Conversation {
   id: string;
