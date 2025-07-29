@@ -129,6 +129,46 @@ const ModuleSchema = new Schema(
   { _id: false }
 );
 
+const PlanSchema = new Schema(
+  {
+    planID: String,
+    name: String,
+    label: String,
+    icon: { type: String, required: true }, // Store icon as a string (e.g., icon name or path)
+    price: Number,
+    duration: {
+      type: String,
+      enum: ["monthly", "yearly"],
+      default: "monthly",
+    },
+    description: String,
+    features: [String],
+    cta: String,
+  },
+  { _id: false }
+);
+
+const SubscriptionSchema = new Schema(
+  {
+    subscription_id: String,
+    plan: PlanSchema,
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "inactive",
+    },
+    startDate: { type: Date, default: new Date() },
+    endDate: { type: Date, default: null },
+    payment_info: {
+      method: String,
+      amount: Number,
+      status: String, // e.g., "paid" | "unpaid" | "pending" | "failed" | "canceled"
+      transaction_id: String,
+    },
+  },
+  { _id: false }
+);
+
 const emailRegExp =
   /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
 
@@ -152,6 +192,7 @@ const UserSchema = new Schema({
     minlength: 8,
     required: [true, "Password is required"],
   },
+  subscription: SubscriptionSchema,
   streak: {
     current: { type: Number, default: 1 },
     highest: { type: Number, default: 1 },
