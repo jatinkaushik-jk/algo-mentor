@@ -98,3 +98,8 @@ body {
 .chatDisplay::-webkit-scrollbar {
   display: none;
 }
+
+.scrollbar-hidden{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

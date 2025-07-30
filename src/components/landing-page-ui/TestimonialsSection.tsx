@@ -1,33 +1,69 @@
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 
+const testimonials = [
+  {
+    quote:
+      "AlgoMentor helped me improve my coding skills in record time. The personalized feedback is amazing!",
+    author: "Aditi",
+    role: "Software Engineer",
+  },
+  {
+    quote:
+      "The AI-powered lessons make learning algorithms so much easier and fun!",
+    author: "Ravi",
+    role: "Data Scientist",
+  },
+  {
+    quote:
+      "From beginner to advanced, AlgoMentor guided me through every step. Highly recommend it!",
+    author: "Sarah",
+    role: "CS Student",
+  },
+];
 const TestimonialsSection = () => {
   return (
-    <section id="testimonials" className="py-8 text-center my-20">
-            <h2 className="text-4xl font-semibold ">What Our Users Say</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-20">
-              <div className=" p-6 rounded-lg shadow-md bg-purple-400 text-black">
-                <p className="text-lg">
-                  &quot;AlgoMentor helped me improve my coding skills in record
-                  time. The personalized feedback is amazing!&quot;
-                </p>
-                <p className="mt-4 font-semibold">— Aditi, Software Engineer</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-md bg-purple-400 text-black">
-                <p className="text-lg">
-                  &quot;The AI-powered lessons make learning algorithms so much
-                  easier and fun!&quot;
-                </p>
-                <p className="mt-4 font-semibold">— Ravi, Data Scientist</p>
-              </div>
-              <div className="p-6 rounded-lg shadow-md bg-purple-400 text-black">
-                <p className="text-lg">
-                  &quot;From beginner to advanced, AlgoMentor guided me through
-                  every step. Highly recommend it!&quot;
-                </p>
-                <p className="mt-4 font-semibold">— Sarah, CS Student</p>
-              </div>
-            </div>
-          </section>
-  )
-}
+    <section
+      id="testimonials"
+      className="relative py-8 p-4 text-center my-20 bg-primary w-full overflow-y-clip"
+    >
+      <div className="absolute top-0 -left-20 z-[-1] w-screen h-full bg-primary"></div>
+      {/* <h2 className="text-4xl font-semibold ">What Our Users Say</h2> */}
+      <div className="flex items-center justify-center gap-x-4">
+        <div className="relative">
+        <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-primary via-primary backdrop-blur-sm blur-sm to-primary/70"></div>
+        <div className="w-full h-96 overflow-y-scroll scrollbar-hidden">
+          <div className="flex flex-col gap-y-8 mt-20">
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-primary via-primary backdrop-blur-sm blur-sm to-primary/70"></div>
+      </div>
+      <div>
+        <h2 className="text-4xl font-semibold text-white">What Our Users Say</h2>
+      </div>
+      </div>
+    </section>
+  );
+};
 
-export default TestimonialsSection
+const TestimonialCard = ({
+  quote,
+  author,
+  role,
+}: {
+  quote: string;
+  author: string;
+  role: string;
+}) => {
+  return (
+    <Card className="w-1/2">
+      <CardHeader>{author}</CardHeader>
+      <CardContent>{quote}</CardContent>
+      <CardFooter>{role}</CardFooter>
+    </Card>
+  );
+};
+
+export default TestimonialsSection;
