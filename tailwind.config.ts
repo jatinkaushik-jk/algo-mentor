@@ -91,29 +91,35 @@ const config: Config = {
   					transform: 'translateY(-0.25rem)'
   				}
   			},
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			}
+			'auto-scroll':{
+				'0%': {
+					transform: 'translateY(0)'
+				},
+				'10%': {
+					transform: 'translateY(0)'
+				},
+				'40%': {
+					transform: 'translateY(-30%)'
+				},
+				'50%': {
+					transform: 'translateY(-30%)'
+				},
+				'80%': {
+					transform: 'translateY(-60%)'
+				},
+				'90%': {
+					transform: 'translateY(-60%)'
+				},
+				'100%': {
+					transform: 'translateY(0%)'
+				}
+			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			'typing-dot-bounce': 'typing-dot-bounce 1.25s ease-out infinite',
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+			'auto-scroll': 'auto-scroll 10s ease-in-out infinite',
   		}
   	}
   },
