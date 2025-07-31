@@ -1,5 +1,6 @@
 import { StarHalfIcon, StarIcon } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const testimonials = [
   {
@@ -7,24 +8,28 @@ const testimonials = [
       "AlgoMentor helped me improve my coding skills in record time. The personalized feedback is amazing!",
     author: "Aditi",
     role: "Software Engineer",
+    avatar: "/path/to/avatar1.jpg",
   },
   {
     quote:
       "The AI-powered lessons make learning algorithms so much easier and fun!",
-    author: "Ravi",
+    author: "Ravi Dubey",
     role: "Data Scientist",
+    avatar: "/path/to/avatar2.jpg", 
   },
   {
     quote:
       "From beginner to advanced, AlgoMentor guided me through every step. Highly recommend it!",
     author: "Sarah",
     role: "CS Student",
+    avatar: "/path/to/avatar3.jpg",
   },
   {
     quote:
       "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
     author: "Vamika",
     role: "CS Student",
+    avatar: "/path/to/avatar4.jpg",
   },
 ];
 const TestimonialsSection = () => {
@@ -73,16 +78,27 @@ const TestimonialCard = ({
   quote,
   author,
   role,
+  avatar,
 }: {
   quote: string;
   author: string;
   role: string;
+  avatar: string;
 }) => {
   return (
     <Card className="min-w-72 max-w-md m-2">
-      <CardHeader>{author}</CardHeader>
-      <CardContent>{quote}</CardContent>
-      <CardFooter>{role}</CardFooter>
+      <CardContent className="flex flex-row items-center gap-4 p-4 py-12">
+        <div>
+          <Avatar className="w-20 h-20 m-2">
+            <AvatarImage src={avatar} alt={author} />
+            <AvatarFallback >{author.split(" ").map((name) => name[0]).join("")}</AvatarFallback>
+          </Avatar>
+        </div>
+        <div>
+          <p className="italic">&quot;{quote}&quot;</p>
+          <p className="italic text-gray-600 text-sm mt-4">{author} - {role}</p>
+        </div>
+      </CardContent>
     </Card>
   );
 };
