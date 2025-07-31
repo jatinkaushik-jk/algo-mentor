@@ -93,25 +93,31 @@ const config: Config = {
   			},
 			'auto-scroll':{
 				'0%': {
-					transform: 'translateY(0)'
+					transform: 'translateY(-4%)'
 				},
-				'10%': {
-					transform: 'translateY(0)'
+				'4%': {
+					transform: 'translateY(-4%)'
 				},
-				'40%': {
-					transform: 'translateY(-30%)'
+				'24%': {
+					transform: 'translateY(-25%)'
 				},
-				'50%': {
-					transform: 'translateY(-30%)'
+				'28%': {
+					transform: 'translateY(-25%)'
 				},
-				'80%': {
-					transform: 'translateY(-60%)'
+				'48%': {
+					transform: 'translateY(-50%)'
 				},
-				'90%': {
-					transform: 'translateY(-60%)'
+				'52%': {
+					transform: 'translateY(-50%)'
+				},
+				'72%': {
+					transform: 'translateY(-75%)'
+				},
+				'76%': {
+					transform: 'translateY(-75%)'
 				},
 				'100%': {
-					transform: 'translateY(0%)'
+					transform: 'translateY(-4%)'
 				}
 			}
   		},

@@ -20,6 +20,12 @@ const testimonials = [
     author: "Sarah",
     role: "CS Student",
   },
+  {
+    quote:
+      "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
+    author: "Vamika",
+    role: "CS Student",
+  },
 ];
 const TestimonialsSection = () => {
   return (
@@ -27,14 +33,14 @@ const TestimonialsSection = () => {
       id="testimonials"
       className="relative py-8 p-4 text-center my-20 bg-primary w-full overflow-y-clip"
     >
-      <div className="absolute top-0 -left-20 z-[-1] w-screen h-full bg-primary"></div>
-      <div className="flex items-center justify-around gap-x-4">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-[-1] w-[105vw] h-full bg-primary"></div>
+      <div className="flex flex-col-reverse md:flex-row items-center justify-around gap-8">
         <div className="relative">
         <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-primary via-primary backdrop-blur-sm blur-sm to-primary/80 z-10">
         <div className="w-full h-1/3 bg-primary absolute -top-3"></div>
         </div>
-        <div className="w-full h-[400px] overflow-y-scroll scrollbar-hidden p-4">
-          <div className="flex flex-col gap-y-8 my-20 py-16 h-max animate-auto-scroll">
+        <div className="w-full h-[400px] overflow-y-hidden scrollbar-hidden p-4">
+          <div className="flex flex-col gap-y-8 my-16 py-16 h-max animate-auto-scroll">
             {testimonials.map((testimonial, index) => (
               <TestimonialCard key={index} {...testimonial} />
             ))}
