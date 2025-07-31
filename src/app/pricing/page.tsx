@@ -44,7 +44,7 @@ export default function PricingPage() {
                   </div>
                   <div className="text-start">
                     <h4
-                      className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} -mb-1`}
+                      className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600 dark:text-gray-300"} -mb-1`}
                     >
                       {plan.label}
                     </h4>
@@ -52,14 +52,14 @@ export default function PricingPage() {
                   </div>
                 </div>
                 <p
-                  className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} mb-4`}
+                  className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600 dark:text-gray-300"} mb-4`}
                 >
                   {plan.description}
                 </p>
                 <p className="text-4xl font-bold mb-6">
                   ₹{plan.price}{" "}
                   <span
-                    className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600"} text-sm font-medium`}
+                    className={`${plan.name == "Pro" ? "text-gray-300" : "text-gray-600 dark:text-gray-300"} text-sm font-medium`}
                   >
                     ({plan.duration})
                   </span>
@@ -69,7 +69,7 @@ export default function PricingPage() {
                   {plan.features.map((feature, i) => (
                     <li
                       key={i}
-                      className={`flex items-center ${plan.name == "Pro" ? "text-gray-300 " : "text-gray-700 "}`}
+                      className={`flex items-center ${plan.name == "Pro" ? "text-gray-300 " : "text-gray-600 dark:text-gray-300 "}`}
                     >
                       <CheckIcon
                         className={`${plan.name == "Pro" ? "text-primary bg-white" : "text-white bg-primary"} w-5 h-5 p-1 mr-3 rounded-full`}

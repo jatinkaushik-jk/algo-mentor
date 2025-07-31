@@ -86,7 +86,7 @@ const TestimonialCard = ({
   avatar: string;
 }) => {
   return (
-    <Card className="min-w-72 max-w-md m-2">
+    <Card className="min-w-72 max-w-md m-2 bg-white">
       <CardContent className="flex flex-row items-center gap-4 p-4 py-12">
         <div>
           <Avatar className="w-20 h-20 m-2">
@@ -95,7 +95,7 @@ const TestimonialCard = ({
           </Avatar>
         </div>
         <div>
-          <p className="italic">&quot;{quote}&quot;</p>
+          <p className="italic text-black">&quot;{quote}&quot;</p>
           <p className="italic text-gray-600 text-sm mt-4">{author} - {role}</p>
         </div>
       </CardContent>

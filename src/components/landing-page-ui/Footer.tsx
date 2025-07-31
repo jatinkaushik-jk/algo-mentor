@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="p-8 pb-4">
-      <div className="text-center flex gap-6 flex-wrap items-center justify-between">
+      <div className="text-center flex gap-6 flex-wrap items-center justify-between text-gray-600 dark:text-gray-400">
         <p className="text-sm">
           © {new Date().getFullYear()} AlgoMentor | All rights reserved.
         </p>

@@ -41,7 +41,7 @@ const ScrollToTopButton = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
-        <CircleArrowUp className="size-10 animate-bounce cursor-pointer text-primary" />
+        <CircleArrowUp className="size-10 animate-bounce cursor-pointer text-primary bg-background rounded-full" />
       </Button>
     </div>
   );
