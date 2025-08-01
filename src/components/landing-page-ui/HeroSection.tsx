@@ -2,12 +2,27 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from '@/components/ui/button';
 
+const data = [
+  {
+    title: 'AI-Powered Assistance',
+    description: 'Get real-time help with coding problems and algorithms.'
+  },
+  {
+    title: 'Interactive Coding',
+    description: 'Practice algorithm problems in real-time with instant feedback.'
+  },
+  {
+    title: 'Personalized Learning',
+    description: 'Receive tailored content and resources based on your skill level.'
+  }
+];
+
 const HeroSection = () => {
   return (
     <section>
-        <div className="absolute w-full h-screen flex items-center justify-center  top-0 left-0 z-[-1]">
+        <div className="absolute w-full h-[600px] flex items-center justify-center  top-0 left-0 z-[-1]">
             <div className="relative  w-full h-4/5 flex justify-between items-center ">
-              <div className="absolute top-[4%] md:top-[10%] lg:top-[15%] left-1/2 translate-x-[-50%]">
+              <div className="absolute top-[4%] md:top-[10%] lg:top-[10%] left-1/2 translate-x-[-50%]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -23,7 +38,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </div>
-              <div className="hidden md:block absolute top-[60%] lg:top-1/2 xl:left-[15%] left-[10%] ">
+              <div className="hidden md:block absolute top-[70%] lg:top-1/2 xl:left-[15%] left-[10%] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -39,7 +54,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </div>
-              <div className="absolute xl:right-[30%] lg:right-[25%] md:right-[20%] right-[10%] top-[10%] xs:top-[15%] md:top-[20%] lg:top-[25%]">
+              <div className="absolute xl:right-[30%] lg:right-[25%] md:right-[20%] right-[10%] top-[10%] xs:top-[15%] md:top-[22%] lg:top-[22%]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -55,7 +70,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </div>
-              <div className="absolute top-[10%] xs:top-[15%] md:top-[20%] lg:top-[25%] xl:left-[30%] lg:left-[25%] md:left-[20%] left-[10%] ">
+              <div className="absolute top-[10%] xs:top-[15%] md:top-[22%] lg:top-[22%] xl:left-[30%] lg:left-[25%] md:left-[20%] left-[10%] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 64 64"
@@ -71,7 +86,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </div>
-              <div className="hidden md:block absolute top-[60%] lg:top-1/2 xl:right-[15%] right-[10%]">
+              <div className="hidden md:block absolute top-[70%] lg:top-1/2 xl:right-[15%] right-[10%]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -90,10 +105,10 @@ const HeroSection = () => {
             </div>
           </div>
           {/* Hero Section */}
-          <div className="min-h-screen flex flex-col items-center justify-center">
+          <div className="sm:mt-16 lg:mt-20 flex flex-col items-center justify-center mb-8">
             <section id="hero" className="text-center">
               <h1 className="text-5xl font-bold mb-4">Welcome to AlgoMentor</h1>
-              <p className="text-lg mb-8">
+              <p className="text-pretty text-gray-700 dark:text-gray-400 sm:text-lg mb-8">
                 Your AI-powered
                 <span className="text-primary"> Socratic Assistant </span> for
                 mastering Algorithms.
@@ -114,27 +129,15 @@ const HeroSection = () => {
               </div>
             </section>
             {/* Hero Description Section */}
-            <section className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="p-6 border-2 rounded-lg">
-                <h2 className="text-2xl font-semibold">Socratic Learning</h2>
-                <p>
-                  Guided questions to help you think through problems and
-                  solutions.
-                </p>
-              </div>
-              <div className="p-6 border-2 rounded-lg">
-                <h2 className="text-2xl font-semibold">
-                  Visual Algorithm Demos
-                </h2>
-                <p>Watch how sorting algorithms work step-by-step.</p>
-              </div>
-              <div className="p-6 border-2 rounded-lg">
-                <h2 className="text-2xl font-semibold">Interactive Coding</h2>
-                <p>
-                  Practice algorithm problems in real-time with instant
-                  feedback.
-                </p>
-              </div>
+            <section className="mt-16 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-pretty">
+              {data.map((item, index) => (
+                <div key={index} className="p-6 border-2 rounded-lg">
+                  <h2 className="text-2xl font-semibold">{item.title}</h2>
+                  <p>
+                    {item.description}
+                  </p>
+                </div>
+              ))}
             </section>
           </div>
     </section>
