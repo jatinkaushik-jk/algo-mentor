@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
       id="testimonials"
       className="relative py-8 p-4 text-center my-20 bg-primary w-full overflow-y-clip"
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-[-1] w-[105vw] h-full bg-primary"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-[-1] w-[110vw] h-full bg-primary"></div>
       <div className="flex flex-col-reverse md:flex-row items-center justify-around gap-8">
         <div className="relative">
         <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-primary via-primary backdrop-blur-sm blur-sm to-primary/80 z-10">
@@ -86,8 +86,8 @@ const TestimonialCard = ({
   avatar: string;
 }) => {
   return (
-    <Card className="min-w-72 max-w-md m-2 bg-white">
-      <CardContent className="flex flex-row items-center gap-4 p-4 py-12">
+    <Card className="max-w-md m-2 bg-white">
+      <CardContent className="flex flex-col sm:flex-row items-center gap-4 p-4 py-8 pt-4 sm:py-12">
         <div>
           <Avatar className="w-20 h-20 m-2">
             <AvatarImage src={avatar} alt={author} />
