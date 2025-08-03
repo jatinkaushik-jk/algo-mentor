@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 const data = [
   {
@@ -138,6 +139,9 @@ const HeroSection = () => {
                   </p>
                 </div>
               ))}
+              <div className="p-6 border-2 rounded-lg bg-primary bg-gradient-to-r from-purple-500 to-purple-900 place-content-center hover:scale-95 transition duration-300 hidden sm:grid lg:hidden">
+                <Image src={'/images/logoSVG.png'} alt='AlgoMentor Logo' width={100} height={100} />
+              </div>
             </section>
           </div>
     </section>
