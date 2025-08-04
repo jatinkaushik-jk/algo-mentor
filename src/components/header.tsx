@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import ProfileButton from "./ProfileButton";
+import PricingPageButton from "./PricingPageButton";
 
 const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
   const currentPath = usePathname();
@@ -141,7 +142,7 @@ const Header = ({ pageHeading = "AlgoMentor", searchbar = true }) => {
             </div>
           )}
         </div>
-
+        <PricingPageButton />
         <ProfileButton />
         <ModeToggle />
       </header>
