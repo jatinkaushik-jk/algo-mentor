@@ -4,6 +4,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { plans } from "./plans";
+import { Metadata } from "next";
+
+export const metadata : Metadata = {
+  title: "AlgoMentor Pricing Page",
+  description: "AlgoMentor Pricing Page, AlgoMentor provides various user centric premium plans for enhance socratic learning and growth."
+}
 
 export default function PricingPage() {
   return (
