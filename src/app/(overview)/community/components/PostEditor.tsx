@@ -15,7 +15,7 @@ export default function PostEditor() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <input
-        className="w-full text-xl font-semibold mb-4 border rounded px-3 py-2"
+        className="w-full text-xl font-semibold mb-4 border rounded px-3 py-2 dark:bg-background"
         placeholder="Post Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -23,7 +23,7 @@ export default function PostEditor() {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="mb-4 border rounded px-3 py-2"
+        className="mb-4 border rounded px-3 py-2 dark:bg-background"
       >
         <option value="General">General</option>
         <option value="Career">Career</option>

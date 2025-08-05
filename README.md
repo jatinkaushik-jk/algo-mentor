@@ -9,6 +9,7 @@ AlgoMentor is a **Socratic AI-driven educational platform** designed to make lea
 - **Real-Time Feedback**: Users receive immediate, personalized feedback, helping them to improve and correct misunderstandings on the go.
 - **Task History Maintenance**: Every interaction between the user and the AI is saved, ensuring that users can continue from where they left off, without losing track of the conversation.
 - **Beginner-Friendly**: Designed with DSA beginners in mind, AlgoMentor simplifies complex topics and avoids unnecessary jargon.
+- **Community Support**: Provide community interaction and collaborative growth for quick and enhanced learning.
 
 ## Screenshots
 
@@ -19,7 +20,7 @@ AlgoMentor is a **Socratic AI-driven educational platform** designed to make lea
 
 ## 🚀 Technologies Used
 
-- **Google Gemini 1.5**: Generative AI model for natural language processing and Socratic dialogue.
+- **Google Gemini 2.5 flash**: Generative AI model for natural language processing and Socratic dialogue.
 - **Next.js**: Framework for building the web application, ensuring seamless and server-side rendering.
 - **React & TypeScript**: For building a type-safe, scalable, and efficient user interface.
 - **Tailwind CSS & Shadcn UI**: For responsive design and a modern, intuitive user interface.
