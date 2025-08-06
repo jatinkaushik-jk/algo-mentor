@@ -25,7 +25,7 @@ export default function CommunityPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-end items-center mb-4 px-4">
         <Link
           href="/community/create"
           target="_blank"

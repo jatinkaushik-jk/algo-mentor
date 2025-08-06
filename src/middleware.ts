@@ -1,10 +1,28 @@
-// import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 // import type { NextRequest } from "next/server";
-// // export { default } from "next-auth/middleware";
-export { auth as middleware } from "@/auth";
+import { auth } from "@/auth";
+// export { auth as middleware } from "@/auth";
 // import { getToken } from "next-auth/jwt";
 
 // const secret = process.env.AUTH_SECRET;
+const publicRoutes = [
+    "/",
+    "/pricing",
+    "/login",
+    "/signup",
+]
+
+export default auth(async function middleware(req) {
+  // Your custom middleware logic goes here
+  // req.nextUrl.pathname !== "/login"
+  if (!req.auth) {
+    const isPublic = publicRoutes.some((path) => req.nextUrl.pathname === path);
+    if(!isPublic){
+    const newUrl = new URL("/login", req.nextUrl.origin);
+    return NextResponse.rewrite(newUrl);
+    }
+  }
+})
 
 // export async function middleware(request: NextRequest) {
 //   const token = await getToken({ req: request, secret });
@@ -16,6 +34,7 @@ export { auth as middleware } from "@/auth";
 // }
 
 // // See "Matching Paths" below to learn more
+// middleware should be applied to values in matcher in config
 // export const config = {
 //   matcher: [
 //     "/",
@@ -25,3 +44,6 @@ export { auth as middleware } from "@/auth";
 //     "/socratic-ai/:path*",
 //   ],
 // };
+
+export const config = {
+  matcher: ['/((?!api|_next|.*\\..*).*)']}
