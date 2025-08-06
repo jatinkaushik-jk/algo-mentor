@@ -41,7 +41,7 @@ export function ModuleStatusPieChart({
     ...stat,
     fill: STATUS_COLORS[index % STATUS_COLORS.length],
   }));
-  console.log("Module Stats:", moduleStats);
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="pb-0">
