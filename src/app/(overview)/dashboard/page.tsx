@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Calender from "./components/calender";
-import AlgorithmTable from "./components/algorithm-table";
+import AlgorithmTable from "@/components/algorithms/ui/algorithm-table";
 import { useSession } from "next-auth/react";
 import RecentLearnings from "./components/RecentLearnings";
 import { useUserContext } from "@/context/UserProvider";

@@ -4,8 +4,8 @@ import { FlameIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { DifficultyPieChart } from "./DifficultyPieChart";
 import { CategoryPieChart } from "./CategoryPieChart";
-import ActivityCalenderHeatMap from "./ActivityCalenderHeatMap";
 import { ModuleStatusPieChart } from "./ModuleStatusPieChart";
+import AlgorithmTable from "@/components/algorithms/ui/algorithm-table";
 
 export default function AnalyticsPage() {
   const { getAlgoStats } = useUserContext(); /// add getLoginHistory if needed
@@ -101,7 +101,8 @@ export default function AnalyticsPage() {
 
       {/* Login Streak Heatmap */}
       <div className="col-span-1 md:col-span-2">
-        <ActivityCalenderHeatMap />
+        {/* <ActivityCalenderHeatMap /> */}
+        <AlgorithmTable algos={[]} />
       </div>
 
       {/* Daily Login Streak Widget */}
