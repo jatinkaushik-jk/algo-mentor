@@ -1,5 +1,10 @@
-"use client";
 import AlgoNav from "./components/AlgoNav";
+import { Metadata } from "next";
+
+export const metadata : Metadata = {
+  title: "AlgoMentor | Socratic AI",
+  description: "AlgoMentor brings revolutionary change in learning methodology with Socratic AI, implementing socrates principles for improving problem solving and critical thinking."
+}
 
 export default function SocraticAI() {
  
