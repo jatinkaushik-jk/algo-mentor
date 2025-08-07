@@ -28,11 +28,11 @@ export default function PricingPage() {
           Simple and affordable pricing plans for individuals and teams. All
           prices are in <span className="font-semibold">INR/month</span>.
         </p>
-        <div className="grid gap-8 md:grid-cols-3 px-20">
+        <div className="grid gap-6 xl:gap-8 md:grid-cols-3 px-2 sm:px-4 xl:px-20">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`${plan.name == "Pro" ? "bg-primary text-white" : "translate-y-8"}  rounded-3xl shadow-lg p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left`}
+              className={`${plan.name == "Pro" ? "bg-primary text-white -order-1 md:order-1" : "md:translate-y-8 md:order-1"}  rounded-3xl shadow-lg p-8 sm:px-4 sm:py-6 lg:p-8 flex flex-col justify-between border-2 border-primary hover:shadow-2xl transition text-left`}
             >
               <div>
                 {plan.name == "Pro" && (
