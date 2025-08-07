@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
     <footer className="p-8 pb-4">
@@ -6,9 +8,9 @@ const Footer = () => {
           © {new Date().getFullYear()} AlgoMentor | All rights reserved.
         </p>
         <div className="flex justify-center items-center gap-4">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Contact Us</a>
+          <Link href="/privacy-policy" target="_blank">Privacy Policy</Link>
+          <Link href="/terms-of-service" target="_blank">Terms of Service</Link>
+          <Link href="/contact" target="_blank">Contact Us</Link>
         </div>
       </div>
     </footer>

@@ -28,32 +28,32 @@ import { LogOutButton } from "../LogOutButton";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Socratic AI",
-    href: "#",
+    href: "/socratic-ai",
     description: "Personalized algorithm learning through guided questions.",
   },
   {
     title: "Interactive Modules",
-    href: "#",
+    href: "/dashboard",
     description: "Hands-on exercises for mastering algorithms.",
   },
   {
     title: "Popular Algorithms",
-    href: "#",
+    href: "/dashboard",
     description: "Explore the most widely-used algorithms.",
   },
   {
     title: "Latest Notes",
-    href: "#",
+    href: "/community",
     description: "Stay updated with fresh algorithm insights.",
   },
   {
     title: "Community",
-    href: "#",
+    href: "/community",
     description: "Connect, share, and grow with fellow learners.",
   },
   {
     title: "Support",
-    href: "#",
+    href: "/community",
     description: "Get help with any issues or queries.",
   },
 ];
@@ -150,7 +150,7 @@ export function Navbar() {
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
             <NavigationMenuLink asChild>
-              <LogInButton />
+              {status === "authenticated" ? <Button asChild><Link href={"/dashboard"}>Dashboard</Link></Button> : <LogInButton />}
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex items-center gap-4">
