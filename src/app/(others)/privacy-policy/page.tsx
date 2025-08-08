@@ -11,9 +11,9 @@ const lastUpdated = "August 8, 2025";
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-background">
         {/* Header */}
-        <header className="shadow-sm border-b">
+        <header className="shadow-sm border-b bg-background">
           <div className="max-w-4xl flex justify-between items-center mx-auto">
             <div className="px-4 py-6">
             <Link href="/" className="text-blue-600 hover:text-blue-800 font-medium">
@@ -26,7 +26,7 @@ const PrivacyPolicyPage = () => {
 
         {/* Main Content */}
         <main className="max-w-4xl mx-auto px-4 py-8">
-          <div className="rounded-lg shadow-sm p-8">
+          <div className="rounded-lg shadow-sm p-8 bg-background">
             {/* Title Section */}
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
@@ -328,6 +328,9 @@ const PrivacyPolicyPage = () => {
                 </Link>
                 <Link href="/contact" className="text-blue-600 hover:text-blue-800">
                   Contact Us
+                </Link>
+                <Link href="/support" className="text-blue-600 hover:text-blue-800">
+                  Support
                 </Link>
               </div>
             </div>
