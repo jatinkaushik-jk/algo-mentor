@@ -33,6 +33,27 @@ function SignUpPage() {
             <ModeToggle></ModeToggle>
           </div>
           <SignupForm />
+          <p className="text-sm mt-6">
+          By creating your account, you agree to the{" "}
+          <a
+            href="/terms-of-service"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Terms of Service
+          </a>{" "}
+          and{" "}
+          <a
+            href="/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Privacy Notice
+          </a>
+          .
+        </p>
         </section>
       </main>
     </>

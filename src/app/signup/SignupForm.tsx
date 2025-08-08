@@ -143,27 +143,6 @@ export default function SignupForm() {
             Submit
           </Button>
         </div>
-        <p className="text-sm mt-10">
-          By creating your account, you agree to the{" "}
-          <a
-            href="http://github.com/jatinkaushik-jk/algomentor"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a
-            href="http://github.com/jatinkaushik-jk/algomentor"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Privacy Notice
-          </a>
-          .
-        </p>
       </form>
     </Form>
   );
