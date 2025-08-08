@@ -8,6 +8,9 @@ import { auth } from "@/auth";
 const publicRoutes = [
     "/",
     "/pricing",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/pricing",
     "/login",
     "/signup",
 ]
