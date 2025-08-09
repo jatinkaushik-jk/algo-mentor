@@ -2,30 +2,41 @@ import { NextResponse } from "next/server";
 // import type { NextRequest } from "next/server";
 import { auth } from "@/auth";
 // export { auth as middleware } from "@/auth";
-// import { getToken } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 
-// const secret = process.env.AUTH_SECRET;
+const secret = process.env.AUTH_SECRET;
 const publicRoutes = [
-    "/",
-    "/pricing",
-    "/privacy-policy",
-    "/terms-of-service",
-    "/pricing",
-    "/login",
-    "/signup",
-]
+  "/",
+  "/pricing",
+  "/privacy-policy",
+  "/terms-of-service",
+  "/pricing",
+  "/login",
+  "/signup",
+];
 
 export default auth(async function middleware(req) {
-  // Your custom middleware logic goes here
-  // req.nextUrl.pathname !== "/login"
+  const token = await getToken({ req, secret });
+  const isAuthenticated = !!token;
   if (!req.auth) {
     const isPublic = publicRoutes.some((path) => req.nextUrl.pathname === path);
-    if(!isPublic){
-    const newUrl = new URL("/login", req.nextUrl.origin);
-    return NextResponse.rewrite(newUrl);
+    if (!isPublic) {
+      const newUrl = new URL("/login", req.nextUrl.origin);
+      return NextResponse.rewrite(newUrl);
     }
   }
-})
+  else if (req.auth) {
+    const authPages = ["/login", "/signup", "/forgot-password"];
+    if (
+      authPages.some((path) => req.nextUrl.pathname.startsWith(path)) &&
+      isAuthenticated
+    ) {
+      // If the user is authenticated and tries to access an auth page, redirect them to the dashboard page
+      return NextResponse.rewrite(new URL("/dashboard", req.nextUrl.origin));
+    }
+    return NextResponse.next();
+  }
+});
 
 // export async function middleware(request: NextRequest) {
 //   const token = await getToken({ req: request, secret });
@@ -49,4 +60,5 @@ export default auth(async function middleware(req) {
 // };
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']}
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
