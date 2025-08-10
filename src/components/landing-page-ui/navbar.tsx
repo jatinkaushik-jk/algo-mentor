@@ -58,7 +58,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
-export function Navbar() {
+export function Navbar({className}:{className?: string}) {
   const { status } = useSession();
   return (
     <NavigationMenu className="p-4 lg:px-10 xs:px-6">
@@ -74,7 +74,7 @@ export function Navbar() {
         </NavigationMenuItem>
         <NavigationMenuList className="hidden md:flex">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className=" text-xs lg:text-base px-2 lg:px-4">
+            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4 ${className}`}>
               Getting started
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -106,7 +106,7 @@ export function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className=" text-xs lg:text-base px-2 lg:px-4">
+            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4 ${className}`}>
               Resources
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -126,7 +126,7 @@ export function Navbar() {
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
+              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
             >
               <Link
                 href="https://github.com/jatinkaushik-jk/algo-mentor"
@@ -139,7 +139,7 @@ export function Navbar() {
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4`}
+              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
             >
               <Link href="/pricing">
                 <div className="text-xs lg:text-base">Pricing</div>
@@ -156,7 +156,7 @@ export function Navbar() {
           <NavigationMenuItem className="flex items-center gap-4">
             <Sheet>
               <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className="md:hidden">
+                <Button size="icon" variant="outline" className={`md:hidden ${className}`}>
                   <PanelLeft className="h-5 w-5" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
