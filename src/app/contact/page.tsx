@@ -7,7 +7,7 @@ import Footer from "@/components/landing-page-ui/Footer";
 export default function ContactPage() {
   return (
     <div className="min-h-screen">
-      <Navbar></Navbar>
+      <Navbar className="bg-inherit"></Navbar>
       <div className="flex flex-col justify-center items-center mb-8 px-4">
         <div className="text-center my-12 space-y-1">
         <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Get In Touch</h3>
@@ -45,7 +45,7 @@ export default function ContactPage() {
         </div>
       </div>
       </div>
-      <div className="absolute w-full h-1/2 bg-primary/10 top-0 z-[-1]"></div>
+      <div className="absolute w-full h-1/2 bg-primary/15 top-0 z-[-1]"></div>
       <div>
         <Footer />
       </div>

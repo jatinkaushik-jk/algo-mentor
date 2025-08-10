@@ -217,7 +217,7 @@ export function Navbar({className}:{className?: string}) {
                 </nav>
               </SheetContent>
             </Sheet>
-            <ModeToggle />
+            <ModeToggle className={className} />
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenuList>
