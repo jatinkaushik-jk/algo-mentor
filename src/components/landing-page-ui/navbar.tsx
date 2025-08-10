@@ -19,6 +19,8 @@ import {
   PanelLeft,
   ShoppingCart,
   Code,
+  TagsIcon,
+  PhoneIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "../ui/mode-toggle";
@@ -146,6 +148,16 @@ export function Navbar({className}:{className?: string}) {
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
+            >
+              <Link href="/contact">
+                <div className="text-xs lg:text-base">Contact</div>
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
@@ -169,15 +181,25 @@ export function Navbar({className}:{className?: string}) {
                     </div>
                     <span className="sr-only">Logo</span>
                   </Link>
+                  {status === "authenticated" && (
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                    >
+                      <LayoutDashboard className="h-5 w-5" />
+                      Dashboard
+                    </Link>
+                  )}
                   <Link
-                    href="#"
+                    href="https:github.com/jatinkaushik-jk/algo-mentor"
+                    target="_blank"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
                     <Code className="h-5 w-5" />
                     Getting Started
                   </Link>
                   <Link
-                    href="https:github.com/jatinkaushik-jk"
+                    href="https:github.com/jatinkaushik-jk/algo-mentor"
                     target="_blank"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
@@ -196,19 +218,16 @@ export function Navbar({className}:{className?: string}) {
                     href="/pricing"
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
-                    <Book className="h-5 w-5" />
+                    <TagsIcon className="h-5 w-5" />
                     Pricing
                   </Link>
-                  {status === "authenticated" && (
-                    <Link
-                      href="/dashboard"
-                      className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                    >
-                      <LayoutDashboard className="h-5 w-5" />
-                      Dashboard
-                    </Link>
-                  )}
-
+                  <Link
+                    href="/contact"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <PhoneIcon className="h-5 w-5" />
+                    Contact
+                  </Link>
                   <LogOutButton
                       showIcon
                       className="flex items-center gap-4 px-2.5 text-muted-foreground text-lg font-medium hover:text-red-500"
