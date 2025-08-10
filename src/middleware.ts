@@ -11,6 +11,7 @@ const publicRoutes = [
   "/privacy-policy",
   "/terms-of-service",
   "/pricing",
+  "/contact",
   "/login",
   "/signup",
 ];
