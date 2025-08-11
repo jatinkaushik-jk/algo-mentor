@@ -26,7 +26,7 @@ function LoginPage() {
           </h3>
         </section>
         <section className="w-full lg:w-1/2 h-screen flex flex-col justify-center items-center relative">
-          <div className="absolute right-8 top-10 flex justify-center items-center gap-x-2">
+          <div className="absolute right-8 top-8 sm:top-10 flex justify-center items-center gap-x-2">
             <Button asChild variant="ghost">
               <Link href="/signup">Signup</Link>
             </Button>
