@@ -3,6 +3,7 @@ import {
   ArrowUpIcon,
   CircleChevronUp,
   EyeOffIcon,
+  X,
 } from "lucide-react";
 import { Column } from "@tanstack/react-table";
 
@@ -27,6 +28,7 @@ export function DataTableColumnHeader<TData, TValue>({
   title,
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
+  console.log("Column ", column);
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
@@ -51,6 +53,10 @@ export function DataTableColumnHeader<TData, TValue>({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
+          {column.getIsSorted() && <DropdownMenuItem onClick={() => column.clearSorting()}>
+            <X className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Remove sorting
+          </DropdownMenuItem>}
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
             <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Asc
