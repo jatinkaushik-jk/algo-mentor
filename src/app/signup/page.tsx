@@ -4,13 +4,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import SignupForm from "./SignupForm";
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "AlgoMentor Signup Page",
-  description: "AlgoMentor Signup Page, Signup and get started your socratic learning jounrney through AlgoMentor."
-}
+  description:
+    "AlgoMentor Signup Page, Signup and get started your socratic learning jounrney through AlgoMentor.",
+};
 
 function SignUpPage() {
-
   return (
     <>
       <main className="w-full min-h-screen flex relative">
@@ -32,28 +32,30 @@ function SignUpPage() {
             </Button>
             <ModeToggle></ModeToggle>
           </div>
-          <SignupForm />
-          <p className="text-sm mt-6">
-          By creating your account, you agree to the{" "}
-          <a
-            href="/terms-of-service"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Terms of Service
-          </a>{" "}
-          and{" "}
-          <a
-            href="/privacy-policy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Privacy Notice
-          </a>
-          .
-        </p>
+          <div className="sm:w-2/3 w-4/5">
+            <SignupForm />
+          </div>
+          <p className="text-sm mt-6 w-4/5 sm:w-2/3">
+            By creating your account, you agree to the{" "}
+            <a
+              href="/terms-of-service"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Privacy Notice
+            </a>
+            .
+          </p>
         </section>
       </main>
     </>

@@ -77,7 +77,7 @@ export default function LoginForm() {
           e.preventDefault();
           form.handleSubmit(handleLogin)();
         }}
-        className="w-2/3 space-y-4"
+        className="space-y-4 w-full"
       >
         <div>
           <h2 className="scroll-m-20 text-4xl font-bold tracking-tight mb-8">
@@ -143,7 +143,7 @@ export default function LoginForm() {
         action={async () => {
           signIn("github", { redirectTo: "/dashboard" });
         }}
-        className="w-2/3"
+        className="w-full"
       >
         <fieldset className="border-t-2 text-center mt-8">
           <legend className="px-3">or login with</legend>

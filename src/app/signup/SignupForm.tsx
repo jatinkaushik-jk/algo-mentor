@@ -70,10 +70,7 @@ export default function SignupForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSignUp)}
-        className="w-2/3 space-y-4"
-      >
+      <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4">
         <div>
           <h2 className="scroll-m-20 text-4xl font-bold tracking-tight mb-8">
             Create an account

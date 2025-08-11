@@ -4,13 +4,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import LoginForm from "./LoginForm";
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "AlgoMentor Login Page",
-  description: "AlgoMentor Login Page, Login to AlgoMentor and get started your socratic learning jounrney."
-}
+  description:
+    "AlgoMentor Login Page, Login to AlgoMentor and get started your socratic learning jounrney.",
+};
 
 function LoginPage() {
-
   return (
     <>
       <main className="w-full min-h-screen flex relative">
@@ -32,7 +32,9 @@ function LoginPage() {
             </Button>
             <ModeToggle></ModeToggle>
           </div>
-          <LoginForm />
+          <div className="sm:w-2/3 w-4/5">
+            <LoginForm />
+          </div>
         </section>
       </main>
     </>
