@@ -3,55 +3,55 @@ import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
 export const category = [
   {
     value: "sorting",
-    label: "sorting",
+    label: "Sorting",
   },
   {
     value: "searching",
-    label: "searching",
+    label: "Searching",
   },
   {
     value: "dynamic programming",
-    label: "DP",
+    label: "Dynamic Programming",
   },
   {
     value: "greedy",
-    label: "greedy",
+    label: "Greedy",
   },
   {
     value: "divide and conquer",
-    label: "divide and conquer",
+    label: "Divide And Conquer",
   },
   {
     value: "hashing",
-    label: "hashing",
+    label: "Hashing",
   },
   {
     value: "backtracking",
-    label: "backtracking",
+    label: "Backtracking",
   },
   {
     value: "graph",
-    label: "graph",
+    label: "Graph",
   },
   {
     value: "tree",
-    label: "tree",
+    label: "Tree",
   },
   {
     value: "string",
-    label: "string",
+    label: "String",
   },
   {
     value: "two pointers",
-    label: "two pointers",
+    label: "Two Pointers",
   },
   {
     value: "sliding window",
-    label: "sliding window",
+    label: "Sliding Window",
   },
   {
     value: "array",
-    label: "array",
+    label: "Array",
   },
 ];
 

@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 // import { Checkbox } from "@/components/ui/checkbox";
 
-import { difficulty, access } from "../data/data";
+import { difficulty, access, category } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
@@ -70,11 +70,15 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
+      const categoryValue = category.find((cat) => cat.value === row.getValue("category"));
       return (
         <div>
-          <Badge variant="outline" className="text-pretty">{row.getValue("category")}</Badge>
+          <Badge variant="outline" className="text-pretty">{categoryValue?.label}</Badge>
         </div>
       );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {

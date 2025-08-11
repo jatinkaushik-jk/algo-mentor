@@ -6,6 +6,7 @@ export const algorithmSchema = z.object({
   description: z.string(),
   timeComplexity: z.string(),
   label: z.string(),
+  category: z.string(),
   difficulty: z.string(),
   access: z.string(),
 });
