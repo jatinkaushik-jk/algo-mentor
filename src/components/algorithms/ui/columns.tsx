@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 // import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, difficulty, timeComplexity, access } from "../data/data";
+import { difficulty, access } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
@@ -65,16 +65,26 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "category",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div>
+          <Badge variant="outline" className="text-pretty">{row.getValue("category")}</Badge>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "description",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
-
       return (
-        <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
+        <div>
           <p className="max-w-[500px] truncate">
             {row.getValue("description")}
           </p>
@@ -88,18 +98,9 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Time Complexity" />
     ),
     cell: ({ row }) => {
-      const timeComplexityValue = timeComplexity.find(
-        (timeComplexity) =>
-          timeComplexity.value === row.getValue("timeComplexity")
-      );
-
-      if (!timeComplexityValue) {
-        return null;
-      }
-
       return (
         <div className="flex w-[100px] items-center">
-          <span>{timeComplexityValue.label}</span>
+          <span>{row.getValue("timeComplexity")}</span>
         </div>
       );
     },
@@ -117,17 +118,13 @@ export const columns: ColumnDef<Task>[] = [
         (difficulty) => difficulty.value === row.getValue("difficulty")
       );
 
-      if (!difficultyLevel) {
-        return null;
-      }
-
       return (
         <div className="flex items-center">
           <span
             className="font-semibold"
-            style={{ color: difficultyLevel.color }}
+            style={{ color: difficultyLevel?.color }}
           >
-            {difficultyLevel.label}
+            {difficultyLevel?.label}
           </span>
         </div>
       );

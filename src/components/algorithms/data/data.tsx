@@ -1,6 +1,6 @@
 import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
 
-export const labels = [
+export const category = [
   {
     value: "sorting",
     label: "sorting",
