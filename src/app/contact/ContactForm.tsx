@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+// import { useUserContext } from '@/context/UserProvider';
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -14,21 +15,23 @@ const contactSchema = z.object({
   message: z.string().min(10, "Message should be at least 10 characters")
 });
 
-type ContactFormInputs = z.infer<typeof contactSchema>;
+export type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
+  // const {submitContactRequest} = useUserContext();
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors, isSubmitting, isSubmitSuccessful }
-      } = useForm<ContactFormInputs>({
+      } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema)
       });
     
-      const onSubmit = async (data: ContactFormInputs) => {
+      const onSubmit = async (data: ContactFormData) => {
         // Replace with your own backend handler!
         await new Promise(resolve => setTimeout(resolve, 1200));
+        // submitContactRequest(data);
         console.log(data)
         reset();
       };

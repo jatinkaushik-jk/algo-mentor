@@ -1,4 +1,5 @@
 "use client";
+import { ContactFormData } from "@/app/contact/ContactForm";
 import { Algorithm, Conversation, Module, User } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
@@ -16,6 +17,7 @@ interface UserContextType {
   getLoginHistory: () => Promise<string[]>;
   getAlgoStats: () => Promise<{ category: string; difficulty: string; module: string }[]>;
   updateStreak: () => Promise<void>;
+  submitContactRequest: (data:ContactFormData) => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -159,6 +161,20 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const submitContactRequest = async (data:ContactFormData): Promise<void> =>{
+    try {
+      await fetch("/api/actions/forms/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Error in sending request:", error);
+    }
+  }
+
   useEffect(() => {
     if (status === "authenticated") {
       fetchUsersData();
@@ -176,6 +192,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         getLoginHistory,
         getAlgoStats,
         updateStreak,
+        submitContactRequest,
       }}
     >
       {children}
