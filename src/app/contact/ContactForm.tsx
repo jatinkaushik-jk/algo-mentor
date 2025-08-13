@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-// import { useUserContext } from '@/context/UserProvider';
+import { useUserContext } from '@/context/UserProvider';
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -18,7 +18,8 @@ const contactSchema = z.object({
 export type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
-  // const {submitContactRequest} = useUserContext();
+  const formElm = useRef<HTMLFormElement>(null);
+  const {submitContactRequest} = useUserContext();
     const {
         register,
         handleSubmit,
@@ -27,22 +28,25 @@ const ContactForm = () => {
       } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema)
       });
-    
-      const onSubmit = async (data: ContactFormData) => {
-        // Replace with your own backend handler!
-        await new Promise(resolve => setTimeout(resolve, 1200));
-        // submitContactRequest(data);
-        console.log(data)
-        reset();
+
+      const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        handleSubmit(async () => {
+          submitContactRequest(formElm?.current as HTMLFormElement).then(() => {
+            reset();
+          });
+        })();
       };
   return (
-    <form className="mt-6 space-y-5" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form ref={formElm} className="mt-6 space-y-5" onSubmit={onSubmit} noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name">Your Name</Label>
                   <Input
                     id="name"
                     {...register("name")}
+                    name="name"
+                    type='text'
                     placeholder="Name"
                     autoComplete="name"
                     className={errors.name ? "border-red-500" : ""}
@@ -73,6 +77,8 @@ const ContactForm = () => {
                 <Input
                   id="subject"
                   {...register("subject")}
+                  name='subject'
+                  type='text'
                   placeholder="E.g. Need help with sorting algorithms"
                   className={errors.subject ? "border-red-500" : ""}
                   disabled={isSubmitting}
@@ -87,6 +93,7 @@ const ContactForm = () => {
                   id="message"
                   rows={5}
                   {...register("message")}
+                  name='message'
                   placeholder="Write your message"
                   className={errors.message ? "border-red-500" : ""}
                   disabled={isSubmitting}

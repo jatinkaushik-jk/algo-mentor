@@ -1,9 +1,10 @@
 "use client";
-import { ContactFormData } from "@/app/contact/ContactForm";
 import { Algorithm, Conversation, Module, User } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 
 interface UserContextType {
   user: User | undefined;
@@ -15,9 +16,11 @@ interface UserContextType {
     status: string
   ) => Promise<boolean | undefined>;
   getLoginHistory: () => Promise<string[]>;
-  getAlgoStats: () => Promise<{ category: string; difficulty: string; module: string }[]>;
+  getAlgoStats: () => Promise<
+    { category: string; difficulty: string; module: string }[]
+  >;
   updateStreak: () => Promise<void>;
-  submitContactRequest: (data:ContactFormData) => Promise<void>;
+  submitContactRequest: (form: HTMLFormElement) => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -161,19 +164,26 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const submitContactRequest = async (data:ContactFormData): Promise<void> =>{
+  const submitContactRequest = async (form: HTMLFormElement): Promise<void> => {
     try {
-      await fetch("/api/actions/forms/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        form,
+        {
+          publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_ID as string,
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Your message has been sent successfully!");
+      } else {
+        toast.error("Failed to send your message.");
+      }
     } catch (error) {
-      console.error("Error in sending request:", error);
+      toast.error("Error sending email.");
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (status === "authenticated") {
