@@ -29,6 +29,7 @@ const ContactForm = () => {
         resolver: zodResolver(contactSchema)
       });
 
+      // error -> field values are not showing in email
       const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleSubmit(async () => {

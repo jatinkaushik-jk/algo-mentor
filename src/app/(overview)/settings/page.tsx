@@ -152,12 +152,11 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 p-2">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your AlgoMentor account and preferences</p>
+        <div className='mb-4'>
+          <p className="text-gray-600 dark:text-gray-400">Manage your AlgoMentor account and preferences</p>
         </div>
 
         {/* Settings Tabs */}
@@ -373,7 +372,7 @@ export default function SettingsPage() {
                     <Separator />
 
                     <div className="space-y-4">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-x-2">
                         <div className="space-y-0.5">
                           <Label>Show Learning Progress</Label>
                           <p className="text-sm text-gray-500">
@@ -383,7 +382,7 @@ export default function SettingsPage() {
                         <Switch defaultChecked />
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-x-2">
                         <div className="space-y-0.5">
                           <Label>Allow Direct Messages</Label>
                           <p className="text-sm text-gray-500">
@@ -393,7 +392,7 @@ export default function SettingsPage() {
                         <Switch defaultChecked />
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-x-2">
                         <div className="space-y-0.5">
                           <Label>Data Sharing for AI Improvement</Label>
                           <p className="text-sm text-gray-500">
@@ -403,7 +402,7 @@ export default function SettingsPage() {
                         <Switch />
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-x-2">
                         <div className="space-y-0.5">
                           <Label>Marketing Emails</Label>
                           <p className="text-sm text-gray-500">
@@ -422,7 +421,7 @@ export default function SettingsPage() {
                     <p className="text-sm text-red-700 mb-3">
                       These actions are permanent and cannot be undone.
                     </p>
-                    <div className="space-y-2">
+                    <div className="space-y-2 sm:space-x-2">
                       <Button variant="outline" size="sm" className="text-red-600 border-red-300">
                         <Download className="w-4 h-4 mr-2" />
                         Download My Data
@@ -553,12 +552,12 @@ export default function SettingsPage() {
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-medium text-blue-800">Current Plan</h4>
-                      <Badge variant="secondary">PRO</Badge>
+                      <Badge variant="outline">PRO</Badge>
                     </div>
                     <p className="text-sm text-blue-700 mb-3">
                       Full access to all algorithms and premium features
                     </p>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between flex-wrap gap-x-2 gap-y-4">
                       <span className="text-2xl font-bold text-blue-800">$19.99/month</span>
                       <Button size="sm" variant="outline">
                         Change Plan
@@ -638,21 +637,21 @@ export default function SettingsPage() {
                   <div className="space-y-4">
                     <h4 className="font-medium">Learning Progress</h4>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Daily Streak Reminders</p>
                           <p className="text-sm text-gray-500">Get reminded to maintain your learning streak</p>
                         </div>
                         <Switch defaultChecked />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Weekly Progress Reports</p>
                           <p className="text-sm text-gray-500">Receive weekly summaries of your progress</p>
                         </div>
                         <Switch defaultChecked />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Algorithm Mastery Celebrations</p>
                           <p className="text-sm text-gray-500">Get notified when you master new algorithms</p>
@@ -667,14 +666,14 @@ export default function SettingsPage() {
                   <div className="space-y-4">
                     <h4 className="font-medium">Platform Updates</h4>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">New Algorithm Releases</p>
                           <p className="text-sm text-gray-500">Be first to know about new algorithms added</p>
                         </div>
                         <Switch defaultChecked />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Feature Updates</p>
                           <p className="text-sm text-gray-500">Learn about new platform features</p>
@@ -689,14 +688,14 @@ export default function SettingsPage() {
                   <div className="space-y-4">
                     <h4 className="font-medium">Communication</h4>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Direct Messages</p>
                           <p className="text-sm text-gray-500">Get notified about new messages from other users</p>
                         </div>
                         <Switch defaultChecked />
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div>
                           <p className="font-medium">Learning Tips</p>
                           <p className="text-sm text-gray-500">Receive helpful algorithm learning tips</p>
