@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { User, Shield, Palette, CreditCard, Bell } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import ProfileSettings from "./settingsTabs/ProfileSettings";
 import PrivacySettings from "./settingsTabs/PrivacySettings";
 import AppearanceSettings from "./settingsTabs/AppearanceSettings";
