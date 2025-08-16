@@ -86,7 +86,7 @@ export interface Streak {
   highest: number;
   lastLoginDate: Date | null;
 }
-export interface UserProfile{
+export interface UserProfile {
   firstName: string;
   lastName: string;
   email: string;
@@ -96,6 +96,12 @@ export interface UserProfile{
   location: string;
   website: string;
   goals: string;
+}
+export interface BillingHistory {
+  date: Date;
+  amount: number;
+  status: "paid" | "unpaid" | "pending" | "failed" | "canceled";
+  transaction_id: string;
 }
 export interface User {
   email: string;
@@ -107,6 +113,21 @@ export interface User {
   modules: Module[];
   createdAt: Date;
   updatedAt: Date | null;
+  settings: {
+    privacy: {
+      profileVisibility: "public" | "private";
+      marketingOptIn: boolean;
+      dataSharing: boolean;
+    };
+    billing: {
+      paymentMethod: ["credit_card", "paypal", "upi"];
+      billingHistory: BillingHistory[];
+    };
+    notification: {
+      emailNotifications: true;
+      smsNotifications: false;
+    };
+  };
 }
 
 const AlgorithmSchema = new Schema(
@@ -240,6 +261,42 @@ const UserSchema = new Schema({
     lastLoginDate: { type: Date, default: null },
   },
   modules: [ModuleSchema],
+  settings: {
+    privacy: {
+      profileVisibility: {
+        type: String,
+        enum: ["public", "private"],
+        default: "public",
+      },
+      marketingOptIn: {
+        type: Boolean,
+        default: true,
+      },
+      dataSharing: {
+        type: Boolean,
+        default: true,
+      },
+    },
+    billing: {
+      paymentMethod: ["credit_card", "paypal", "upi"],
+      billingHistory: [
+        {
+          date: { type: Date, default: new Date() },
+          amount: { type: Number, required: true },
+          status: {
+            type: String,
+            enum: ["paid", "unpaid", "pending", "failed", "canceled"],
+            required: true,
+          },
+          transaction_id: { type: String, required: true },
+        },
+      ],
+    },
+    notification: {
+      emailNotifications: true,
+      smsNotifications: false,
+    },
+  },
   createdAt: { type: Date, default: new Date() },
   updatedAt: { type: Date, default: null },
 });
