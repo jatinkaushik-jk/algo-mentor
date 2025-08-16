@@ -278,7 +278,10 @@ const UserSchema = new Schema({
       },
     },
     billing: {
-      paymentMethod: ["credit_card", "paypal", "upi"],
+      paymentMethod: {
+        type: [String],
+        enum: ["credit_card", "paypal", "upi"],
+      },
       billingHistory: [
         {
           date: { type: Date, default: new Date() },
@@ -293,8 +296,8 @@ const UserSchema = new Schema({
       ],
     },
     notification: {
-      emailNotifications: true,
-      smsNotifications: false,
+      emailNotifications: { type: Boolean, default: true },
+      smsNotifications: { type: Boolean, default: false },
     },
   },
   createdAt: { type: Date, default: new Date() },
