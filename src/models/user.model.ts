@@ -86,10 +86,23 @@ export interface Streak {
   highest: number;
   lastLoginDate: Date | null;
 }
+export interface UserProfile{
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  bio: string;
+  avatar: string;
+  location: string;
+  website: string;
+  goals: string;
+}
 export interface User {
   email: string;
   username: string;
   password: string;
+  profile: UserProfile;
+  subscription: Subscription;
   streak: Streak;
   modules: Module[];
   createdAt: Date;
@@ -205,6 +218,17 @@ const UserSchema = new Schema({
     type: String,
     minlength: 8,
     required: [true, "Password is required"],
+  },
+  profile: {
+    firstName: String,
+    lastName: String,
+    email: String,
+    phone: String,
+    bio: String,
+    avatar: String,
+    location: String,
+    website: String,
+    goals: String,
   },
   subscription: {
     type: SubscriptionSchema,
