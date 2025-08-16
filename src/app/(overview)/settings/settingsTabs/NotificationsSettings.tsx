@@ -87,15 +87,6 @@ const NotificationsSettings = () => {
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <p className="font-medium">Direct Messages</p>
-                  <p className="text-sm text-gray-500">
-                    Get notified about new messages from other users
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between gap-2">
-                <div>
                   <p className="font-medium">Learning Tips</p>
                   <p className="text-sm text-gray-500">
                     Receive helpful algorithm learning tips

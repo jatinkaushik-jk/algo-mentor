@@ -23,7 +23,6 @@ import { Button } from "@/components/ui/button";
 const appearanceSchema = z.object({
   theme: z.enum(["light", "dark", "system"]),
   language: z.string(),
-  fontSize: z.enum(["small", "medium", "large"]),
   codeTheme: z.string(),
 });
 
@@ -35,7 +34,6 @@ const AppearanceSettings = () => {
     defaultValues: {
       theme: "system",
       language: "en",
-      fontSize: "medium",
       codeTheme: "vs-dark",
     },
   });
@@ -100,20 +98,6 @@ const AppearanceSettings = () => {
                   <SelectItem value="fr">Français</SelectItem>
                   <SelectItem value="de">Deutsch</SelectItem>
                   <SelectItem value="zh">中文</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label>Font Size</Label>
-              <Select defaultValue="medium">
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="small">Small</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="large">Large</SelectItem>
                 </SelectContent>
               </Select>
             </div>

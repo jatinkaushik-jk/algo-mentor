@@ -23,9 +23,8 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 
 const privacySchema = z.object({
-  profileVisibility: z.enum(["public", "private", "friends"]),
+  profileVisibility: z.enum(["public", "private"]),
   showProgress: z.boolean(),
-  allowMessages: z.boolean(),
   dataSharing: z.boolean(),
   marketingEmails: z.boolean(),
 });
@@ -38,7 +37,6 @@ const PrivacySettings = () => {
     defaultValues: {
       profileVisibility: "public",
       showProgress: true,
-      allowMessages: true,
       dataSharing: false,
       marketingEmails: true,
     },
@@ -93,16 +91,6 @@ const PrivacySettings = () => {
                   <Label>Show Learning Progress</Label>
                   <p className="text-sm text-gray-500">
                     Allow others to see your algorithm learning progress
-                  </p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-
-              <div className="flex items-center justify-between gap-x-2">
-                <div className="space-y-0.5">
-                  <Label>Allow Direct Messages</Label>
-                  <p className="text-sm text-gray-500">
-                    Let other users send you direct messages
                   </p>
                 </div>
                 <Switch defaultChecked />
