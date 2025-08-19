@@ -10,7 +10,6 @@ export default function SettingsPage() {
             Manage your AlgoMentor account and preferences
           </p>
         </div>
-
         {/* Settings Tabs */}
         <TabList />
       </div>

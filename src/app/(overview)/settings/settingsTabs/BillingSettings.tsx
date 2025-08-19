@@ -10,6 +10,23 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+const billingHistory = [
+  {
+    date: "2024-01-01",
+    amount: "$19.99",
+    status: "Paid",
+  },
+  {
+    date: "2023-12-01",
+    amount: "$19.99",
+    status: "Paid",
+  },
+  {
+    date: "2023-11-01",
+    amount: "$19.99",
+    status: "Paid",
+  },
+];
 const BillingSettings = () => {
   return (
     <Card>
@@ -71,23 +88,7 @@ const BillingSettings = () => {
           <div>
             <h4 className="font-medium mb-4">Billing History</h4>
             <div className="space-y-2">
-              {[
-                {
-                  date: "2024-01-01",
-                  amount: "$19.99",
-                  status: "Paid",
-                },
-                {
-                  date: "2023-12-01",
-                  amount: "$19.99",
-                  status: "Paid",
-                },
-                {
-                  date: "2023-11-01",
-                  amount: "$19.99",
-                  status: "Paid",
-                },
-              ].map((invoice, index) => (
+              {billingHistory.map((invoice, index) => (
                 <div
                   key={index}
                   className="flex items-center justify-between p-3 border rounded-lg"
