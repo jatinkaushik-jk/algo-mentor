@@ -32,10 +32,13 @@ const ContactForm = () => {
   // error -> field values are not showing in email
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(formElm.current as HTMLFormElement);
+    const formValues = Object.fromEntries(formData.entries());
     handleSubmit(async () => {
-      submitContactRequest(formElm?.current as HTMLFormElement).then(() => {
+      submitContactRequest(formValues as ContactFormData).then(() => {
         reset();
       });
+      
     })();
   };
   return (

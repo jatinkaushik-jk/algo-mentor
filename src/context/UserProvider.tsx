@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
+import { ContactFormData } from "@/app/contact/ContactForm";
 
 interface UserContextType {
   user: User | undefined;
@@ -20,7 +21,7 @@ interface UserContextType {
     { category: string; difficulty: string; module: string }[]
   >;
   updateStreak: () => Promise<void>;
-  submitContactRequest: (form: HTMLFormElement) => Promise<void>;
+  submitContactRequest: (contactData: ContactFormData) => Promise<void>;
   getSubscription: () => Promise<Subscription | null>;
 }
 
@@ -185,12 +186,12 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     return null;
   };
 
-  const submitContactRequest = async (form: HTMLFormElement): Promise<void> => {
+  const submitContactRequest = async (contactData: ContactFormData): Promise<void> => {
     try {
-      const response = await emailjs.sendForm(
+      const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
-        form,
+        contactData,
         {
           publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_ID as string,
         }
