@@ -53,21 +53,21 @@ const BillingSettings = () => {
       <CardContent>
         <div className="space-y-6">
           {/* Current Plan */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-blue-50 dark:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] dark:from-[#1d4ed8] dark:via-[#1e40af] dark:to-[#111827] border border-blue-200 dark:border-0 rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-medium text-blue-800">Current Plan</h4>
+              <h4 className="font-medium text-blue-800 dark:text-white">Current Plan</h4>
               <Badge variant="outline">{subscription ? subscription.plan.name : "Loading..."}</Badge>
             </div>
-            <p className="text-sm text-blue-700 mb-3">
+            <p className="text-sm text-blue-700 dark:text-white/80 mb-3">
               {subscription ? subscription.plan.description : "Loading..."}
             </p>
             <div className="flex items-center justify-between flex-wrap gap-x-2 gap-y-4">
               {subscription ? (
-                <span className="text-2xl font-bold text-blue-800">
+                <span className="text-2xl font-bold text-blue-800 dark:text-white">
                   {subscription.plan.price} <span className="text-lg">({subscription.plan.duration})</span>
                 </span>
               ) : (
-                <span className="text-2xl font-bold text-blue-800">Loading...</span>
+                <span className="text-2xl font-bold text-blue-800 dark:text-white">Loading...</span>
               )}
               <Button size="sm" variant="outline">
                 Change Plan

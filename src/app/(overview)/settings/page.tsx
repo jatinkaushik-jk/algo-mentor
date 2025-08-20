@@ -2,7 +2,7 @@ import TabList from "./settingsTabs/TabList";
 
 export default function SettingsPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 p-2">
+    <div className="min-h-screen px-4 p-2">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-4">
