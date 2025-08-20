@@ -1,5 +1,5 @@
 "use client";
-import { Algorithm, Conversation, Module, User } from "@/models/user.model";
+import { Algorithm, Conversation, Module, Subscription, User } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
@@ -21,6 +21,7 @@ interface UserContextType {
   >;
   updateStreak: () => Promise<void>;
   submitContactRequest: (form: HTMLFormElement) => Promise<void>;
+  getSubscription: () => Promise<Subscription | null>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -164,6 +165,26 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getSubscription = async (): Promise<Subscription | null> => {
+    try {
+      const response = await fetch("/api/actions/getSubscription", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const jsonData = await response.json();
+      if (response.status === 200) {
+        return jsonData.data;
+      } else {
+        console.error("Error fetching subscription:", jsonData.message);
+      }
+    } catch (error) {
+      console.error("Error fetching subscription:", error);
+    }
+    return null;
+  };
+
   const submitContactRequest = async (form: HTMLFormElement): Promise<void> => {
     try {
       const response = await emailjs.sendForm(
@@ -203,6 +224,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         getAlgoStats,
         updateStreak,
         submitContactRequest,
+        getSubscription,
       }}
     >
       {children}

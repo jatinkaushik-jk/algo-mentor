@@ -9,6 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useUserContext } from "@/context/UserProvider";
+import { useEffect, useState } from "react";
+import { Subscription } from "@/models/user.model";
 
 const billingHistory = [
   {
@@ -28,6 +31,17 @@ const billingHistory = [
   },
 ];
 const BillingSettings = () => {
+  const {getSubscription} = useUserContext();
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      const sub = await getSubscription();
+      setSubscription(sub);
+    };
+    fetchSubscription();
+  }, [getSubscription]);
+
   return (
     <Card>
       <CardHeader>
@@ -42,15 +56,19 @@ const BillingSettings = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <h4 className="font-medium text-blue-800">Current Plan</h4>
-              <Badge variant="outline">PRO</Badge>
+              <Badge variant="outline">{subscription ? subscription.plan.name : "Loading..."}</Badge>
             </div>
             <p className="text-sm text-blue-700 mb-3">
-              Full access to all algorithms and premium features
+              {subscription ? subscription.plan.description : "Loading..."}
             </p>
             <div className="flex items-center justify-between flex-wrap gap-x-2 gap-y-4">
-              <span className="text-2xl font-bold text-blue-800">
-                $19.99/month
-              </span>
+              {subscription ? (
+                <span className="text-2xl font-bold text-blue-800">
+                  {subscription.plan.price} <span className="text-lg">({subscription.plan.duration})</span>
+                </span>
+              ) : (
+                <span className="text-2xl font-bold text-blue-800">Loading...</span>
+              )}
               <Button size="sm" variant="outline">
                 Change Plan
               </Button>
