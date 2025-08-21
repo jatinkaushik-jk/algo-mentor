@@ -8,28 +8,28 @@ const testimonials = [
       "AlgoMentor helped me improve my coding skills in record time. The personalized feedback is amazing!",
     author: "Aditi",
     role: "Software Engineer",
-    avatar: "/path/to/avatar1.jpg",
+    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/aditi-testimonial_pychh2.jpg",
   },
   {
     quote:
       "The AI-powered lessons make learning algorithms so much easier and fun!",
     author: "Ravi Dubey",
     role: "Data Scientist",
-    avatar: "/path/to/avatar2.jpg", 
+    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/ravi-dubey-testimonial_owqhu6.jpg", 
   },
   {
     quote:
       "From beginner to advanced, AlgoMentor guided me through every step. Highly recommend it!",
     author: "Sarah",
     role: "CS Student",
-    avatar: "/path/to/avatar3.jpg",
+    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/sarah-testimonial_vjlhxz.jpg",
   },
   {
     quote:
       "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
     author: "Vamika",
     role: "CS Student",
-    avatar: "/path/to/avatar4.jpg",
+    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752146/vamika-testimonial_uvieoi.jpg",
   },
 ];
 const TestimonialsSection = () => {
