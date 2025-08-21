@@ -86,7 +86,7 @@ const BillingSettings = () => {
                   </div>
                   <div>
                     <p className="font-medium">•••• •••• •••• 4242</p>
-                    <p className="text-sm text-gray-500">Expires 12/24</p>
+                    <p className="text-sm text-gray-500">Expires 12/26</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
