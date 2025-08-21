@@ -1,5 +1,5 @@
 "use client";
-import { Algorithm, Conversation, Module, Subscription, User } from "@/models/user.model";
+import { Algorithm, Conversation, Module, Subscription, User, UserProfile } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
@@ -9,6 +9,7 @@ import { ContactFormData } from "@/app/contact/ContactForm";
 
 interface UserContextType {
   user: User | undefined;
+  updateUserDetails: (userData: UserProfile) => Promise<void>;
   fetchAlgoMessages: (algoName: string) => Promise<Conversation[] | undefined>;
   fetchAlgoList: () => Promise<Module[] | undefined>;
   fetchRecentLearnings: () => Promise<Algorithm[] | undefined>;
@@ -36,7 +37,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const fetchUsersData = async () => {
     try {
       const response = await fetch("/api/actions/user-details", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
@@ -47,6 +48,29 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const updateUserDetails = async (userData: UserProfile) => {
+    try {
+      const response = await fetch("/api/actions/user-details", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const jsonData = await response.json();
+      if (response.status === 200) {
+        // setUser(jsonData.data);
+        fetchUsersData(); // Refresh user data after update
+        toast.success("User details updated successfully!");
+      } else {
+        toast.error("Failed to update user details.");
+        console.error("Error updating user details:", jsonData.message);
+      }
+    } catch (error) {
+      console.error("Error updating user details:", error);
     }
   };
 
@@ -217,6 +241,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     <UserContext.Provider
       value={{
         user,
+        updateUserDetails,
         fetchAlgoMessages,
         fetchAlgoList,
         fetchRecentLearnings,
