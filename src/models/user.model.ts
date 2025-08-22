@@ -88,14 +88,14 @@ export interface Streak {
 }
 export interface UserProfile {
   firstName: string;
-  lastName: string;
+  lastName?: string;
   email: string;
-  phone: string;
-  bio: string;
-  avatar: string;
-  location: string;
-  website: string;
-  goals: string;
+  phone?: string;
+  bio?: string;
+  avatar?: string;
+  location?: string;
+  website?: string;
+  learningGoals?: string;
 }
 export interface BillingHistory {
   date: Date;
@@ -241,15 +241,44 @@ const UserSchema = new Schema({
     required: [true, "Password is required"],
   },
   profile: {
-    firstName: String,
-    lastName: String,
-    email: String,
-    phone: String,
-    bio: String,
-    avatar: String,
-    location: String,
-    website: String,
-    goals: String,
+    firstName: {
+      type: String,
+      required: [true, "First name is required"],
+      default: "",
+    },
+    lastName: {
+      type: String,
+      default: "",
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      default: "",
+    },
+    phone: {
+      type: String,
+      default: "",
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+    avatar: {
+      type: String,
+      default: "",
+    },
+    location: {
+      type: String,
+      default: "",
+    },
+    website: {
+      type: String,
+      default: "",
+    },
+    learningGoals: {
+      type: String,
+      default: "",
+    },
   },
   subscription: {
     type: SubscriptionSchema,

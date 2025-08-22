@@ -1,6 +1,6 @@
 import { getUserFromDatabase } from "@/helpers/user";
 import { UserProfile } from "@/models/user.model";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const getUserDetails = async () => {
   try {
@@ -22,7 +22,8 @@ const getUserDetails = async () => {
   }
 };
 
-const updateUserDetails = async (userProfileData: UserProfile) => {
+const updateUserDetails = async (req: NextRequest) => {
+  const userProfileData = await req.json();
   try {
     const user = await getUserFromDatabase();
 

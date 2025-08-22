@@ -79,6 +79,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               email,
               username: name,
               password: await bcrypt.hash(id + "github", 8),
+              profile: {
+                firstName: name?.split(" ")[0] || "",
+                lastName: name?.split(" ")[1] || "",
+                email: email,
+                phone: "",
+                bio: "",
+                avatar: "",
+                location: "",
+                website: "",
+                learningGoals: "",
+              },
             });
           }
           return true;

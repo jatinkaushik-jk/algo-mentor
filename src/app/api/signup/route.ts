@@ -34,6 +34,17 @@ const registerUser = async (req: Request) => {
       email,
       password: hashedPassword,
       username,
+      profile: {
+        firstName: username.split(" ")[0] || "",
+        lastName: username.split(" ")[1] || "",
+        email: email,
+        phone: "",
+        bio: "",
+        avatar: "",
+        location: "",
+        website: "",
+        learningGoals: "",
+      },
     });
 
     // Save the user to the database

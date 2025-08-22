@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useUserContext } from "@/context/UserProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Camera } from "lucide-react";
 import { useState } from "react";
@@ -19,13 +20,14 @@ import * as z from "zod";
 
 const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
+  lastName: z.string().optional().default(""),
   email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
-  bio: z.string().max(500, "Bio must be less than 500 characters").optional(),
+  phone: z.string().max(14, { message: 'Must be a valid mobile number'}).optional().default(""),
+  bio: z.string().max(500, "Bio must be less than 500 characters").optional().default(""),
+  avatar: z.string().url("Invalid URL").optional().or(z.literal("")),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
-  location: z.string().optional(),
-  learningGoals: z.string().optional(),
+  location: z.string().optional().default(""),
+  learningGoals: z.string().optional().default(""),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -36,19 +38,20 @@ const ProfileSettings = () => {
     "/api/placeholder/150/150"
   );
   const [uploading, setUploading] = useState(false);
+  const { user, updateUserDetails } = useUserContext();
 
   // Form hooks
   const profileForm = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      phone: "",
-      bio: "Learning algorithms with AlgoMentor",
-      website: "",
-      location: "New York, USA",
-      learningGoals: "Master data structures and algorithms",
+      firstName: user?.profile?.firstName || "",
+      lastName: user?.profile?.lastName || "",
+      email: user?.profile?.email || user?.email || "",
+      phone: user?.profile?.phone || "",
+      bio: user?.profile?.bio || "Learning algorithms with AlgoMentor",
+      website: user?.profile?.website || "",
+      location: user?.profile?.location || "India",
+      learningGoals: user?.profile?.learningGoals || "Master data structures and algorithms",
     },
   });
 
@@ -56,6 +59,7 @@ const ProfileSettings = () => {
   const onProfileSubmit = (data: ProfileFormData) => {
     console.log("Profile data:", data);
     // Handle profile update API call
+    updateUserDetails(data);
   };
   // Profile image upload handler
   const handleImageUpload = async (
@@ -190,7 +194,7 @@ const ProfileSettings = () => {
                 id="phone"
                 type="tel"
                 {...profileForm.register("phone")}
-                placeholder="+1 (555) 123-4567"
+                placeholder="+91 11122 33344"
               />
             </div>
 
