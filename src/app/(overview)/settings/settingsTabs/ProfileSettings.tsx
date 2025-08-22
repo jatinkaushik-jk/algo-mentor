@@ -57,8 +57,6 @@ const ProfileSettings = () => {
 
   // Form submit handlers
   const onProfileSubmit = (data: ProfileFormData) => {
-    console.log("Profile data:", data);
-    // Handle profile update API call
     updateUserDetails(data);
   };
   // Profile image upload handler
