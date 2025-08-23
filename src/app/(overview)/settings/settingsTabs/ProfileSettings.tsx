@@ -17,13 +17,22 @@ import { Camera } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { CldUploadWidget } from "next-cloudinary";
 
 const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().optional().default(""),
   email: z.string().email("Invalid email address"),
-  phone: z.string().max(14, { message: 'Must be a valid mobile number'}).optional().default(""),
-  bio: z.string().max(500, "Bio must be less than 500 characters").optional().default(""),
+  phone: z
+    .string()
+    .max(14, { message: "Must be a valid mobile number" })
+    .optional()
+    .default(""),
+  bio: z
+    .string()
+    .max(500, "Bio must be less than 500 characters")
+    .optional()
+    .default(""),
   avatar: z.string().url("Invalid URL").optional().or(z.literal("")),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
   location: z.string().optional().default(""),
@@ -51,7 +60,8 @@ const ProfileSettings = () => {
       bio: user?.profile?.bio || "Learning algorithms with AlgoMentor",
       website: user?.profile?.website || "",
       location: user?.profile?.location || "India",
-      learningGoals: user?.profile?.learningGoals || "Master data structures and algorithms",
+      learningGoals:
+        user?.profile?.learningGoals || "Master data structures and algorithms",
     },
   });
 
@@ -114,19 +124,35 @@ const ProfileSettings = () => {
                 <AvatarImage src={profileImage} alt="Profile" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
-              <label className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 cursor-pointer transition-colors">
-                <Camera className="w-4 h-4" />
+              <span className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 cursor-pointer transition-colors">
+                <CldUploadWidget
+                  uploadPreset="algomentor_profiles"
+                  signatureEndpoint="/api/sign-cloudinary-params"
+                  options={{ sources: ["local", "url"] }}
+                  onSuccess={(result) => {
+                    setProfileImage(result?.info?.secure_url as string);
+                  }}
+                  onQueuesEnd={(result, { widget }) => {
+                    widget.close();
+                  }}
+                >
+                  {({ open }) => {
+                    return (
+                      <Camera className="w-4 h-4" onClick={() => open()} />
+                    );
+                  }}
+                </CldUploadWidget>
                 <input
                   type="file"
                   className="hidden"
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  // onChange={handleImageUpload}
                 />
-              </label>
+              </span>
             </div>
             <div>
               <h3 className="font-medium">Profile Picture</h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 mb-4">
                 JPG, PNG up to 5MB. Recommended: 400x400px
               </p>
               {uploading && (
