@@ -43,11 +43,8 @@ type ProfileFormData = z.infer<typeof profileSchema>;
 const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 const ProfileSettings = () => {
-  const [profileImage, setProfileImage] = useState<string>(
-    "/api/placeholder/150/150"
-  );
-  const [uploading, setUploading] = useState(false);
   const { user, updateUserDetails } = useUserContext();
+  const [profileImage, setProfileImage] = useState<string>(user?.profile?.avatar || "");
 
   // Form hooks
   const profileForm = useForm<ProfileFormData>({
@@ -67,41 +64,7 @@ const ProfileSettings = () => {
 
   // Form submit handlers
   const onProfileSubmit = (data: ProfileFormData) => {
-    updateUserDetails(data);
-  };
-  // Profile image upload handler
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    try {
-      // Create FormData for upload
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "algomentor_profiles"); // Cloudinary preset
-
-      // Upload to Cloudinary
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-      if (data.secure_url) {
-        setProfileImage(data.secure_url);
-        // You would typically save this to your backend here
-      }
-    } catch (error) {
-      console.error("Upload failed:", error);
-    } finally {
-      setUploading(false);
-    }
+    updateUserDetails({ ...data, avatar: profileImage });
   };
 
   return (
@@ -122,7 +85,7 @@ const ProfileSettings = () => {
             <div className="relative">
               <Avatar className="w-24 h-24">
                 <AvatarImage src={profileImage} alt="Profile" />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarFallback>{user?.profile?.firstName?.charAt(0)}{user?.profile?.lastName?.charAt(0)}</AvatarFallback>
               </Avatar>
               <span className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 cursor-pointer transition-colors">
                 <CldUploadWidget
@@ -142,12 +105,6 @@ const ProfileSettings = () => {
                     );
                   }}
                 </CldUploadWidget>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  // onChange={handleImageUpload}
-                />
               </span>
             </div>
             <div>
@@ -155,9 +112,6 @@ const ProfileSettings = () => {
               <p className="text-sm text-gray-500 mb-4">
                 JPG, PNG up to 5MB. Recommended: 400x400px
               </p>
-              {uploading && (
-                <p className="text-sm text-blue-600">Uploading...</p>
-              )}
             </div>
           </div>
 
