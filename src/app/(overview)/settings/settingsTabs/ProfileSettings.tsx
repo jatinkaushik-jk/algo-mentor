@@ -40,7 +40,6 @@ const profileSchema = z.object({
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
 const ProfileSettings = () => {
   const { user, updateUserDetails } = useUserContext();
@@ -93,7 +92,9 @@ const ProfileSettings = () => {
                   signatureEndpoint="/api/sign-cloudinary-params"
                   options={{ sources: ["local", "url"] }}
                   onSuccess={(result) => {
-                    setProfileImage(result?.info?.secure_url as string);
+                    if (typeof result === "object" && result !== null && "info" in result && typeof result.info === "object" && result.info !== null && "secure_url" in result.info) {
+                      setProfileImage((result.info as { secure_url?: string }).secure_url || "");
+                    }
                   }}
                   onQueuesEnd={(result, { widget }) => {
                     widget.close();
