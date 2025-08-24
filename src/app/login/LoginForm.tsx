@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas/loginSchema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +61,7 @@ export default function LoginForm() {
         }
       } else if (res?.ok) {
         // Handle successful sign-in
+        toast.success("Login successful!");
         router.push("/dashboard"); // Redirect to dashboard or desired page
       }
     } catch (err) {

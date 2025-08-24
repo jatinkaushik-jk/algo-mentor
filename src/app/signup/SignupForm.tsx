@@ -16,6 +16,7 @@ import { SignUpSchema } from "@/schemas/signUpSchema";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SignupForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -53,8 +54,7 @@ export default function SignupForm() {
 
       const data = await res.json();
       if (res.status === 200) {
-        console.log("User registered successfully");
-        alert("User registered successfully");
+        toast.success("User registered successfully!");
         // Redirect to login page
         router.push("/login");
       } else {
