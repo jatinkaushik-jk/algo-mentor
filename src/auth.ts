@@ -48,6 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: user._id as string,
             email: user.email as string,
             name: user.username as string,
+            image: user.profile.avatar as string,
           };
         } catch (error) {
           console.error("Error during authorization:", error);
@@ -71,7 +72,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: async ({ user, account }) => {
       if (account?.provider === "github") {
         try {
-          const { email, name, id } = user;
+          const { email, name, id, image } = user;
           await dbConnect();
           const existingUser = await UserModel.findOne({ email });
           if (!existingUser) {
@@ -85,7 +86,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 email: email,
                 phone: "",
                 bio: "",
-                avatar: "",
+                avatar: image || "",
                 location: "",
                 website: "",
                 learningGoals: "",
