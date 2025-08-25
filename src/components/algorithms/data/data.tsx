@@ -1,4 +1,4 @@
-import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
+import { Award, GraduationCap, Star } from "lucide-react";
 
 export const category = [
   {
@@ -169,8 +169,8 @@ export const access = [
   {
     label: "FREE",
     value: "FREE",
-    icon: ShieldHalfIcon,
-    color: "#1CE3BB",
+    icon: Star,
+    color: "#22c55e",
   },
   {
     label: "PRO",

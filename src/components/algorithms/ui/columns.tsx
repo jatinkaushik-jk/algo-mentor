@@ -66,7 +66,7 @@ export const columns: ColumnDef<Task>[] = [
                 console.log("Error: ", error);
               }
             }}
-            className="max-w-[500px] truncate font-medium hover:text-primary cursor-pointer"
+            className="sm:max-w-[200px] max-w-28 overflow-x-hidden text-ellipsis truncate font-medium hover:text-primary cursor-pointer"
           >
             {row.getValue("title")}
           </span>
@@ -99,7 +99,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <div>
-          <p className="max-w-[500px] truncate">
+          <p className="max-w-[250px] overflow-x-hidden text-ellipsis truncate">
             {row.getValue("description")}
           </p>
         </div>
