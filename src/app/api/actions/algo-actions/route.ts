@@ -19,6 +19,34 @@ const sendAlgoData = async (req: Request) => {
 
     const { _id, modules }: { _id: string; modules: Module[] } = reqUser;
 
+    // check for algorithm access
+    const algoAccessFlag = algorithm.access;
+    const userSubscriptionPlan = reqUser.subscription.plan.name;
+    let isAuthorized = false;
+
+    switch (algoAccessFlag) {
+      case "FREE":
+        isAuthorized = true;
+        break;
+      case "PRO":
+        if (userSubscriptionPlan === "PRO" || userSubscriptionPlan === "MASTER")
+          isAuthorized = true;
+        break;
+      case "MASTER":
+        if (userSubscriptionPlan === "MASTER") isAuthorized = true;
+        break;
+
+      default:
+        break;
+    }
+
+    if (!isAuthorized) {
+      return NextResponse.json(
+        { message: "Unauthorized access" },
+        { status: 403 }
+      );
+    }
+
     let isAlgoExist = false;
 
     // Checking whether requested Algorithm already visited or not
@@ -52,14 +80,16 @@ const sendAlgoData = async (req: Request) => {
       await UserModel.findOneAndUpdate({ _id }, { modules });
     }
 
-    // console.log("User: ", session?.user, "\n Algorithm data: ", algorithm);
-
     return NextResponse.json(
       { message: "Successful Request" },
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 200 });
+    console.log(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 };
 

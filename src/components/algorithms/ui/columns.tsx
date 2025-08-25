@@ -1,5 +1,4 @@
 "use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { difficulty, access, category } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<Task>[] = [
   // {
@@ -46,15 +46,25 @@ export const columns: ColumnDef<Task>[] = [
                   body: JSON.stringify(row.original),
                 });
                 const result = await res.json();
-                if (res.status !== 200) {
-                  alert(result.message);
-                } else {
+                if (res.status == 200) {
                   window.location.href = `/socratic-ai/${row.original.title
                     .toLowerCase()
                     .replace(/ /g, "-")}`;
                 }
-              } catch (error) {console.log("Error: ", error)}
-              console.log(row.original);
+                else if (res.status == 403) {
+                  toast.error(result.message, {
+                    description: "Please upgrade your plan to access this feature.",
+                    action: {
+                      label: "Upgrade",
+                      onClick: () => window.location.href = '/pricing',
+                    },
+                  });
+                } else {
+                  toast.error(result.message);
+                }
+              } catch (error) {
+                console.log("Error: ", error);
+              }
             }}
             className="max-w-[500px] truncate font-medium hover:text-primary cursor-pointer"
           >
