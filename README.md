@@ -12,18 +12,18 @@
 
 ## 📋 Table of Contents
 
-- [🌟 Overview](#overview)
-- [✨ Key Features](#key-features)
-- [🛠️ Technology Stack](#technology-stack)
-- [📸 Screenshots](#screenshots)
-- [🚀 Quick Start](#quick-start)
-- [📖 Usage Guide](#usage-guide)
-- [🏗️ Project Structure](#project-structure)
-- [🤝 Contributing](#contributing)
-- [📈 Roadmap](#roadmap)
-- [📄 License](#license)
-- [👥 Contributors](#contributors)
-- [📞 Support](#support)
+- [🌟 Overview](#-overview)
+- [✨ Key Features](#-key-features)
+- [🛠️ Technology Stack](#-technology-stack)
+- [📸 Screenshots](#-screenshots)
+- [🚀 Quick Start](#-quick-start)
+- [📖 Usage Guide](#-usage-guide)
+- [🏗️ Project Structure](#-project-structure)
+- [🤝 Contributing](#-contributing)
+- [📈 Roadmap](#-roadmap)
+- [📄 License](#-license)
+- [👥 Contributors](#-contributors)
+- [📞 Support](#-support)
 
 ---
 
@@ -357,4 +357,4 @@ copies or substantial portions of the Software.
 
 *Empowering the next generation of algorithm masters through AI-driven education*
 
-[![Back to Top](https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white)](#-algomentor-socratic-ai-for-algorithm-mastery)
+[![Back to Top](https://img.shields.io/badge/Back%20to%20Top-000000?style=for-the-badge&logo=github&logoColor=white)](#-algomentor:-socratic-ai-for-algorithm-mastery)
