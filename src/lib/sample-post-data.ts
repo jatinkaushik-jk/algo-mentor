@@ -78,4 +78,68 @@ export const samplePosts = [
     comments: 10,
     views: 300,
   },
+  {
+    id: "5",
+    title: "Mastering the Art of Problem Solving",
+    content:
+      "Problem solving is a skill that can be developed with practice. Break down problems into smaller parts, understand the underlying concepts, and apply them to different scenarios.",
+    category: "General",
+    tags: ["Problem Solving", "Tips", "Mindset"],
+    author: {
+      name: "Sneha Gupta",
+      avatarUrl: "/avatars/user5.png",
+    },
+    createdAt: "2025-07-12T12:00:00Z",
+    upvotes: 50,
+    comments: 8,
+    views: 250,
+  },
+  {
+    id: "6",
+    title: "The Importance of Data Structures in Interviews",
+    content:
+      "Data structures are the building blocks of efficient algorithms. Understanding their properties and use cases can greatly improve your problem-solving skills in interviews.",
+    category: "Interview Prep",
+    tags: ["Data Structures", "Algorithms", "Interview Tips"],
+    author: {
+      name: "Ravi Kumar",
+      avatarUrl: "/avatars/user6.png",
+    },
+    createdAt: "2025-07-11T09:15:00Z",
+    upvotes: 40,
+    comments: 6,
+    views: 180,
+  },
+  {
+    id: "7",
+    title: "Effective Debugging Techniques",
+    content:
+      "Debugging is an essential skill for developers. Use print statements, debuggers, and rubber duck debugging to identify and fix issues in your code.",
+    category: "General",
+    tags: ["Debugging", "Tips", "Programming"],
+    author: {
+      name: "Aditi Verma",
+      avatarUrl: "/avatars/user7.png",
+    },
+    createdAt: "2025-07-10T11:00:00Z",
+    upvotes: 55,
+    comments: 9,
+    views: 220,
+  },
+  {
+    id: "8",
+    title: "Understanding Time Complexity",
+    content:
+      "Time complexity is a way to express the amount of time an algorithm takes to complete as a function of the length of the input. It's crucial for evaluating the efficiency of algorithms.",
+    category: "Algorithms",
+    tags: ["Time Complexity", "Big O", "Algorithms"],
+    author: {
+      name: "Vikram Singh",
+      avatarUrl: "/avatars/user8.png",
+    },
+    createdAt: "2025-07-09T15:30:00Z",
+    upvotes: 65,
+    comments: 11,
+    views: 275,
+  }
 ];
