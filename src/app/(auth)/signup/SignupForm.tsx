@@ -71,11 +71,6 @@ export default function SignupForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSignUp)} className="space-y-4">
-        <div>
-          <h2 className="scroll-m-20 text-4xl font-bold tracking-tight mb-8">
-            Create an account
-          </h2>
-        </div>
         <FormField
           control={form.control}
           name="username"

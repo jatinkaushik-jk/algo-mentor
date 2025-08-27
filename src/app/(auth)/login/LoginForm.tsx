@@ -81,11 +81,6 @@ export default function LoginForm() {
         }}
         className="space-y-4 w-full"
       >
-        <div>
-          <h2 className="scroll-m-20 text-4xl font-bold tracking-tight mb-8">
-            Login to account
-          </h2>
-        </div>
         <FormField
           control={form.control}
           name="email"

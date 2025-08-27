@@ -12,7 +12,13 @@ function SignUpPage() {
   return (
     <>
       <AuthHeader link="/login" label="Login" />
-      <div className="sm:w-2/3 w-4/5">
+      <div className="sm:w-2/3 w-4/5 space-y-8">
+        <div>
+          <h2 className="scroll-m-20 text-4xl font-bold tracking-tight">
+            Create an account
+          </h2>
+          <p className="text-muted-foreground">Join us and start your learning journey today!</p>
+        </div>
         <SignupForm />
       </div>
       <p className="text-sm mt-6 w-4/5 sm:w-2/3">
