@@ -14,6 +14,7 @@ export default function CommunityPage() {
   useEffect(() => {
     // Simulated API fetch based on category
     const filteredPosts = samplePosts.filter(post => post.category === category);
+    console.log(category);
     console.log("Filtered Posts:", filteredPosts);
   }, [category]);
   //   useEffect(() => {
