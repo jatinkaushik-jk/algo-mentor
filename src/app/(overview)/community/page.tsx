@@ -3,18 +3,19 @@ import { useEffect, useState } from "react";
 import PostCard from "./components/PostCard";
 import CategoryTabs from "./components/CategoryTabs";
 import Link from "next/link";
-import { samplePosts } from "@/lib/sample-post-data";
+import { Post, samplePosts } from "@/lib/sample-post-data";
 import { PlusCircleIcon } from "lucide-react";
 
 
 export default function CommunityPage() {
 //   const [posts, setPosts] = useState<Post[]>(samplePosts);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("For You");
+  const [currPosts, setCurrPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     // Simulated API fetch based on category
     const filteredPosts = samplePosts.filter(post => post.category === category);
-    console.log(category);
+    setCurrPosts(filteredPosts);
     console.log("Filtered Posts:", filteredPosts);
   }, [category]);
   //   useEffect(() => {
@@ -37,7 +38,7 @@ export default function CommunityPage() {
       </div>
       <CategoryTabs onChange={(val) => setCategory(val)} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        {samplePosts.map((post) => (
+        {currPosts.map((post) => (
           <PostCard key={post.id} {...post} />
         ))}
       </div>

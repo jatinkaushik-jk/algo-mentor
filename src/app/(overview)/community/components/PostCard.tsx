@@ -6,7 +6,7 @@ const PostCard: FC<Post> = ({
   id,
   title,
   content,
-  category,
+  label,
   tags,
   author,
   views,
@@ -17,7 +17,7 @@ const PostCard: FC<Post> = ({
   return (
     <div className="p-4 bg-background shadow rounded-xl mb-4 border">
       <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-        <span>{category}</span>
+        <span>{label}</span>
         <span>{new Date(createdAt).toLocaleDateString()}</span>
       </div>
       <h3 className="text-lg font-semibold mb-1">{title}</h3>
