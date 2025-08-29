@@ -27,7 +27,7 @@ export const plans : Plan[] = [
     description: "Advanced features for professionals",
     features: [
       "Access to 50+ learning modules",
-      "Community support",
+      "Community support and post creation",
       "Access to analytics",
     ],
     cta: "Upgrade to Pro",
