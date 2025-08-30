@@ -87,7 +87,7 @@ export default function PricingPage() {
               </div>
               <Button
                 variant={plan.name == "Pro" ? "secondary" : "default"}
-                className={`mt-16 py-6 rounded-full ${plan.name == "Pro" ? "bg-white text-primary hover:bg-gray-100" : ""} transition`}
+                className={`mt-16 py-6 rounded-full ${plan.name == "Pro" ? "bg-white text-primary hover:bg-gray-100" : ""} transition`} disabled={plan.name == "Basic" ? true : false}
               >
                 {plan.cta}
               </Button>
