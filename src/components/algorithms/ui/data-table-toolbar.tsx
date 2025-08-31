@@ -12,46 +12,66 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  showFilters?: ShowFiltersOptions;
 }
+
+export interface ShowFiltersOptions {
+  searchBar?: boolean;
+  difficulty?: boolean;
+  category?: boolean;
+  timeComplexity?: boolean;
+  access?: boolean;
+  viewOptions?: boolean;
+}
+
+export const defaultShowFiltersOptions: ShowFiltersOptions = {
+  searchBar: true,
+  difficulty: true,
+  category: true,
+  timeComplexity: true,
+  access: true,
+  viewOptions: true,
+};
 
 export function DataTableToolbar<TData>({
   table,
+  showFilters = defaultShowFiltersOptions,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2 flex-wrap">
-        <Input
+      <div className="flex flex-1 items-center space-x-2 space-y-2 flex-wrap">
+        {showFilters.searchBar && <Input
           placeholder="Filter algorithms..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
-        />
-          {table.getColumn("difficulty") && (
+        />}
+          {showFilters.difficulty && table.getColumn("difficulty") && (
             <DataTableFacetedFilter
               column={table.getColumn("difficulty")}
               title="Difficulty"
               options={difficulty}
             />
           )}
-          {table.getColumn("category") && (
+          {showFilters.category && table.getColumn("category") && (
             <DataTableFacetedFilter
               column={table.getColumn("category")}
               title="Category"
               options={category}
             />
           )}
-        {table.getColumn("timeComplexity") && (
+        {showFilters.timeComplexity && table.getColumn("timeComplexity") && (
           <DataTableFacetedFilter
             column={table.getColumn("timeComplexity")}
             title="Time Complexity"
             options={timeComplexity}
           />
         )}
-        {table.getColumn("access") && (
+        {showFilters.access && table.getColumn("access") && (
           <DataTableFacetedFilter
             column={table.getColumn("access")}
             title="Access"
@@ -69,7 +89,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      {showFilters.viewOptions && <DataTableViewOptions table={table} />}
     </div>
   );
 }
