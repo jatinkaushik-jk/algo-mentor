@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import LoginForm from "./LoginForm";
-import AuthHeader from "../components/authHeader";
+import AuthHeader from "../components/AuthHeader";
 
 export const metadata: Metadata = {
   title: "AlgoMentor Login Page",

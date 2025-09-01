@@ -15,7 +15,7 @@ const EasyAlgorithmsPage = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
   return (
-    <div>
+    <div className="w-full px-4 sm:px-8 lg:px-16 py-8 space-y-6">
       <AlgorithmTable algos={algos} tableFilterProps={{ difficulty: false }} />
     </div>
   )
