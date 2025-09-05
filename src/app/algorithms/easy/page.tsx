@@ -53,15 +53,9 @@ const EasyAlgorithmsPage = () => {
       <header className="sticky top-0 z-30 backdrop-blur-md bg-white/60 border-b">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button asChild variant="ghost" className="gap-2">
-              <Link href="/dashboard">
-                <ChevronLeft className="h-4 w-4" />
-                Back
-              </Link>
-            </Button>
-            <Separator orientation="vertical" className="h-6" />
-            <Image src="/images/logo.png" alt="logo" width={40} height={40}/>
-            <div>
+            <Image src="/images/logo.png" alt="logo" width={40} height={40} />
+            <Separator orientation="vertical" className="h-6 hidden sm:block" />
+            <div className="hidden sm:block">
               <div className="text-xs text-slate-500">
                 Learn basics with guided tasks
               </div>
@@ -72,7 +66,10 @@ const EasyAlgorithmsPage = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <Badge variant={"outline"} className="cursor-context-menu">
+            <Badge
+              variant={"outline"}
+              className="cursor-context-menu hidden sm:block"
+            >
               Beginner Friendly
             </Badge>
             <Button asChild className="gap-2">
@@ -85,8 +82,24 @@ const EasyAlgorithmsPage = () => {
         </div>
       </header>
 
+      <div className="mx-auto max-w-7xl px-4 py-4 space-y-2 flex-col items-start">
+        <Button asChild variant="ghost" className="gap-2">
+          <Link href="/dashboard">
+            <ChevronLeft className="h-4 w-4" />
+            Back
+          </Link>
+        </Button>
+        <div className="sm:hidden text-center pb-2">
+          <div className="text-xs text-slate-500">
+            Learn basics with guided tasks
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Easy Algorithms Track
+          </h1>
+        </div>
+      </div>
       {/* Main */}
-      <main className="mx-auto max-w-7xl px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <main className="mx-auto max-w-7xl px-4 pb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Plan + Table */}
         <section className="lg:col-span-2 space-y-6">
           {/* Plan Intro Card */}
@@ -132,7 +145,10 @@ const EasyAlgorithmsPage = () => {
             </CardHeader>
             <CardContent className="pt-0">
               <div className="rounded-lg border overflow-hidden">
-                <AlgorithmTable algos={algos} />
+                <AlgorithmTable
+                  algos={algos}
+                  tableFilterProps={{ difficulty: false }}
+                />
               </div>
             </CardContent>
           </Card>
