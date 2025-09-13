@@ -25,8 +25,7 @@ export default auth(async function middleware(req) {
       const newUrl = new URL("/login", req.nextUrl.origin);
       return NextResponse.rewrite(newUrl);
     }
-  }
-  else if (req.auth) {
+  } else if (req.auth) {
     const authPages = ["/login", "/signup", "/forgot-password"];
     if (
       authPages.some((path) => req.nextUrl.pathname.startsWith(path)) &&
