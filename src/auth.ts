@@ -49,6 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email as string,
             name: user.username as string,
             image: user.profile.avatar as string,
+            subscriptionPlan: user.subscription.plan.name as string,
           };
         } catch (error) {
           console.error("Error during authorization:", error);
@@ -105,15 +106,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    jwt({ token, user }) {
+    jwt: async ({ token, user }) => {
       if (user) {
         // User is available during sign-in
+        const userFromDB = await UserModel.findById(user.id);
         token.id = user.id;
+        token.subscriptionPlan = userFromDB?.subscription.plan.name;
       }
       return token;
     },
     session({ session, token }) {
       session.user.id = token.id as string;
+      session.user.subscriptionPlan = token.subscriptionPlan as string;
       return session;
     },
   },

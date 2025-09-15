@@ -34,6 +34,12 @@ export default auth(async function middleware(req) {
       // If the user is authenticated and tries to access an auth page, redirect them to the dashboard page
       return NextResponse.rewrite(new URL("/dashboard", req.nextUrl.origin));
     }
+    if (isAuthenticated && req.nextUrl.pathname === "/community/create") {
+      // If the user is authenticated and tries to access the community's create post page, check for access
+      if (token?.subscriptionPlan === "Basic") {
+        return NextResponse.rewrite(new URL("/pricing", req.nextUrl.origin));
+      }
+    }
     return NextResponse.next();
   }
 });
