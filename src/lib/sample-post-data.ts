@@ -1,24 +1,9 @@
-export interface Post {
-  id: string;
-  title: string;
-  content: string;
-  category: string;
-  label: string;
-  tags: string[];
-  author: {
-    name: string;
-    avatarUrl: string;
-  };
-  createdAt: string;
-  upvotes: number;
-  views: number;
-  comments: number;
-}
+import { IPost } from "@/models/posts.model";
 
 // categories- "For You", "Career", "Contest", "Interview", "Feedback"
-export const samplePosts = [
+export const samplePosts: IPost[] = [
   {
-    id: "1",
+    postId: "1",
     title: "Understanding Two Pointers in Arrays",
     content:
       "Two pointers is a common technique for array problems. Use left and right pointers to iterate inward or outward depending on the problem. Works well for problems like max area, sorted pair sum, etc.",
@@ -35,7 +20,7 @@ export const samplePosts = [
     views: 100,
   },
   {
-    id: "2",
+    postId: "2",
     title: "What is the difference between Greedy and DP?",
     content:
       "Greedy chooses the best option at every step, whereas DP considers all options and caches them. Greedy is faster but doesn’t always yield optimal results. DP is safe but memory-intensive.",
@@ -52,7 +37,7 @@ export const samplePosts = [
     views: 200,
   },
   {
-    id: "3",
+    postId: "3",
     title: "Tips for Cracking Medium-Level Graph Questions",
     content:
       "Always start by identifying if it's DFS, BFS, Union Find or Dijkstra. Dry run on paper before coding. Try practicing on undirected graphs before moving to directed/weighted ones.",
@@ -69,7 +54,7 @@ export const samplePosts = [
     views: 150,
   },
   {
-    id: "4",
+    postId: "4",
     title: "How do you prepare for CP contests?",
     content:
       "Practice on Codeforces and AtCoder regularly. Keep track of your rating and participate in virtual contests. Learn STL and efficient debugging methods to save time.",
@@ -86,7 +71,7 @@ export const samplePosts = [
     views: 300,
   },
   {
-    id: "5",
+    postId: "5",
     title: "Mastering the Art of Problem Solving",
     content:
       "Problem solving is a skill that can be developed with practice. Break down problems into smaller parts, understand the underlying concepts, and apply them to different scenarios.",
@@ -103,7 +88,7 @@ export const samplePosts = [
     views: 250,
   },
   {
-    id: "6",
+    postId: "6",
     title: "The Importance of Data Structures in Interviews",
     content:
       "Data structures are the building blocks of efficient algorithms. Understanding their properties and use cases can greatly improve your problem-solving skills in interviews.",
@@ -120,7 +105,7 @@ export const samplePosts = [
     views: 180,
   },
   {
-    id: "7",
+    postId: "7",
     title: "Effective Debugging Techniques",
     content:
       "Debugging is an essential skill for developers. Use print statements, debuggers, and rubber duck debugging to identify and fix issues in your code.",
@@ -137,7 +122,7 @@ export const samplePosts = [
     views: 220,
   },
   {
-    id: "8",
+    postId: "8",
     title: "Understanding Time Complexity",
     content:
       "Time complexity is a way to express the amount of time an algorithm takes to complete as a function of the length of the input. It's crucial for evaluating the efficiency of algorithms.",
@@ -154,7 +139,7 @@ export const samplePosts = [
     views: 275,
   },
   {
-    id: "9",
+    postId: "9",
     title: "Feedback: Community Moderation",
     content:
       "As the community grows, having more moderators or a reporting system for inappropriate content would be beneficial.",
@@ -171,7 +156,7 @@ export const samplePosts = [
     views: 75,
   },
   {
-    id: "10",
+    postId: "10",
     title: "Feedback: Feature Requests",
     content:
       "It would be great to have more customization options for user profiles and the ability to follow specific topics.",
@@ -188,7 +173,7 @@ export const samplePosts = [
     views: 100,
   },
   {
-    id: "11",
+    postId: "11",
     title: "Contest Preparation Tips",
     content:
       "Start with easy problems and gradually increase difficulty. Participate in mock contests and analyze your performance.",
@@ -205,7 +190,7 @@ export const samplePosts = [
     views: 75,
   },
   {
-    id: "12",
+    postId: "12",
     title: "Contest Strategy: Time Management",
     content:
       "Effective time management is crucial during contests. Practice pacing yourself and allocating time wisely to different problems.",
@@ -220,5 +205,5 @@ export const samplePosts = [
     upvotes: 30,
     comments: 5,
     views: 100,
-  }
+  },
 ];

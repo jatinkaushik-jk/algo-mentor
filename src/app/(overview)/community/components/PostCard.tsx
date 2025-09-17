@@ -1,9 +1,9 @@
 "use client";
 import { FC } from "react";
-import { Post } from "@/lib/sample-post-data";
+import { IPost } from "@/models/posts.model";
 
-const PostCard: FC<Post> = ({
-  id,
+const PostCard: FC<IPost> = ({
+  postId,
   title,
   content,
   label,
@@ -12,7 +12,7 @@ const PostCard: FC<Post> = ({
   views,
   createdAt,
   upvotes,
-  comments
+  comments,
 }) => {
   return (
     <div className="p-4 bg-background shadow rounded-xl mb-4 border">
@@ -23,7 +23,7 @@ const PostCard: FC<Post> = ({
       <h3 className="text-lg font-semibold mb-1">{title}</h3>
       <p className="text-sm line-clamp-2 text-muted-foreground">{content}</p>
       <div className="flex items-center text-xs gap-4 mt-2 text-muted-foreground">
-        <span>👤 {id}</span>
+        <span>👤 {postId}</span>
         <span>👤 {author.name}</span>
         <span>⬆️ {upvotes}</span>
         <span>💬 {comments}</span>
