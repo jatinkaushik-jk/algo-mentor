@@ -4,7 +4,7 @@ import {
   StateValues,
 } from "@/interfaces/algorithms.interface";
 import mongoose, { Schema } from "mongoose";
-import { defaultSubscription } from "./subscription.interface";
+import { defaultSubscription } from "../interfaces/subscription.interface";
 import { IUser } from "@/interfaces/user.interface";
 
 interface User extends mongoose.Document, IUser {}

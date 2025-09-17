@@ -1,7 +1,7 @@
 import {
   IBillingHistory,
   ISubscription,
-} from "@/models/subscription.interface";
+} from "@/interfaces/subscription.interface";
 import { IModule } from "./algorithms.interface";
 
 export interface IUser {

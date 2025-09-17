@@ -1,7 +1,7 @@
-import { Plan } from "@/models/user.model";
+import { IPlan } from "@/interfaces/subscription.interface";
 import { Award, GraduationCap, ShieldHalfIcon } from "lucide-react";
 
-export const plans : Plan[] = [
+export const plans: IPlan[] = [
   {
     planID: "basic",
     name: "Basic",

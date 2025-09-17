@@ -1,18 +1,24 @@
 "use client";
-import { Algorithm, Conversation, Module, Subscription, User, UserProfile } from "@/models/user.model";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { ContactFormData } from "@/app/contact/ContactForm";
+import { IUser, IUserProfile } from "@/interfaces/user.interface";
+import {
+  IAlgorithm,
+  IConversation,
+  IModule,
+} from "@/interfaces/algorithms.interface";
+import { ISubscription } from "@/interfaces/subscription.interface";
 
 interface UserContextType {
-  user: User | undefined;
-  updateUserDetails: (userData: UserProfile) => Promise<void>;
-  fetchAlgoMessages: (algoName: string) => Promise<Conversation[] | undefined>;
-  fetchAlgoList: () => Promise<Module[] | undefined>;
-  fetchRecentLearnings: () => Promise<Algorithm[] | undefined>;
+  user: IUser | undefined;
+  updateUserDetails: (userData: IUserProfile) => Promise<void>;
+  fetchAlgoMessages: (algoName: string) => Promise<IConversation[] | undefined>;
+  fetchAlgoList: () => Promise<IModule[] | undefined>;
+  fetchRecentLearnings: () => Promise<IAlgorithm[] | undefined>;
   markModuleStatus: (
     algoName: string,
     status: string
@@ -23,7 +29,7 @@ interface UserContextType {
   >;
   updateStreak: () => Promise<void>;
   submitContactRequest: (contactData: ContactFormData) => Promise<void>;
-  getSubscription: () => Promise<Subscription | null>;
+  getSubscription: () => Promise<ISubscription | null>;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -31,7 +37,7 @@ export const UserContext = createContext<UserContextType | undefined>(
 );
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<IUser>();
   const { data: session, status } = useSession();
 
   const fetchUsersData = async () => {
@@ -51,7 +57,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateUserDetails = async (userData: UserProfile) => {
+  const updateUserDetails = async (userData: IUserProfile) => {
     try {
       const response = await fetch("/api/actions/user-details", {
         method: "PATCH",
@@ -76,7 +82,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   const fetchAlgoMessages = async (
     algoName: string
-  ): Promise<Conversation[] | undefined> => {
+  ): Promise<IConversation[] | undefined> => {
     try {
       const response = await fetch(
         `/api/conversations/getHistory?algoName=${algoName}`,
@@ -98,7 +104,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const fetchAlgoList = async (): Promise<Module[] | undefined> => {
+  const fetchAlgoList = async (): Promise<IModule[] | undefined> => {
     try {
       const response = await fetch("/api/actions/getAlgorithms", {
         method: "GET",
@@ -116,7 +122,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       console.error("Error fetching algorithm list:", error);
     }
   };
-  const fetchRecentLearnings = async (): Promise<Algorithm[] | undefined> => {
+  const fetchRecentLearnings = async (): Promise<IAlgorithm[] | undefined> => {
     try {
       const response = await fetch("/api/actions/getAlgorithms", {
         method: "GET",
@@ -126,7 +132,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       });
       const jsonData = await response.json();
       if (response.status === 200) {
-        const modules = jsonData.data as Module[];
+        const modules = jsonData.data as IModule[];
         return modules
           .filter((mod) => mod.state === "PENDING")
           .map((mod) => mod.algorithm);
@@ -190,7 +196,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const getSubscription = async (): Promise<Subscription | null> => {
+  const getSubscription = async (): Promise<ISubscription | null> => {
     try {
       const response = await fetch("/api/actions/getSubscription", {
         method: "GET",
@@ -210,7 +216,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     return null;
   };
 
-  const submitContactRequest = async (contactData: ContactFormData): Promise<void> => {
+  const submitContactRequest = async (
+    contactData: ContactFormData
+  ): Promise<void> => {
     try {
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
