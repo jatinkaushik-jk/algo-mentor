@@ -1,134 +1,13 @@
-import { plans } from "@/app/pricing/plans";
+import {
+  AccessValues,
+  DifficultyValues,
+  StateValues,
+} from "@/interfaces/algorithms.interface";
 import mongoose, { Schema } from "mongoose";
+import { defaultSubscription } from "./subscription.interface";
+import { IUser } from "@/interfaces/user.interface";
 
-export interface Algorithm {
-  algoID: string;
-  title: string;
-  description: string;
-  timeComplexity: string;
-  label: string;
-  category: string;
-  difficulty: DifficultyValues;
-  access: AccessValues;
-}
-export interface Conversation {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-  createdAt?: Date;
-  // parts?: [
-  //   {
-  //     type: string;
-  //     text: string;
-  //   },
-  // ];
-}
-export interface Plan {
-  planID: string;
-  name: string;
-  label: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; // Store icon as a string (e.g., icon name or path)
-  price: number;
-  duration: "monthly" | "yearly";
-  description: string;
-  features: string[];
-  cta: string;
-}
-
-export interface Subscription {
-  subscription_id: string;
-  plan: Plan;
-  status: "active" | "inactive";
-  startDate: Date;
-  endDate: Date | null;
-  payment_info: {
-    method: string; // e.g., "credit_card" | "paypal" | "upi"
-    amount: number;
-    status: string; // e.g., "paid" | "unpaid" | "pending" | "failed" | "canceled"
-    transaction_id: string;
-  };
-}
-export const defaultSubscription = {
-  subscription_id: "",
-  plan: { ...plans[0], icon: plans[0].icon.displayName },
-  status: "active",
-  startDate: new Date(),
-  endDate: null,
-  payment_info: {
-    method: "",
-    amount: 0,
-    status: "paid",
-    transaction_id: "",
-  },
-};
-export enum DifficultyValues {
-  easy = "Easy",
-  medium = "Medium",
-  hard = "Hard",
-}
-export enum StateValues {
-  pending = "PENDING",
-  completed = "COMPLETED",
-}
-export enum AccessValues {
-  free = "FREE",
-  pro = "PRO",
-  master = "MASTER",
-}
-
-export interface Module {
-  state: StateValues;
-  algorithm: Algorithm;
-  conversation: Conversation[];
-}
-export interface Streak {
-  current: number;
-  highest: number;
-  lastLoginDate: Date | null;
-}
-export interface UserProfile {
-  firstName: string;
-  lastName?: string;
-  email: string;
-  phone?: string;
-  bio?: string;
-  avatar?: string;
-  location?: string;
-  website?: string;
-  learningGoals?: string;
-}
-export interface BillingHistory {
-  date: Date;
-  amount: number;
-  status: "paid" | "unpaid" | "pending" | "failed" | "canceled";
-  transaction_id: string;
-}
-export interface User {
-  email: string;
-  username: string;
-  password: string;
-  profile: UserProfile;
-  subscription: Subscription;
-  streak: Streak;
-  modules: Module[];
-  createdAt: Date;
-  updatedAt: Date | null;
-  settings: {
-    privacy: {
-      profileVisibility: "public" | "private";
-      marketingOptIn: boolean;
-      dataSharing: boolean;
-    };
-    billing: {
-      paymentMethod: ["credit_card", "paypal", "upi"];
-      billingHistory: BillingHistory[];
-    };
-    notification: {
-      emailNotifications: true;
-      smsNotifications: false;
-    };
-  };
-}
+interface User extends mongoose.Document, IUser {}
 
 const AlgorithmSchema = new Schema(
   {
@@ -150,6 +29,7 @@ const AlgorithmSchema = new Schema(
   },
   { _id: false }
 );
+
 const ConversationSchema = new Schema(
   {
     id: String,
@@ -333,6 +213,7 @@ const UserSchema = new Schema({
   updatedAt: { type: Date, default: null },
 });
 
-const UserModel = mongoose.models?.User || mongoose.model("User", UserSchema);
+const UserModel =
+  mongoose.models?.User || mongoose.model<User>("User", UserSchema);
 
 export default UserModel;
