@@ -1,6 +1,6 @@
-import { Module } from "@/models/user.model";
 import { NextResponse as response } from "next/server";
 import { getUserFromDatabase } from "@/helpers/user";
+import { IModule } from "@/interfaces/algorithms.interface";
 
 export async function GET() {
   try {
@@ -8,10 +8,13 @@ export async function GET() {
     if (!user) {
       return response.json({ message: "User not found" }, { status: 404 });
     }
-    const modules = user?.modules as Module[];
+    const modules = user?.modules as IModule[];
     return response.json({ data: modules }, { status: 200 });
   } catch (error) {
     console.error("Error fetching algorithms:", error);
-    return response.json({ message: "Error fetching algorithms" }, { status: 500 });
-    }
+    return response.json(
+      { message: "Error fetching algorithms" },
+      { status: 500 }
+    );
+  }
 }

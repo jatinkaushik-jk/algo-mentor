@@ -1,5 +1,5 @@
 import { getUserFromDatabase } from "@/helpers/user";
-import { UserProfile } from "@/models/user.model";
+import { IUserProfile } from "@/interfaces/user.interface";
 import { NextRequest, NextResponse } from "next/server";
 
 const getUserDetails = async () => {
@@ -35,11 +35,15 @@ const updateUserDetails = async (req: NextRequest) => {
     user.email = userProfileData.email;
     for (const key in userProfileData) {
       if (user.profile.hasOwnProperty(key)) {
-        user.profile[key as keyof UserProfile] = userProfileData[key as keyof UserProfile];
+        user.profile[key as keyof IUserProfile] =
+          userProfileData[key as keyof IUserProfile];
       }
     }
     user.save();
-    return NextResponse.json({ message: "User details updated successfully!" }, { status: 200 });
+    return NextResponse.json(
+      { message: "User details updated successfully!" },
+      { status: 200 }
+    );
   } catch (error) {
     return NextResponse.json(
       { message: "Internal Server Error", data: error },

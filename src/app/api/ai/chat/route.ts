@@ -1,6 +1,6 @@
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
 import { getUserFromDatabase } from "@/helpers/user";
-import { Conversation, Module } from "@/models/user.model";
+import { IConversation, IModule } from "@/interfaces/algorithms.interface";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateId, Message, streamText } from "ai";
 
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
   const lastUserMessage = messages[messages.length - 1];
   const id = lastUserMessage.id || generateId();
   const createdAt = lastUserMessage.createdAt || new Date();
-  const userMessage: Conversation = {
+  const userMessage: IConversation = {
     id,
     role: "user",
     content: lastUserMessage.content,
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     system: SOCRATIC_AI_GUIDELINES,
     onFinish: async (message) => {
       // store message in the database
-      const assistantMessage: Conversation = {
+      const assistantMessage: IConversation = {
         id: generateId(),
         role: "assistant",
         content: message.text,
@@ -72,7 +72,7 @@ const saveMessage = async ({
   message,
   algoName,
 }: {
-  message: Conversation;
+  message: IConversation;
   algoName: string;
 }): Promise<void> => {
   // Saving the message to the database
@@ -82,7 +82,7 @@ const saveMessage = async ({
       console.error("User not found");
       return;
     }
-    const { modules }: { modules: Module[] } = reqUser;
+    const { modules }: { modules: IModule[] } = reqUser;
     if (!modules) {
       console.error("Modules not found for user");
       return;

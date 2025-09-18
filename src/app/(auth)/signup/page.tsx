@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import SignupForm from "./SignupForm";
-import AuthHeader from "../components/authHeader";
+import AuthHeader from "../components/AuthHeader";
 
 export const metadata: Metadata = {
   title: "AlgoMentor Signup Page",
@@ -17,7 +17,9 @@ function SignUpPage() {
           <h2 className="scroll-m-20 text-4xl font-bold tracking-tight">
             Create an account
           </h2>
-          <p className="text-muted-foreground">Join us and start your learning journey today!</p>
+          <p className="text-muted-foreground">
+            Join us and start your learning journey today!
+          </p>
         </div>
         <SignupForm />
       </div>

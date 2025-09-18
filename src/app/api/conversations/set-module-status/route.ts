@@ -1,7 +1,7 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import { Module, StateValues } from "@/models/user.model";
 import { getUserFromDatabase } from "@/helpers/user";
+import { IModule, StateValues } from "@/interfaces/algorithms.interface";
 
 export async function PATCH(req: NextRequest) {
   const { algoName, status }: { algoName: string; status: string } =
@@ -9,7 +9,7 @@ export async function PATCH(req: NextRequest) {
   const state = status.toUpperCase();
 
   try {
-    if(!(Object.values(StateValues).includes(state as StateValues))){
+    if (!Object.values(StateValues).includes(state as StateValues)) {
       console.log(state);
       return res.json({ error: "Module value is incorrect!" }, { status: 400 });
     }
@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const reqModule = user.modules.find(
-      (mod: Module) =>
+      (mod: IModule) =>
         mod?.algorithm?.title.toLowerCase() === algoName.toLowerCase()
     );
 
@@ -31,11 +31,11 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    if(reqModule.state === state){
+    if (reqModule.state === state) {
       return res.json(
-      { message: `Module status is already ${state}.` },
-      { status: 200 }
-    );
+        { message: `Module status is already ${state}.` },
+        { status: 200 }
+      );
     }
     // set state
     reqModule.state = state;

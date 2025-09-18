@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/UserProvider";
 import { useEffect, useState } from "react";
-import { Subscription } from "@/models/user.model";
+import { ISubscription } from "@/interfaces/subscription.interface";
 
 const billingHistory = [
   {
@@ -31,8 +31,8 @@ const billingHistory = [
   },
 ];
 const BillingSettings = () => {
-  const {getSubscription} = useUserContext();
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const { getSubscription } = useUserContext();
+  const [subscription, setSubscription] = useState<ISubscription | null>(null);
 
   useEffect(() => {
     const fetchSubscription = async () => {
@@ -55,8 +55,12 @@ const BillingSettings = () => {
           {/* Current Plan */}
           <div className="bg-blue-50 dark:bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] dark:from-[#1d4ed8] dark:via-[#1e40af] dark:to-[#111827] border border-blue-200 dark:border-0 rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-medium text-blue-800 dark:text-white">Current Plan</h4>
-              <Badge variant="outline">{subscription ? subscription.plan.name : "Loading..."}</Badge>
+              <h4 className="font-medium text-blue-800 dark:text-white">
+                Current Plan
+              </h4>
+              <Badge variant="outline">
+                {subscription ? subscription.plan.name : "Loading..."}
+              </Badge>
             </div>
             <p className="text-sm text-blue-700 dark:text-white/80 mb-3">
               {subscription ? subscription.plan.description : "Loading..."}
@@ -64,10 +68,15 @@ const BillingSettings = () => {
             <div className="flex items-center justify-between flex-wrap gap-x-2 gap-y-4">
               {subscription ? (
                 <span className="text-2xl font-bold text-blue-800 dark:text-white">
-                  {subscription.plan.price} <span className="text-lg">({subscription.plan.duration})</span>
+                  {subscription.plan.price}{" "}
+                  <span className="text-lg">
+                    ({subscription.plan.duration})
+                  </span>
                 </span>
               ) : (
-                <span className="text-2xl font-bold text-blue-800 dark:text-white">Loading...</span>
+                <span className="text-2xl font-bold text-blue-800 dark:text-white">
+                  Loading...
+                </span>
               )}
               <Button size="sm" variant="outline">
                 Change Plan

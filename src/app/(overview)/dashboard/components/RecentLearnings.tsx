@@ -2,7 +2,7 @@
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/UserProvider";
-import { Algorithm } from "@/models/user.model";
+import { IAlgorithm } from "@/interfaces/algorithms.interface";
 import { ArrowRightCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 const RecentLearnings = () => {
   const { fetchRecentLearnings } = useUserContext();
   const router = useRouter();
-  const [recentLearnings, setRecentLearnings] = useState<Algorithm[]>([]);
+  const [recentLearnings, setRecentLearnings] = useState<IAlgorithm[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
   useEffect(() => {
@@ -43,17 +43,23 @@ const RecentLearnings = () => {
           <ul className="space-y-2 mt-2">
             {recentLearnings.map((learnings) => (
               <li key={learnings.algoID}>
-                <Button 
-                onClick={() =>
-                router.push(
-                  `/socratic-ai/${learnings.title
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}`
-                )
-              }
-                variant={"outline"} 
-                className="group w-full flex justify-between items-center">
-                  {learnings.title} <ArrowRightCircle size={20} width={20} className="group-hover:translate-x-1 transition"/>
+                <Button
+                  onClick={() =>
+                    router.push(
+                      `/socratic-ai/${learnings.title
+                        ?.toLowerCase()
+                        .replace(/ /g, "-")}`
+                    )
+                  }
+                  variant={"outline"}
+                  className="group w-full flex justify-between items-center"
+                >
+                  {learnings.title}{" "}
+                  <ArrowRightCircle
+                    size={20}
+                    width={20}
+                    className="group-hover:translate-x-1 transition"
+                  />
                 </Button>
               </li>
             ))}

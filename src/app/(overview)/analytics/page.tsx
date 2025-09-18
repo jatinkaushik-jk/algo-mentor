@@ -6,11 +6,11 @@ import { DifficultyPieChart } from "./DifficultyPieChart";
 import { CategoryPieChart } from "./CategoryPieChart";
 import { ModuleStatusPieChart } from "./ModuleStatusPieChart";
 import AlgorithmTable from "@/components/algorithms/ui/algorithm-table";
-import { Algorithm } from "@/models/user.model";
+import { IAlgorithm } from "@/interfaces/algorithms.interface";
 
 export default function AnalyticsPage() {
   const { getAlgoStats, fetchAlgoList } = useUserContext(); /// add getLoginHistory if needed
-  const [algorithms, setAlgorithms] = useState<Algorithm[]>([]);
+  const [algorithms, setAlgorithms] = useState<IAlgorithm[]>([]);
   // const [loginDates, setLoginDates] = useState<Date[]>([]);
   const [categoryStats, setCategoryStats] = useState<
     { name: string; value: number }[]
@@ -84,17 +84,17 @@ export default function AnalyticsPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(()=>{
-    const fetchAlgorithms = async ()=>{
+  useEffect(() => {
+    const fetchAlgorithms = async () => {
       const modules = await fetchAlgoList();
-      if(modules){
-        const algos = modules.map((mod)=> mod.algorithm);
+      if (modules) {
+        const algos = modules.map((mod) => mod.algorithm);
         setAlgorithms(algos);
       }
-    }
+    };
     fetchAlgorithms();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

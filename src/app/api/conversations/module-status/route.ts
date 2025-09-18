@@ -1,6 +1,6 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import { Module } from "@/models/user.model";
+import { IModule } from "@/interfaces/algorithms.interface";
 import { getUserFromDatabase } from "@/helpers/user";
 
 async function saveModuleStatus(req: NextRequest) {
@@ -14,7 +14,7 @@ async function saveModuleStatus(req: NextRequest) {
     }
 
     const reqModule = user.modules.find(
-      (mod: Module) => mod?.algorithm?.title.toLowerCase() === algoName
+      (mod: IModule) => mod?.algorithm?.title.toLowerCase() === algoName
     );
 
     if (!reqModule) {

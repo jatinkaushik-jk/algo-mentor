@@ -4,14 +4,14 @@ import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
 import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserProvider";
-import { Conversation } from "@/models/user.model";
+import { IConversation } from "@/interfaces/algorithms.interface";
 import { LoaderCircle } from "lucide-react";
 import EndChatDialog from "./components/EndChatDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
-  const [initMessage, setInitMessage] = useState<Conversation[]>([]);
+  const [initMessage, setInitMessage] = useState<IConversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
@@ -84,7 +84,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [algoName, user?.modules]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user?.modules) {
       // Check if the user has completed this module
       const algoModule = user.modules.find(
@@ -100,7 +100,11 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   }, [user?.modules, algoName]);
 
   useEffect(() => {
-    if (!isModuleCompleted && messages.length > 0 && messages[messages.length - 1]?.role === "assistant") {
+    if (
+      !isModuleCompleted &&
+      messages.length > 0 &&
+      messages[messages.length - 1]?.role === "assistant"
+    ) {
       const lastMessage = messages[messages.length - 1];
       if (
         lastMessage.content.includes(

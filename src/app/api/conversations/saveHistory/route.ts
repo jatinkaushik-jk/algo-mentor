@@ -1,14 +1,11 @@
 import { NextResponse as res } from "next/server";
 import type { NextRequest } from "next/server";
-import { Conversation } from "@/models/user.model";
-import { Module } from "@/models/user.model";
 import { getUserFromDatabase } from "@/helpers/user";
+import { IModule, IConversation } from "@/interfaces/algorithms.interface";
 
 async function saveHistory(req: NextRequest) {
-  const {
-    algoName,
-    message,
-  }: { algoName: string; message: Conversation } = await req.json();
+  const { algoName, message }: { algoName: string; message: IConversation } =
+    await req.json();
 
   try {
     const user = await getUserFromDatabase();
@@ -18,7 +15,7 @@ async function saveHistory(req: NextRequest) {
     }
 
     const reqModule = user.modules.find(
-      (mod: Module) => mod?.algorithm?.title.toLowerCase() === algoName
+      (mod: IModule) => mod?.algorithm?.title.toLowerCase() === algoName
     );
 
     if (!reqModule) {

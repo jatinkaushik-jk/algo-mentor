@@ -1,14 +1,14 @@
 "use client";
 import Loader from "@/components/Loader";
 import { useUserContext } from "@/context/UserProvider";
-import { Module } from "@/models/user.model";
+import { IModule } from "@/interfaces/algorithms.interface";
 import { ArrowRightCircleIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const AlgoNav = () => {
-  const [algoList, setAlgoList] = useState<Module[]>([]);
+  const [algoList, setAlgoList] = useState<IModule[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const currentPath = usePathname();
   const router = useRouter();
@@ -20,7 +20,7 @@ const AlgoNav = () => {
       setIsLoading(true);
       try {
         const data = await fetchAlgoList();
-        if(data) {
+        if (data) {
           setAlgoList(data); // Directly set the list from the response
         }
       } catch (error) {
@@ -30,7 +30,7 @@ const AlgoNav = () => {
       }
     };
     if (session?.user) {
-        getAlgorithmsList();
+      getAlgorithmsList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user]);

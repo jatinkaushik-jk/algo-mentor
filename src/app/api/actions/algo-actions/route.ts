@@ -1,9 +1,14 @@
-import UserModel, { Algorithm, Module, StateValues } from "@/models/user.model";
+import UserModel from "@/models/user.model";
 import { NextResponse } from "next/server";
 import { getUserFromDatabase } from "@/helpers/user";
+import {
+  IAlgorithm,
+  IModule,
+  StateValues,
+} from "@/interfaces/algorithms.interface";
 
 const sendAlgoData = async (req: Request) => {
-  const algorithm = (await req.json()) as Algorithm;
+  const algorithm = (await req.json()) as IAlgorithm;
 
   try {
     // Fetching user from database
@@ -17,7 +22,7 @@ const sendAlgoData = async (req: Request) => {
       );
     }
 
-    const { _id, modules }: { _id: string; modules: Module[] } = reqUser;
+    const { _id, modules }: { _id: string; modules: IModule[] } = reqUser;
 
     // check for algorithm access
     const algoAccessFlag = algorithm.access;
