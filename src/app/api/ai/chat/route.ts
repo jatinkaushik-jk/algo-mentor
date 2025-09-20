@@ -49,7 +49,7 @@ export async function POST(req: Request) {
   await saveMessage({ message: userMessage, algoName });
 
   const result = await streamText({
-    model: google("gemini-2.0-flash-001"),
+    model: google("gemini-2.5-flash"),
     messages: buildGoogleGenAIPrompt(messages),
     temperature: 0.8,
     system: SOCRATIC_AI_GUIDELINES,
