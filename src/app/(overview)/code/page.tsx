@@ -8,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { BugPlayIcon, LockKeyholeIcon, PlayIcon } from "lucide-react";
 
 export const languages = [
   {
@@ -50,6 +52,8 @@ int main() {
   },
 ];
 
+const isSubscribed = false; // TODO: fetch this from user session [next-auth]
+
 const CodePage = () => {
   const [lang, setLang] = React.useState<{ language: string; code: string }>(
     languages[0]
@@ -66,38 +70,57 @@ const CodePage = () => {
   }
 
   return (
-    <div className="w-full h-96">
-      <div>
-        <Select
-          defaultValue={languages[0].language}
-          onValueChange={(value) =>
-            setLang(
-              languages.find((lang) => lang.language === value) || languages[0]
-            )
-          }
-        >
-          <SelectTrigger className="w-32">
-            <SelectValue placeholder="Language" />
-          </SelectTrigger>
-          <SelectContent>
-            {languages.map((lang) => (
-              <SelectItem key={lang.language} value={lang.language}>
-                {lang.language}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <div className="grid grid-cols-8 grid-rows-6 gap-4 h-full lg:h-[calc(100dvh-6.2rem)]">
+      <div className="chat col-span-full lg:col-span-3 bg-red-500 row-span-full">
+        Chat
       </div>
-      <Editor
-        height="100%"
-        theme="vs-dark"
-        language={lang.language}
-        defaultLanguage={languages[0].language}
-        defaultValue={lang.code}
-        value={lang.code}
-        onChange={handleEditorChange}
-        onValidate={handleEditorValidation}
-      />
+      <div className="w-full col-span-5 row-span-4 lg:flex flex-col hidden">
+        <div className="flex flex-row items-center justify-between mb-2">
+          <Select
+            defaultValue={languages[0].language}
+            onValueChange={(value) =>
+              setLang(
+                languages.find((lang) => lang.language === value) ||
+                  languages[0]
+              )
+            }
+          >
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder="Language" />
+            </SelectTrigger>
+            <SelectContent>
+              {languages.map((lang) => (
+                <SelectItem key={lang.language} value={lang.language}>
+                  {lang.language}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <div className="flex flex-row gap-2 items-center justify-center">
+            <Button variant={"outline"}>
+              {isSubscribed ? <BugPlayIcon /> : <LockKeyholeIcon />}
+            </Button>
+            <Button>
+              <PlayIcon size={12} strokeWidth={4} className="mr-2" /> Run
+            </Button>
+          </div>
+        </div>
+        <div className="bg-[#1e1e1e] py-2 flex-1">
+          <Editor
+            height="100%"
+            theme="vs-dark"
+            language={lang.language}
+            defaultLanguage={languages[0].language}
+            defaultValue={lang.code}
+            value={lang.code}
+            onChange={handleEditorChange}
+            onValidate={handleEditorValidation}
+          />
+        </div>
+      </div>
+      <div className="console bg-red-800 col-span-5 lg:flex hidden row-span-2">
+        Console
+      </div>
     </div>
   );
 };

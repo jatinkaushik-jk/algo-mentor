@@ -22,7 +22,7 @@ export default function DashboardLayout({
       router.push("/login");
     },
   });
-  const {updateStreak} = useUserContext();
+  const { updateStreak } = useUserContext();
 
   React.useEffect(() => {
     switch (currentPath) {
@@ -62,7 +62,7 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 ">
       <SidebarNavigations></SidebarNavigations>
-      <div className="flex flex-col sm:gap-4 sm:pl-14">
+      <div className="flex flex-col gap-2 sm:gap-4 sm:pl-14">
         <Header pageHeading={pageHeading} searchbar={false}></Header>
         <main className="p-6 pt-0">{children}</main>
       </div>
