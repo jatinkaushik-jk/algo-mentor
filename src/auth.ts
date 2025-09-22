@@ -111,12 +111,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // User is available during sign-in
         const userFromDB = await UserModel.findById(user.id);
         token.id = user.id;
+        token.exp = Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60; // 7 days
         token.subscriptionPlan = userFromDB?.subscription.plan.name;
       }
       return token;
     },
     session({ session, token }) {
       session.user.id = token.id as string;
+      session.expires = new Date(
+        (token.exp as number) * 1000
+      ).toISOString() as Date & string;
       session.user.subscriptionPlan = token.subscriptionPlan as string;
       return session;
     },
