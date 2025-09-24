@@ -14,6 +14,7 @@ import { BugPlayIcon, LockKeyholeIcon, PlayIcon } from "lucide-react";
 export const languages = [
   {
     language: "javascript",
+    version: "15.10.0",
     code: `// JavaScript Boilerplate
 function main() {
   console.log("Hello, World!");
@@ -23,6 +24,7 @@ main();`,
   },
   {
     language: "python",
+    version: "3.10.0",
     code: `# Python Boilerplate
 def main():
     print("Hello, World!")
@@ -32,6 +34,7 @@ if __name__ == "__main__":
   },
   {
     language: "java",
+    version: "17.0.1",
     code: `// Java Boilerplate
 public class Main {
     public static void main(String[] args) {
@@ -41,6 +44,7 @@ public class Main {
   },
   {
     language: "cpp",
+    version: "20.0.0",
     code: `// C++ Boilerplate
 #include <iostream>
 using namespace std;
@@ -52,14 +56,37 @@ int main() {
   },
 ];
 
+const bodyTemplate = {
+  language: "js",
+  version: "15.10.0",
+  files: [
+    {
+      name: "my_cool_code.js",
+      content: "console.log(process.argv)",
+    },
+  ],
+  stdin: "",
+  args: ["1", "2", "3"],
+  compile_timeout: 10000,
+  run_timeout: 3000,
+  compile_memory_limit: -1,
+  run_memory_limit: -1,
+};
+
 const isSubscribed = false; // TODO: fetch this from user session [next-auth]
 
 const CodePage = () => {
-  const [lang, setLang] = React.useState<{ language: string; code: string }>(
-    languages[0]
-  );
+  const [lang, setLang] = React.useState<{
+    language: string;
+    version: string;
+    code: string;
+  }>(languages[0]);
+  const [code, setCode] = React.useState<string>(languages[0].code);
+  const [output, setOutput] = React.useState<string>("");
+
   function handleEditorChange(value: string | undefined, event: any) {
     console.log("here is the current model value:", value);
+    setCode(value || "");
     // here is the current value
   }
 
@@ -67,6 +94,35 @@ const CodePage = () => {
     console.log("onValidate: markers", markers);
     // model markers
     // markers.forEach(marker => console.log('onValidate:', marker.message));
+  }
+
+  async function handleRunCode() {
+    console.log("Running code...");
+
+    try {
+      // use piston api to run code
+      // https://piston.rs/
+      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...bodyTemplate,
+          language: lang.language,
+          version: lang.version,
+          files: [{ name: `code.${"user+algo"}`, content: code }],
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Error running code");
+      }
+      console.log("Response from piston:", data);
+      setOutput(data.run.stdout || data.run.stderr || "No output");
+    } catch (error) {
+      console.error("Error running code:", error);
+    }
   }
 
   return (
@@ -119,7 +175,7 @@ const CodePage = () => {
         </div>
       </div>
       <div className="console bg-red-800 col-span-5 lg:flex hidden row-span-2">
-        Console
+        Console: {output}
       </div>
     </div>
   );
