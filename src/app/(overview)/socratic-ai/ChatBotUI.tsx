@@ -55,6 +55,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     });
   }
 
+  // Fetch initial messages for the algorithm
   useEffect(() => {
     async function fetchInitialMessages() {
       const data = await fetchAlgoMessages(algoName.toLowerCase());
@@ -84,6 +85,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [algoName, user?.modules]);
 
+  // Check if the user has already completed this module
   useEffect(() => {
     if (user?.modules) {
       // Check if the user has completed this module
@@ -99,6 +101,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
     }
   }, [user?.modules, algoName]);
 
+  // Trigger End Chat Dialog when the last message from AI is a prompt to end conversation
   useEffect(() => {
     if (
       !isModuleCompleted &&

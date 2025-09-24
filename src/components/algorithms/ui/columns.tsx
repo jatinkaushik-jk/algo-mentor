@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { difficulty, access, category } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 export const columns: ColumnDef<Task>[] = [
   // {
@@ -31,41 +31,43 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
-
       return (
         <div className="flex space-x-2">
           <span
             // get algorithm details for redirection
-            onClick={async () => {
-              try {
-                const res = await fetch("api/actions/algo-actions", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(row.original),
-                });
-                const result = await res.json();
-                if (res.status == 200) {
-                  window.location.href = `/socratic-ai/${row.original.title
-                    .toLowerCase()
-                    .replace(/ /g, "-")}`;
-                }
-                else if (res.status == 403) {
-                  toast.error(result.message, {
-                    description: "Please upgrade your plan to access this feature.",
-                    action: {
-                      label: "Upgrade",
-                      onClick: () => window.location.href = '/pricing',
-                    },
-                  });
-                } else {
-                  toast.error(result.message);
-                }
-              } catch (error) {
-                console.log("Error: ", error);
-              }
-            }}
+            // onClick={async () => {
+            //   try {
+            //     const res = await fetch("api/actions/algo-actions", {
+            //       method: "POST",
+            //       headers: {
+            //         "Content-Type": "application/json",
+            //       },
+            //       body: JSON.stringify(row.original),
+            //     });
+            //     const result = await res.json();
+            //     if (res.status == 200) {
+            //       window.location.href = `/socratic-ai/${row.original.title
+            //         .toLowerCase()
+            //         .replace(/ /g, "-")}`;
+            //     }
+            //     else if (res.status == 403) {
+            //       toast.error(result.message, {
+            //         description: "Please upgrade your plan to access this feature.",
+            //         action: {
+            //           label: "Upgrade",
+            //           onClick: () => window.location.href = '/pricing',
+            //         },
+            //       });
+            //     } else {
+            //       toast.error(result.message);
+            //     }
+            //   } catch (error) {
+            //     console.log("Error: ", error);
+            //   }
+            // }}
+            onClick={() =>
+              (window.location.href = `/socratic-ai/${row.original.title.toLowerCase().replace(/ /g, "-")}`)
+            }
             className="sm:max-w-[200px] max-w-28 overflow-x-hidden text-ellipsis truncate font-medium hover:text-primary cursor-pointer"
           >
             {row.getValue("title")}
@@ -80,10 +82,14 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      const categoryValue = category.find((cat) => cat.value === row.getValue("category"));
+      const categoryValue = category.find(
+        (cat) => cat.value === row.getValue("category")
+      );
       return (
         <div>
-          <Badge variant="outline" className="text-pretty">{categoryValue?.label}</Badge>
+          <Badge variant="outline" className="text-pretty">
+            {categoryValue?.label}
+          </Badge>
         </div>
       );
     },
@@ -163,11 +169,8 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex items-center">
-          <span
-            className="font-semibold"
-            style={{ color: accessFlags.color }}
-          >
-            <accessFlags.icon size={16}/>
+          <span className="font-semibold" style={{ color: accessFlags.color }}>
+            <accessFlags.icon size={16} />
           </span>
         </div>
       );
