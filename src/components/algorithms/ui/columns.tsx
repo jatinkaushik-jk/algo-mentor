@@ -66,7 +66,7 @@ export const columns: ColumnDef<Task>[] = [
             //   }
             // }}
             onClick={() =>
-              (window.location.href = `/socratic-ai/${row.original.title.toLowerCase().replace(/ /g, "-")}`)
+              (window.location.href = `/socratic-ai/${row.original.algoID}`)
             }
             className="sm:max-w-[200px] max-w-28 overflow-x-hidden text-ellipsis truncate font-medium hover:text-primary cursor-pointer"
           >

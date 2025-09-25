@@ -9,9 +9,9 @@
 //    Hard: 12 algorithms
 
 export const algorithms = [
-  // Sorting Algorithms (Algo001-Algo010)
+  // Sorting Algorithms (algo001-algo010)
   {
-    algoID: "Algo001",
+    algoID: "algo001",
     title: "Bubble Sort",
     description: "Simple comparison-based sorting.",
     difficulty: "Easy",
@@ -21,7 +21,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo002",
+    algoID: "algo002",
     title: "Merge Sort",
     description: "Efficient, divide-and-conquer sorting.",
     difficulty: "Medium",
@@ -31,7 +31,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo003",
+    algoID: "algo003",
     title: "Quick Sort",
     description: "Fast, in-place partition sorting.",
     difficulty: "Hard",
@@ -41,7 +41,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo004",
+    algoID: "algo004",
     title: "Selection Sort",
     description: "Finds minimum, swaps positions.",
     difficulty: "Easy",
@@ -51,7 +51,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo005",
+    algoID: "algo005",
     title: "Heap Sort",
     description: "Uses heap to sort elements.",
     difficulty: "Medium",
@@ -61,7 +61,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo006",
+    algoID: "algo006",
     title: "Insertion Sort",
     description: "Builds sorted array one element.",
     difficulty: "Easy",
@@ -71,7 +71,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo007",
+    algoID: "algo007",
     title: "Radix Sort",
     description: "Non-comparative, digit-wise sorting.",
     difficulty: "Medium",
@@ -81,7 +81,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo008",
+    algoID: "algo008",
     title: "Shell Sort",
     description: "Improved version of insertion sort.",
     difficulty: "Medium",
@@ -91,7 +91,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo009",
+    algoID: "algo009",
     title: "Counting Sort",
     description: "Counts elements, sorts non-comparatively.",
     difficulty: "Easy",
@@ -101,7 +101,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo010",
+    algoID: "algo010",
     title: "Tim Sort",
     description: "Hybrid merge and insertion sort.",
     difficulty: "Hard",
@@ -111,9 +111,9 @@ export const algorithms = [
     access: "PRO",
   },
 
-  // Searching Algorithms (Algo011-Algo015)
+  // Searching Algorithms (algo011-algo015)
   {
-    algoID: "Algo011",
+    algoID: "algo011",
     title: "Linear Search",
     description: "Sequentially checks each element.",
     difficulty: "Easy",
@@ -123,7 +123,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo012",
+    algoID: "algo012",
     title: "Binary Search",
     description: "Efficient search for sorted arrays.",
     difficulty: "Easy",
@@ -133,7 +133,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo013",
+    algoID: "algo013",
     title: "Depth-First Search (DFS)",
     description: "Traverses tree/graph depth-first.",
     difficulty: "Medium",
@@ -143,7 +143,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo014",
+    algoID: "algo014",
     title: "Breadth-First Search (BFS)",
     description: "Traverses tree/graph breadth-first.",
     difficulty: "Medium",
@@ -153,7 +153,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo015",
+    algoID: "algo015",
     title: "Jump Search",
     description: "Jump ahead and then perform linear search.",
     difficulty: "Medium",
@@ -163,9 +163,9 @@ export const algorithms = [
     access: "MASTER",
   },
 
-  // Dynamic Programming Algorithms (Algo016-Algo020)
+  // Dynamic Programming Algorithms (algo016-algo020)
   {
-    algoID: "Algo016",
+    algoID: "algo016",
     title: "Longest Common Subsequence (LCS)",
     description: "Finds longest subsequence common to sequences.",
     difficulty: "Medium",
@@ -175,7 +175,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo017",
+    algoID: "algo017",
     title: "0/1 Knapsack Problem",
     description: "Optimizes value within weight constraint.",
     difficulty: "Medium",
@@ -185,7 +185,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo018",
+    algoID: "algo018",
     title: "Edit Distance (Levenshtein)",
     description: "Minimum operations to transform strings.",
     difficulty: "Hard",
@@ -195,7 +195,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo019",
+    algoID: "algo019",
     title: "Coin Change Problem",
     description: "Minimum coins needed for target amount.",
     difficulty: "Medium",
@@ -205,7 +205,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo020",
+    algoID: "algo020",
     title: "Longest Increasing Subsequence",
     description: "Finds longest strictly increasing subsequence.",
     difficulty: "Medium",
@@ -215,9 +215,9 @@ export const algorithms = [
     access: "PRO",
   },
 
-  // Greedy Algorithms (Algo021-Algo024)
+  // Greedy Algorithms (algo021-algo024)
   {
-    algoID: "Algo021",
+    algoID: "algo021",
     title: "Dijkstra's Shortest Path",
     description: "Finds shortest path in weighted graph.",
     difficulty: "Hard",
@@ -227,7 +227,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo022",
+    algoID: "algo022",
     title: "Fractional Knapsack",
     description: "Maximizes value with fractional items.",
     difficulty: "Easy",
@@ -237,7 +237,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo023",
+    algoID: "algo023",
     title: "Activity Selection Problem",
     description: "Selects maximum non-overlapping activities.",
     difficulty: "Easy",
@@ -247,7 +247,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo024",
+    algoID: "algo024",
     title: "Huffman Coding",
     description: "Optimal prefix-free encoding algorithm.",
     difficulty: "Medium",
@@ -257,9 +257,9 @@ export const algorithms = [
     access: "MASTER",
   },
 
-  // Divide and Conquer (Algo025-Algo027)
+  // Divide and Conquer (algo025-algo027)
   {
-    algoID: "Algo025",
+    algoID: "algo025",
     title: "Strassen's Matrix Multiplication",
     description: "Efficient matrix multiplication algorithm.",
     difficulty: "Hard",
@@ -269,7 +269,7 @@ export const algorithms = [
     access: "MASTER",
   },
   {
-    algoID: "Algo026",
+    algoID: "algo026",
     title: "Closest Pair of Points",
     description: "Finds closest pair in 2D plane.",
     difficulty: "Hard",
@@ -279,7 +279,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo027",
+    algoID: "algo027",
     title: "Maximum Subarray (Kadane's)",
     description: "Finds contiguous subarray with maximum sum.",
     difficulty: "Medium",
@@ -289,9 +289,9 @@ export const algorithms = [
     access: "FREE",
   },
 
-  // Hashing Algorithms (Algo028-Algo029)
+  // Hashing Algorithms (algo028-algo029)
   {
-    algoID: "Algo028",
+    algoID: "algo028",
     title: "Hash Table Implementation",
     description: "Key-value storage with constant access.",
     difficulty: "Medium",
@@ -301,7 +301,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo029",
+    algoID: "algo029",
     title: "Consistent Hashing",
     description: "Distributes keys across dynamic nodes.",
     difficulty: "Hard",
@@ -311,9 +311,9 @@ export const algorithms = [
     access: "MASTER",
   },
 
-  // Backtracking Algorithms (Algo030-Algo032)
+  // Backtracking Algorithms (algo030-algo032)
   {
-    algoID: "Algo030",
+    algoID: "algo030",
     title: "N-Queens Problem",
     description: "Places N queens on chessboard safely.",
     difficulty: "Hard",
@@ -323,7 +323,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo031",
+    algoID: "algo031",
     title: "Sudoku Solver",
     description: "Solves 9x9 Sudoku puzzle completely.",
     difficulty: "Hard",
@@ -333,7 +333,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo032",
+    algoID: "algo032",
     title: "Permutations Generation",
     description: "Generates all possible permutations.",
     difficulty: "Medium",
@@ -343,9 +343,9 @@ export const algorithms = [
     access: "FREE",
   },
 
-  // Graph Algorithms (Algo033-Algo034)
+  // Graph Algorithms (algo033-algo034)
   {
-    algoID: "Algo033",
+    algoID: "algo033",
     title: "Kruskal's MST Algorithm",
     description: "Finds minimum spanning tree efficiently.",
     difficulty: "Medium",
@@ -355,7 +355,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo034",
+    algoID: "algo034",
     title: "Topological Sort",
     description: "Linear ordering of directed acyclic graph.",
     difficulty: "Medium",
@@ -365,9 +365,9 @@ export const algorithms = [
     access: "FREE",
   },
 
-  // Tree Algorithm (Algo035)
+  // Tree Algorithm (algo035)
   {
-    algoID: "Algo035",
+    algoID: "algo035",
     title: "Lowest Common Ancestor (LCA)",
     description: "Finds deepest common ancestor in tree.",
     difficulty: "Medium",
@@ -377,10 +377,10 @@ export const algorithms = [
     access: "PRO",
   },
 
-  // Additional High-Frequency Algorithms (Algo036-Algo050)
+  // Additional High-Frequency Algorithms (algo036-algo050)
   // String Algorithms
   {
-    algoID: "Algo036",
+    algoID: "algo036",
     title: "KMP String Matching",
     description: "Efficient pattern matching with failure function.",
     difficulty: "Hard",
@@ -390,7 +390,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo037",
+    algoID: "algo037",
     title: "Rabin-Karp Algorithm",
     description: "Rolling hash pattern matching.",
     difficulty: "Medium",
@@ -400,7 +400,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo038",
+    algoID: "algo038",
     title: "Longest Palindromic Substring",
     description: "Finds longest palindrome in string.",
     difficulty: "Medium",
@@ -412,7 +412,7 @@ export const algorithms = [
 
   // More Dynamic Programming
   {
-    algoID: "Algo039",
+    algoID: "algo039",
     title: "House Robber Problem",
     description: "Maximum money without adjacent houses.",
     difficulty: "Easy",
@@ -422,7 +422,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo040",
+    algoID: "algo040",
     title: "Palindrome Partitioning",
     description: "Minimum cuts for palindromic partition.",
     difficulty: "Hard",
@@ -432,7 +432,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo041",
+    algoID: "algo041",
     title: "Maximum Product Subarray",
     description: "Finds subarray with maximum product.",
     difficulty: "Medium",
@@ -444,7 +444,7 @@ export const algorithms = [
 
   // More Graph Algorithms
   {
-    algoID: "Algo042",
+    algoID: "algo042",
     title: "Floyd-Warshall Algorithm",
     description: "All-pairs shortest path algorithm.",
     difficulty: "Hard",
@@ -454,7 +454,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo043",
+    algoID: "algo043",
     title: "Bellman-Ford Algorithm",
     description: "Single-source shortest path with negative edges.",
     difficulty: "Medium",
@@ -464,7 +464,7 @@ export const algorithms = [
     access: "PRO",
   },
   {
-    algoID: "Algo044",
+    algoID: "algo044",
     title: "Union Find (Disjoint Set)",
     description: "Efficiently tracks set partitions.",
     difficulty: "Medium",
@@ -476,7 +476,7 @@ export const algorithms = [
 
   // Advanced Data Structures
   {
-    algoID: "Algo045",
+    algoID: "algo045",
     title: "Trie (Prefix Tree)",
     description: "Tree for storing strings efficiently.",
     difficulty: "Medium",
@@ -486,7 +486,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo046",
+    algoID: "algo046",
     title: "Segment Tree",
     description: "Range query and update operations.",
     difficulty: "Hard",
@@ -498,7 +498,7 @@ export const algorithms = [
 
   // Two Pointers Technique
   {
-    algoID: "Algo047",
+    algoID: "algo047",
     title: "Container With Most Water",
     description: "Two pointers to find maximum area.",
     difficulty: "Medium",
@@ -508,7 +508,7 @@ export const algorithms = [
     access: "FREE",
   },
   {
-    algoID: "Algo048",
+    algoID: "algo048",
     title: "Remove Duplicates from Sorted Array",
     description: "In-place duplicate removal technique.",
     difficulty: "Easy",
@@ -520,7 +520,7 @@ export const algorithms = [
 
   // Sliding Window
   {
-    algoID: "Algo049",
+    algoID: "algo049",
     title: "Longest Substring Without Repeating",
     description: "Sliding window for unique character substring.",
     difficulty: "Medium",
@@ -532,7 +532,7 @@ export const algorithms = [
 
   // Advanced Algorithms
   {
-    algoID: "Algo050",
+    algoID: "algo050",
     title: "Boyer-Moore Majority Vote",
     description: "Finds majority element efficiently.",
     difficulty: "Easy",

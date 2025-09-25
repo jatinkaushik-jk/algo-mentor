@@ -49,11 +49,7 @@ const AlgoNav = () => {
             <div
               key={module?.algorithm?.algoID}
               onClick={() =>
-                router.push(
-                  `/socratic-ai/${module?.algorithm?.title
-                    ?.toLowerCase()
-                    .replace(/ /g, "-")}`
-                )
+                router.push(`/socratic-ai/${module?.algorithm?.algoID}`)
               }
               className={`font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary ${
                 currentPath.includes(

@@ -10,7 +10,7 @@ import EndChatDialog from "./components/EndChatDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
+export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
   const [initMessage, setInitMessage] = useState<IConversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
@@ -34,7 +34,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
 
   function endConversation() {
     // Mark module status as completed
-    markModuleStatus(algoName, "COMPLETED").then(
+    markModuleStatus(algoID, "COMPLETED").then(
       (res) =>
         res &&
         toast("Module Completed", {
@@ -58,14 +58,14 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
   // Fetch initial messages for the algorithm
   useEffect(() => {
     async function fetchInitialMessages() {
-      const data = await fetchAlgoMessages(algoName.toLowerCase());
+      const data = await fetchAlgoMessages(algoID.toLowerCase());
       // Update initial input only if no history
       setIsLoading(false);
       if (data?.length === 0) {
-        setInitInput(algoName); // check whether this is needed
+        setInitInput(algoID); // check whether this is needed
         append({
           role: "user",
-          content: algoName,
+          content: algoID,
           createdAt: new Date(),
           id: crypto.randomUUID(),
         });
@@ -83,14 +83,14 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
 
     if (user?.modules) fetchInitialMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [algoName, user?.modules]);
+  }, [algoID, user?.modules]);
 
   // Check if the user has already completed this module
   useEffect(() => {
     if (user?.modules) {
       // Check if the user has completed this module
       const algoModule = user.modules.find(
-        (mod) => mod.algorithm?.title.toLowerCase() === algoName.toLowerCase()
+        (mod) => mod.algorithm?.title.toLowerCase() === algoID.toLowerCase()
       );
       if (algoModule?.state === "COMPLETED") {
         toast("Module already completed", {
@@ -99,7 +99,7 @@ export default function ChatBotUI({ algoName = "" }: { algoName?: string }) {
         setIsModuleCompleted(true);
       }
     }
-  }, [user?.modules, algoName]);
+  }, [user?.modules, algoID]);
 
   // Trigger End Chat Dialog when the last message from AI is a prompt to end conversation
   useEffect(() => {
