@@ -1,13 +1,13 @@
-import { LoaderCircle } from 'lucide-react'
-import React from 'react'
+import { LoaderCircle } from "lucide-react";
+import React from "react";
 
-const Loader = () => {
+const Loader = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div className="w-full h-full min-h-40 grid place-content-center text-center">
+    <div className="w-full h-full min-h-40 grid gap-2 place-content-center text-center">
       <LoaderCircle className="animate-spin mx-auto" />
-      Loading...
+      {children || "Loading..."}
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

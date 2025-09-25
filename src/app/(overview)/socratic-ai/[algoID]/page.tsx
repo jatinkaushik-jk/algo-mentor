@@ -4,6 +4,7 @@ import AlgoNav from "../components/AlgoNav";
 import ChatBotUI from "../ChatBotUI";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Loader from "@/components/Loader";
 
 export default function SocraticAI() {
   const { algoID } = useParams<{ algoID: string }>();
@@ -49,13 +50,7 @@ export default function SocraticAI() {
       <AlgoNav></AlgoNav>
       <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
         {isValidAlgo && <ChatBotUI algoID={algoID} />}
-        {!isValidAlgo && (
-          <div className="w-full h-full flex items-center justify-center">
-            <p className="text-muted-foreground">
-              Verifying algorithm access...
-            </p>
-          </div>
-        )}
+        {!isValidAlgo && <Loader>Verifying algorithm access...</Loader>}
       </div>
     </div>
   );
