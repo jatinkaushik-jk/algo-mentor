@@ -6,9 +6,10 @@ import {
   IModule,
   StateValues,
 } from "@/interfaces/algorithms.interface";
+import { algorithms } from "@/components/algorithms/data/algorithms";
 
 const sendAlgoData = async (req: Request) => {
-  const algorithm = (await req.json()) as IAlgorithm;
+  const { algoID } = await req.json();
 
   try {
     // Fetching user from database
@@ -24,8 +25,17 @@ const sendAlgoData = async (req: Request) => {
 
     const { _id, modules }: { _id: string; modules: IModule[] } = reqUser;
 
+    // Fetching valid algorithm from user's algorithm list
+    const reqAlgorithm = algorithms.find((algo) => algo.algoID === algoID);
+
+    if (!reqAlgorithm) {
+      return NextResponse.json(
+        { message: "Algorithm not found" },
+        { status: 404 }
+      );
+    }
     // check for algorithm access
-    const algoAccessFlag = algorithm.access;
+    const algoAccessFlag = reqAlgorithm?.access;
     const userSubscriptionPlan = reqUser.subscription.plan.name;
     let isAuthorized = false;
 
@@ -56,11 +66,11 @@ const sendAlgoData = async (req: Request) => {
 
     // Checking whether requested Algorithm already visited or not
     if (modules.length > 0) {
-      const existingAlgo = modules.filter((module) => {
-        return module?.algorithm?.algoID == algorithm.algoID;
+      const existingAlgo = modules.find((module) => {
+        return module?.algorithm?.algoID == algoID;
       });
 
-      if (existingAlgo.length === 1) {
+      if (existingAlgo) {
         isAlgoExist = true;
       }
     }
@@ -81,7 +91,11 @@ const sendAlgoData = async (req: Request) => {
         );
       }
 
-      modules.push({ algorithm, state: StateValues.pending, conversation: [] });
+      modules.push({
+        algorithm: reqAlgorithm as IAlgorithm,
+        state: StateValues.pending,
+        conversation: [],
+      });
       await UserModel.findOneAndUpdate({ _id }, { modules });
     }
 
