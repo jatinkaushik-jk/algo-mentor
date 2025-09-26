@@ -16,11 +16,11 @@ import { ISubscription } from "@/interfaces/subscription.interface";
 interface UserContextType {
   user: IUser | undefined;
   updateUserDetails: (userData: IUserProfile) => Promise<void>;
-  fetchAlgoMessages: (algoName: string) => Promise<IConversation[] | undefined>;
+  fetchAlgoMessages: (algoID: string) => Promise<IConversation[] | undefined>;
   fetchAlgoList: () => Promise<IModule[] | undefined>;
   fetchRecentLearnings: () => Promise<IAlgorithm[] | undefined>;
   markModuleStatus: (
-    algoName: string,
+    algoID: string,
     status: string
   ) => Promise<boolean | undefined>;
   getLoginHistory: () => Promise<string[]>;
@@ -81,11 +81,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   };
 
   const fetchAlgoMessages = async (
-    algoName: string
+    algoID: string
   ): Promise<IConversation[] | undefined> => {
     try {
       const response = await fetch(
-        `/api/conversations/getHistory?algoName=${algoName}`,
+        `/api/conversations/getHistory?algoID=${algoID}`,
         {
           method: "GET",
           headers: {
@@ -144,7 +144,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
   const markModuleStatus = async (
-    algoName: string,
+    algoID: string,
     status: string
   ): Promise<boolean | undefined> => {
     try {
@@ -153,7 +153,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ algoName, status: status.toUpperCase() }),
+        body: JSON.stringify({ algoID, status: status.toUpperCase() }),
       });
       const jsonData = await response.json();
       if (response.status === 200) {

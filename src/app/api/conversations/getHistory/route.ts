@@ -4,7 +4,7 @@ import { IModule } from "@/interfaces/algorithms.interface";
 import { getUserFromDatabase } from "@/helpers/user";
 
 async function getHistory(req: NextRequest) {
-  const algoName = req.nextUrl.searchParams.get("algoName");
+  const algoID = req.nextUrl.searchParams.get("algoID");
 
   try {
     const user = await getUserFromDatabase();
@@ -14,7 +14,7 @@ async function getHistory(req: NextRequest) {
     }
 
     const reqModule = user.modules.find(
-      (mod: IModule) => mod?.algorithm?.title.toLowerCase() === algoName
+      (mod: IModule) => mod?.algorithm?.algoID === algoID
     );
 
     if (!reqModule) {

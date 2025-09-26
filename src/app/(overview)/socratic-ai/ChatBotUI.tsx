@@ -4,13 +4,13 @@ import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
 import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/UserProvider";
-import { IConversation } from "@/interfaces/algorithms.interface";
+import { IAlgorithm, IConversation } from "@/interfaces/algorithms.interface";
 import { LoaderCircle } from "lucide-react";
 import EndChatDialog from "./components/EndChatDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
+export default function ChatBotUI({ algorithm }: { algorithm: IAlgorithm }) {
   const [initMessage, setInitMessage] = useState<IConversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
@@ -34,7 +34,7 @@ export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
 
   function endConversation() {
     // Mark module status as completed
-    markModuleStatus(algoID, "COMPLETED").then(
+    markModuleStatus(algorithm.algoID, "COMPLETED").then(
       (res) =>
         res &&
         toast("Module Completed", {
@@ -58,14 +58,14 @@ export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
   // Fetch initial messages for the algorithm
   useEffect(() => {
     async function fetchInitialMessages() {
-      const data = await fetchAlgoMessages(algoID.toLowerCase());
+      const data = await fetchAlgoMessages(algorithm.algoID);
       // Update initial input only if no history
       setIsLoading(false);
       if (data?.length === 0) {
-        setInitInput(algoID); // check whether this is needed
+        setInitInput(algorithm.title); // check whether this is needed
         append({
           role: "user",
-          content: algoID,
+          content: algorithm.title,
           createdAt: new Date(),
           id: crypto.randomUUID(),
         });
@@ -83,14 +83,14 @@ export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
 
     if (user?.modules) fetchInitialMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [algoID, user?.modules]);
+  }, [algorithm, user?.modules]);
 
   // Check if the user has already completed this module
   useEffect(() => {
     if (user?.modules) {
       // Check if the user has completed this module
       const algoModule = user.modules.find(
-        (mod) => mod.algorithm?.title.toLowerCase() === algoID.toLowerCase()
+        (mod) => mod.algorithm?.algoID === algorithm.algoID
       );
       if (algoModule?.state === "COMPLETED") {
         toast("Module already completed", {
@@ -99,7 +99,7 @@ export default function ChatBotUI({ algoID = "" }: { algoID?: string }) {
         setIsModuleCompleted(true);
       }
     }
-  }, [user?.modules, algoID]);
+  }, [user?.modules, algorithm]);
 
   // Trigger End Chat Dialog when the last message from AI is a prompt to end conversation
   useEffect(() => {

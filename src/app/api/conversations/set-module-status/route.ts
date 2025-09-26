@@ -4,7 +4,7 @@ import { getUserFromDatabase } from "@/helpers/user";
 import { IModule, StateValues } from "@/interfaces/algorithms.interface";
 
 export async function PATCH(req: NextRequest) {
-  const { algoName, status }: { algoName: string; status: string } =
+  const { algoID, status }: { algoID: string; status: string } =
     await req.json();
   const state = status.toUpperCase();
 
@@ -20,8 +20,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const reqModule = user.modules.find(
-      (mod: IModule) =>
-        mod?.algorithm?.title.toLowerCase() === algoName.toLowerCase()
+      (mod: IModule) => mod?.algorithm?.algoID === algoID
     );
 
     if (!reqModule) {
