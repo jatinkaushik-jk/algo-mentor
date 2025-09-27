@@ -45,11 +45,7 @@ const RecentLearnings = () => {
               <li key={learnings.algoID}>
                 <Button
                   onClick={() =>
-                    router.push(
-                      `/socratic-ai/${learnings.title
-                        ?.toLowerCase()
-                        .replace(/ /g, "-")}`
-                    )
+                    router.push(`/socratic-ai/${learnings.algoID}`)
                   }
                   variant={"outline"}
                   className="group w-full flex justify-between items-center"

@@ -22,10 +22,8 @@ export default function SocraticAI() {
           },
           body: JSON.stringify({ algoID }),
         });
-        console.log("Response from algo-actions:", res);
         const result = await res.json();
         if (res.status == 200) {
-          console.log("Algorithm access granted:", result);
           setIsValidAlgo(true);
         } else if (res.status == 404) {
           toast.error(result.message, {

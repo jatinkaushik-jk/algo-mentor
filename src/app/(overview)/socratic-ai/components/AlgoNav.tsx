@@ -52,9 +52,7 @@ const AlgoNav = () => {
                 router.push(`/socratic-ai/${module?.algorithm?.algoID}`)
               }
               className={`font-semibold rounded-sm p-2 px-4 flex flex-row justify-between items-center cursor-pointer dark:hover:bg-primary transition-colors hover:bg-primary ${
-                currentPath.includes(
-                  module?.algorithm?.title?.toLowerCase().replace(/ /g, "-")
-                )
+                currentPath.includes(module?.algorithm?.algoID)
                   ? "bg-primary dark:bg-primary"
                   : "bg-slate-200 dark:bg-slate-800"
               } `}
