@@ -9,12 +9,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { BugPlayIcon, LockKeyholeIcon, PlayIcon } from "lucide-react";
+import {
+  BugPlayIcon,
+  Loader2Icon,
+  LockKeyholeIcon,
+  PlayIcon,
+} from "lucide-react";
 
 export const languages = [
   {
     language: "javascript",
-    version: "15.10.0",
+    version: "18.15.0",
     code: `// JavaScript Boilerplate
 function main() {
   console.log("Hello, World!");
@@ -34,7 +39,7 @@ if __name__ == "__main__":
   },
   {
     language: "java",
-    version: "17.0.1",
+    version: "15.0.2",
     code: `// Java Boilerplate
 public class Main {
     public static void main(String[] args) {
@@ -44,7 +49,7 @@ public class Main {
   },
   {
     language: "cpp",
-    version: "20.0.0",
+    version: "10.2.0",
     code: `// C++ Boilerplate
 #include <iostream>
 using namespace std;
@@ -57,11 +62,11 @@ int main() {
 ];
 
 const bodyTemplate = {
-  language: "js",
-  version: "15.10.0",
+  language: "javascript",
+  version: "18.15.0",
   files: [
     {
-      name: "my_cool_code.js",
+      name: "algomentor-code.js",
       content: "console.log(process.argv)",
     },
   ],
@@ -83,6 +88,8 @@ const CodePage = () => {
   }>(languages[0]);
   const [code, setCode] = React.useState<string>(languages[0].code);
   const [output, setOutput] = React.useState<string>("");
+  const [error, setError] = React.useState<string>("");
+  const [isRunning, setIsRunning] = React.useState<boolean>(false);
 
   function handleEditorChange(value: string | undefined, event: any) {
     console.log("here is the current model value:", value);
@@ -97,8 +104,9 @@ const CodePage = () => {
   }
 
   async function handleRunCode() {
-    console.log("Running code...");
-
+    setIsRunning(true);
+    setOutput("");
+    setError("");
     try {
       // use piston api to run code
       // https://piston.rs/
@@ -118,8 +126,12 @@ const CodePage = () => {
       if (!response.ok) {
         throw new Error(data.message || "Error running code");
       }
-      console.log("Response from piston:", data);
-      setOutput(data.run.stdout || data.run.stderr || "No output");
+      setIsRunning(false);
+      if (data.run.stderr) {
+        setError(data.run.stderr);
+        return;
+      }
+      setOutput(data.run.stdout);
     } catch (error) {
       console.error("Error running code:", error);
     }
@@ -134,12 +146,16 @@ const CodePage = () => {
         <div className="flex flex-row items-center justify-between mb-2">
           <Select
             defaultValue={languages[0].language}
-            onValueChange={(value) =>
+            onValueChange={(value) => {
               setLang(
                 languages.find((lang) => lang.language === value) ||
                   languages[0]
-              )
-            }
+              );
+              setCode(
+                languages.find((lang) => lang.language === value)?.code ||
+                  languages[0].code
+              );
+            }}
           >
             <SelectTrigger className="w-32">
               <SelectValue placeholder="Language" />
@@ -154,10 +170,19 @@ const CodePage = () => {
           </Select>
           <div className="flex flex-row gap-2 items-center justify-center">
             <Button variant={"outline"}>
-              {isSubscribed ? <BugPlayIcon /> : <LockKeyholeIcon />}
+              {isSubscribed ? (
+                <BugPlayIcon size={16} />
+              ) : (
+                <LockKeyholeIcon size={16} />
+              )}
             </Button>
-            <Button>
-              <PlayIcon size={12} strokeWidth={4} className="mr-2" /> Run
+            <Button onClick={handleRunCode} size={"sm"} disabled={isRunning}>
+              {isRunning ? (
+                <Loader2Icon size={16} className="animate-spin mr-2" />
+              ) : (
+                <PlayIcon size={12} strokeWidth={4} className="mr-2" />
+              )}{" "}
+              Run
             </Button>
           </div>
         </div>
@@ -174,8 +199,14 @@ const CodePage = () => {
           />
         </div>
       </div>
-      <div className="console bg-red-800 col-span-5 lg:flex hidden row-span-2">
-        Console: {output}
+      <div className="console bg-[#1e1e1e] text-gray-300 col-span-5 lg:flex flex-col gap-y-2 hidden row-span-2">
+        <div className="text-gray-400 w-full border-b h-min border-gray-400 px-2 py-1">
+          Output
+        </div>
+        <div className="px-2 pb-1 overflow-y-scroll h-full text-wrap">
+          <pre className="text-wrap">{output}</pre>
+          <div className="text-red-500">{error}</div>
+        </div>
       </div>
     </div>
   );
