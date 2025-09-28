@@ -33,7 +33,7 @@ const AlgoNav = () => {
       getAlgorithmsList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session?.user]);
+  }, []);
 
   return (
     <>
