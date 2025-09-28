@@ -100,7 +100,7 @@ const sendAlgoData = async (req: Request) => {
     }
 
     return NextResponse.json(
-      { message: "Successful Request" },
+      { message: "Successful Request", algorithm: reqAlgorithm },
       { status: 200 }
     );
   } catch (error) {

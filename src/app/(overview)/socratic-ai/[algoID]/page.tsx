@@ -5,11 +5,13 @@ import ChatBotUI from "../ChatBotUI";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Loader from "@/components/Loader";
+import { IAlgorithm } from "@/interfaces/algorithms.interface";
 
 export default function SocraticAI() {
   const { algoID } = useParams<{ algoID: string }>();
   const router = useRouter();
   const [isValidAlgo, setIsValidAlgo] = React.useState<boolean>(false);
+  const [algorithm, setAlgorithm] = React.useState<IAlgorithm | null>(null);
 
   useEffect(() => {
     // Verify if algorithm is valid and the user has access to this algorithm
@@ -24,6 +26,7 @@ export default function SocraticAI() {
         });
         const result = await res.json();
         if (res.status == 200) {
+          setAlgorithm(result.algorithm);
           setIsValidAlgo(true);
         } else if (res.status == 404) {
           toast.error(result.message, {
@@ -49,14 +52,14 @@ export default function SocraticAI() {
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [algoID]);
 
   return (
     <div className=" w-full h-[calc(100vh-5.5rem)] flex flex-row gap-6">
       <AlgoNav></AlgoNav>
       <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
-        {/* {isValidAlgo && <ChatBotUI algoID={algoID} />} */}
-        {isValidAlgo && <>ChatBot here</>}
+        {isValidAlgo && <ChatBotUI algorithm={algorithm as IAlgorithm} />}
+        {/* {isValidAlgo && <>ChatBot here</>} */}
         {!isValidAlgo && <Loader>Verifying algorithm access...</Loader>}
       </div>
     </div>

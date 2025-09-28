@@ -26,16 +26,8 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  // Getting the algorithm name from the referer header
-  const algoNameParts = req.headers
-    .get("referer")
-    ?.split("/")
-    .pop()
-    ?.split("-");
-  const algoName =
-    algoNameParts
-      ?.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(" ") || "";
+  // Getting the algorithm ID from the referer header
+  const algoID = req.headers?.get("referer")?.split("/").pop() || "";
 
   const lastUserMessage = messages[messages.length - 1];
   const id = lastUserMessage.id || generateId();
@@ -46,7 +38,7 @@ export async function POST(req: Request) {
     content: lastUserMessage.content,
     createdAt,
   };
-  await saveMessage({ message: userMessage, algoName });
+  await saveMessage({ message: userMessage, algoID });
 
   const result = await streamText({
     model: google("gemini-2.5-flash"),
@@ -61,7 +53,7 @@ export async function POST(req: Request) {
         content: message.text,
         createdAt: new Date(),
       };
-      await saveMessage({ message: assistantMessage, algoName });
+      await saveMessage({ message: assistantMessage, algoID });
     },
   });
 
@@ -70,10 +62,10 @@ export async function POST(req: Request) {
 
 const saveMessage = async ({
   message,
-  algoName,
+  algoID,
 }: {
   message: IConversation;
-  algoName: string;
+  algoID: string;
 }): Promise<void> => {
   // Saving the message to the database
   try {
@@ -88,10 +80,10 @@ const saveMessage = async ({
       return;
     }
     const algoModule = modules.find(
-      (module) => module.algorithm?.title === algoName
+      (module) => module.algorithm.algoID === algoID
     );
     if (!algoModule) {
-      console.error("Algorithm module not found for:", algoName);
+      console.error("Algorithm module not found for:", algoID);
       return;
     }
     algoModule.conversation.push(message);

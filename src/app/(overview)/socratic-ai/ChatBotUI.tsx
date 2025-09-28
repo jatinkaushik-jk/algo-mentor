@@ -10,7 +10,7 @@ import EndChatDialog from "./components/EndChatDialog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default function ChatBotUI({ algorithm }: { algorithm: IAlgorithm }) {
+const ChatBotUI = ({ algorithm }: { algorithm: IAlgorithm }) => {
   const [initMessage, setInitMessage] = useState<IConversation[]>([]);
   const [initInput, setInitInput] = useState<string>("");
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
@@ -159,4 +159,6 @@ export default function ChatBotUI({ algorithm }: { algorithm: IAlgorithm }) {
       )}
     </>
   );
-}
+};
+
+export default ChatBotUI;

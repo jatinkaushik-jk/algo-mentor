@@ -15,6 +15,9 @@ import {
   LockKeyholeIcon,
   PlayIcon,
 } from "lucide-react";
+import ChatBotUI from "../socratic-ai/ChatBotUI";
+import { algorithms } from "@/components/algorithms/data/algorithms";
+import { IAlgorithm } from "@/interfaces/algorithms.interface";
 
 export const languages = [
   {
@@ -139,8 +142,8 @@ const CodePage = () => {
 
   return (
     <div className="grid grid-cols-8 grid-rows-6 gap-4 h-full lg:h-[calc(100dvh-6.2rem)]">
-      <div className="chat col-span-full lg:col-span-3 bg-red-500 row-span-full">
-        Chat
+      <div className="chat col-span-full lg:col-span-3 row-span-full w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
+        <ChatBotUI algorithm={algorithms[0] as IAlgorithm} />
       </div>
       <div className="w-full col-span-5 row-span-4 lg:flex flex-col hidden">
         <div className="flex flex-row items-center justify-between mb-2">
