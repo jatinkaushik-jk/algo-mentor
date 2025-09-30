@@ -18,19 +18,15 @@ const ChatBotUI = ({ algorithm }: { algorithm: IAlgorithm }) => {
   const [isEnd, setIsEnd] = useState(false);
   const [isModuleCompleted, setIsModuleCompleted] = useState<boolean>(false);
   const router = useRouter();
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    append,
-    // isLoading,
-    stop,
-  } = useChat({
-    api: "/api/ai/chat",
-    initialInput: initInput,
-    initialMessages: initMessage.length > 0 ? initMessage : [],
-  });
+  const { messages, input, handleInputChange, handleSubmit, append, stop } =
+    useChat({
+      api: "/api/ai/chat",
+      initialInput: initInput,
+      initialMessages: initMessage.length > 0 ? initMessage : [],
+      body: {
+        algorithmId: algorithm.algoID,
+      },
+    });
 
   function endConversation() {
     // Mark module status as completed

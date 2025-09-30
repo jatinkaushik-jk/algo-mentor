@@ -59,7 +59,6 @@ export default function SocraticAI() {
       <AlgoNav></AlgoNav>
       <div className="w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
         {isValidAlgo && <ChatBotUI algorithm={algorithm as IAlgorithm} />}
-        {/* {isValidAlgo && <>ChatBot here</>} */}
         {!isValidAlgo && <Loader>Verifying algorithm access...</Loader>}
       </div>
     </div>

@@ -25,9 +25,7 @@ const buildGoogleGenAIPrompt = (messages: Message[]): Message[] => [
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
-  // Getting the algorithm ID from the referer header
-  const algoID = req.headers?.get("referer")?.split("/").pop() || "";
+  const { messages, algorithmId } = await req.json();
 
   const lastUserMessage = messages[messages.length - 1];
   const id = lastUserMessage.id || generateId();
@@ -38,7 +36,7 @@ export async function POST(req: Request) {
     content: lastUserMessage.content,
     createdAt,
   };
-  await saveMessage({ message: userMessage, algoID });
+  await saveMessage({ message: userMessage, algoID: algorithmId });
 
   const result = await streamText({
     model: google("gemini-2.5-flash"),
@@ -53,7 +51,7 @@ export async function POST(req: Request) {
         content: message.text,
         createdAt: new Date(),
       };
-      await saveMessage({ message: assistantMessage, algoID });
+      await saveMessage({ message: assistantMessage, algoID: algorithmId });
     },
   });
 
