@@ -143,7 +143,6 @@ const CodePage = () => {
   return (
     <div className="grid grid-cols-8 grid-rows-6 gap-4 h-full lg:h-[calc(100dvh-6.2rem)]">
       <div className="chat col-span-full lg:col-span-3 row-span-full w-full h-full flex gap-y-4 rounded-xl bg-muted/100 dark:bg-muted/50 p-4 shadow-lg">
-        {/* chatbot use url headers to get algoID in backend, todo: handle this behaviour */}
         <ChatBotUI algorithm={algorithms[0] as IAlgorithm} />
       </div>
       <div className="w-full col-span-5 row-span-4 lg:flex flex-col hidden">

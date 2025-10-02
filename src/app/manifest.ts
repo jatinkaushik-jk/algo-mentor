@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'AlgoMentor',
     short_name: 'AlgoMentor',
-    description: 'AlgoMentor is a Socratic AI tutor who can help you to master Algorithms.',
+    description: 'AlgoMentor is a Socratic AI mentor who can help you to master Algorithms with real-time AI assistance.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
