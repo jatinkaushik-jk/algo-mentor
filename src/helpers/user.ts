@@ -1,6 +1,6 @@
 import dbConnect from "./dbConnect";
 import UserModel from "@/models/user.model";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/auth/auth";
 
 export async function getUserFromDatabase() {
   try {

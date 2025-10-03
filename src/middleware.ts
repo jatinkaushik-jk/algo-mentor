@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // import type { NextRequest } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/app/api/auth/auth";
 // export { auth as middleware } from "@/auth";
 import { getToken } from "next-auth/jwt";
 
