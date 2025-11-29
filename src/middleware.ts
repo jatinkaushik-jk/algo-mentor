@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
-import { auth } from "@/app/api/auth/auth";
-// export { auth as middleware } from "@/auth";
 import { getToken } from "next-auth/jwt";
-
 const secret = process.env.AUTH_SECRET;
+// import type { NextRequest } from "next/server";
+
+// const secret = process.env.AUTH_SECRET; // Not used with next-auth/middleware
 const publicRoutes = [
   "/",
   "/pricing",
@@ -16,16 +15,17 @@ const publicRoutes = [
   "/signup",
 ];
 
-export default auth(async function middleware(req) {
+export async function middleware(req:any) {
   const token = await getToken({ req, secret });
   const isAuthenticated = !!token;
-  if (!req.auth) {
+
+  if (!isAuthenticated) {
     const isPublic = publicRoutes.some((path) => req.nextUrl.pathname === path);
     if (!isPublic) {
       const newUrl = new URL("/login", req.nextUrl.origin);
       return NextResponse.rewrite(newUrl);
     }
-  } else if (req.auth) {
+  } else {
     const authPages = ["/login", "/signup", "/forgot-password"];
     if (
       authPages.some((path) => req.nextUrl.pathname.startsWith(path)) &&
@@ -42,7 +42,7 @@ export default auth(async function middleware(req) {
     }
     return NextResponse.next();
   }
-});
+}
 
 // export async function middleware(request: NextRequest) {
 //   const token = await getToken({ req: request, secret });

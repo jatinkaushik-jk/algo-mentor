@@ -2,7 +2,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Metadata } from "next"
 import Link from "next/link"
 
-export const metaData : Metadata = {
+export const metadata: Metadata = {
     title: "AlgoMentor | Privacy Policy",
     description: "Privacy Policy for AlgoMentor - Socratic AI-driven platform for learning algorithms. Learn how we collect, use, and protect your data."
 }

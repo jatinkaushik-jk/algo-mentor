@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import AlgorithmTable from "@/components/algorithms/ui/algorithm-table";
-import { AccessValues, Algorithm, DifficultyValues } from "@/models/user.model";
+import { AccessValues, IAlgorithm, DifficultyValues } from "@/interfaces/algorithms.interface";
 import { algorithms } from "@/components/algorithms/data/algorithms";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 
 const EasyAlgorithmsPage = () => {
-  const [algos, setAlgos] = useState<Algorithm[]>([]);
+  const [algos, setAlgos] = useState<IAlgorithm[]>([]);
   const [tab, setTab] = useState("overview");
   const completed = algos.filter((r) => r.description.length <= 35).length;
   const progressPct = Math.round((completed / algos.length) * 100);

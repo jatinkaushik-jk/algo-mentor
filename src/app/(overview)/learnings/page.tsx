@@ -665,3 +665,11 @@
 //   }
 //   // Add more algorithms with similar structure
 // ];
+
+export default function LearningOverviewFallback() {
+	return (
+		<div className="min-h-screen flex items-center justify-center">
+			<p className="text-gray-600">Learning Overview (Coming Soon)</p>
+		</div>
+	)
+}

@@ -19,7 +19,7 @@ import ChatBotUI from "../socratic-ai/ChatBotUI";
 import { algorithms } from "@/components/algorithms/data/algorithms";
 import { IAlgorithm } from "@/interfaces/algorithms.interface";
 
-export const languages = [
+const languages = [
   {
     language: "javascript",
     version: "18.15.0",
@@ -94,13 +94,13 @@ const CodePage = () => {
   const [error, setError] = React.useState<string>("");
   const [isRunning, setIsRunning] = React.useState<boolean>(false);
 
-  function handleEditorChange(value: string | undefined, event: any) {
+  function handleEditorChange(value: string | undefined) {
     console.log("here is the current model value:", value);
     setCode(value || "");
     // here is the current value
   }
 
-  function handleEditorValidation(markers: any[]) {
+  function handleEditorValidation(markers: unknown[]) {
     console.log("onValidate: markers", markers);
     // model markers
     // markers.forEach(marker => console.log('onValidate:', marker.message));
