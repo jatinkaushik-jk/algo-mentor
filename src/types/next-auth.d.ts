@@ -8,8 +8,12 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      subscriptionPlan?: string;
+      subscriptionPlan?: string | null;
     } & DefaultSession["user"];
+  }
+
+  interface User extends DefaultUser {
+    subscriptionPlan?: string | null;
   }
 }
 

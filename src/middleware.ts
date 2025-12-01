@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-const secret = process.env.AUTH_SECRET;
-// import type { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
-// const secret = process.env.AUTH_SECRET; // Not used with next-auth/middleware
+import { NextResponse } from "next/server";
+import { auth } from "./app/api/auth/auth";
+
+const secret = process.env.AUTH_SECRET;
 const publicRoutes = [
   "/",
   "/pricing",
@@ -15,7 +16,7 @@ const publicRoutes = [
   "/signup",
 ];
 
-export async function middleware(req:any) {
+export default auth(async function middleware(req:NextRequest) {
   const token = await getToken({ req, secret });
   const isAuthenticated = !!token;
 
@@ -42,29 +43,13 @@ export async function middleware(req:any) {
     }
     return NextResponse.next();
   }
-}
+})
 
-// export async function middleware(request: NextRequest) {
-//   const token = await getToken({ req: request, secret });
-//   const url = request.nextUrl;
-//   if (token) {
-//     if (url.pathname.startsWith("/login") || url.pathname.startsWith("/signup"))
-//       return NextResponse.rewrite(new URL("/dashboard", request.url));
-//   }
-// }
 
-// // See "Matching Paths" below to learn more
-// middleware should be applied to values in matcher in config
-// export const config = {
-//   matcher: [
-//     "/",
-//     "/login",
-//     "/signup",
-//     "/dashboard/:path*",
-//     "/socratic-ai/:path*",
-//   ],
-// };
 
 export const config = {
   matcher: ["/((?!api|_next|.*\\..*).*)"],
+  unstable_allowDynamic: [
+    "/node_modules/mongoose/dist/**"
+  ]
 };

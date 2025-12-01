@@ -23,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         const email = credentials.email as string;
         const password = credentials.password as string;
-        console.log("User data from client : ", email, password);
 
         try {
           // database connection
@@ -56,8 +55,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     GitHub({
-      clientId: process.env.AUTH_GITHUB_ID,
-      clientSecret: process.env.AUTH_GITHUB_SECRET,
+      clientId: process.env.AUTH_GITHUB_CLIENT_ID,
+      clientSecret: process.env.AUTH_GITHUB_CLIENT_SECRET,
     }),
   ],
   pages: {
@@ -107,10 +106,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     jwt: async ({ token, user }) => {
       if (user) {
         // User is available during sign-in
-        const userFromDB = await UserModel.findById(user.id);
         token.id = user.id;
         token.exp = Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60; // 7 days
-        token.subscriptionPlan = userFromDB?.subscription.plan.name;
+        token.subscriptionPlan = user.subscriptionPlan as string;
       }
       return token;
     },
