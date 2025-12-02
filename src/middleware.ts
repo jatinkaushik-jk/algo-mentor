@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { auth } from "./app/api/auth/auth";
 
 const secret = process.env.AUTH_SECRET;
+
 const authRoutes = ["/login", "/signup", "/forgot-password"];
 const publicRoutes = [
   "/",
@@ -13,7 +14,7 @@ const publicRoutes = [
   "/contact",
 ];
 
-export default auth(async function middleware(req) {
+export default auth(async (req) => {
   const token = await getToken({ req, secret });
   const isAuthenticated = !!token;
 
