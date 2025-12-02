@@ -1,9 +1,5 @@
-import { getToken } from "next-auth/jwt";
-
 import { NextResponse } from "next/server";
 import { auth } from "./app/api/auth/auth";
-
-const secret = process.env.AUTH_SECRET;
 
 const authRoutes = ["/login", "/signup", "/forgot-password"];
 const publicRoutes = [
@@ -14,9 +10,8 @@ const publicRoutes = [
   "/contact",
 ];
 
-export default auth(async (req) => {
-  const token = await getToken({ req, secret });
-  const isAuthenticated = !!token;
+export default auth((req) => {
+  const isAuthenticated = !!req.auth;
 
   const { pathname, origin } = req.nextUrl;
 
@@ -37,7 +32,7 @@ export default auth(async (req) => {
   if (
     isAuthenticated &&
     pathname === "/community/create" &&
-    token?.subscriptionPlan === "Basic"
+    req.auth?.user?.subscriptionPlan === "Basic"
   ) {
     return NextResponse.redirect(new URL("/pricing", origin));
   }
