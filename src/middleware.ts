@@ -1,54 +1,50 @@
 import { getToken } from "next-auth/jwt";
-import type { NextRequest } from "next/server";
 
 import { NextResponse } from "next/server";
 import { auth } from "./app/api/auth/auth";
 
 const secret = process.env.AUTH_SECRET;
-const authPages = ["/login", "/signup", "/forgot-password"];
+const authRoutes = ["/login", "/signup", "/forgot-password"];
 const publicRoutes = [
   "/",
   "/pricing",
   "/privacy-policy",
   "/terms-of-service",
-  "/pricing",
   "/contact",
-  ...authPages
 ];
 
-export default auth(async function middleware(req:NextRequest) {
+export default auth(async function middleware(req) {
   const token = await getToken({ req, secret });
   const isAuthenticated = !!token;
 
-  if (!isAuthenticated) {
-    const isPublic = publicRoutes.some((path) => req.nextUrl.pathname === path);
-    if (!isPublic) {
-      const newUrl = new URL("/login", req.nextUrl.origin);
-      return NextResponse.redirect(newUrl);
-    }
-  } else {
-    if (
-      authPages.some((path) => req.nextUrl.pathname.startsWith(path)) &&
-      isAuthenticated
-    ) {
-      // If the user is authenticated and tries to access an auth page, redirect them to the dashboard page
-      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-    }
-    if (isAuthenticated && req.nextUrl.pathname === "/community/create") {
-      // If the user is authenticated and tries to access the community's create post page, check for access
-      if (token?.subscriptionPlan === "Basic") {
-        return NextResponse.redirect(new URL("/pricing", req.nextUrl.origin));
-      }
-    }
-    return NextResponse.next();
+  const { pathname, origin } = req.nextUrl;
+
+  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some((route) => pathname === route);
+
+  // Redirect authenticated users away from auth pages
+  if (isAuthenticated && isAuthRoute) {
+    return NextResponse.redirect(new URL("/dashboard", origin));
   }
-})
 
+  // Redirect unauthenticated users to login for protected routes
+  if (!isAuthenticated && !isPublicRoute && !isAuthRoute) {
+    return NextResponse.redirect(new URL("/login", origin));
+  }
 
+  // Subscription check for community create
+  if (
+    isAuthenticated &&
+    pathname === "/community/create" &&
+    token?.subscriptionPlan === "Basic"
+  ) {
+    return NextResponse.redirect(new URL("/pricing", origin));
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: ["/((?!api|_next|.*\\..*).*)"],
-  unstable_allowDynamic: [
-    "/node_modules/mongoose/dist/**"
-  ]
+  unstable_allowDynamic: ["/node_modules/mongoose/dist/**"],
 };
