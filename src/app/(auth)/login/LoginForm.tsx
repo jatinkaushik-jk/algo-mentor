@@ -63,6 +63,8 @@ export default function LoginForm() {
         // Handle successful sign-in
         toast.success("Login successful!");
         router.push("/dashboard"); // Redirect to dashboard or desired page
+        window.location.reload();
+        form.reset();
       }
     } catch (err) {
       console.error("Login error:", err);
