@@ -1,105 +1,114 @@
-import { StarHalfIcon, StarIcon } from "lucide-react";
-import { Card, CardContent } from "../ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import TestimonialCard from "./TestimonialCard";
+import { ChevronDown } from "lucide-react";
 
 const testimonials = [
   {
     quote:
       "AlgoMentor helped me improve my coding skills in record time. The personalized feedback is amazing!",
-    author: "Aditi",
-    role: "Software Engineer",
-    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/aditi-testimonial_pychh2.jpg",
+    authorName: "Neha Gupta",
+    avatar: "",
+    rating: 5,
   },
   {
     quote:
       "The AI-powered lessons make learning algorithms so much easier and fun!",
-    author: "Ravi Dubey",
-    role: "Data Scientist",
-    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/ravi-dubey-testimonial_owqhu6.jpg", 
+    authorName: "Aarav Mishra",
+    avatar: "", 
+    rating: 5,
   },
   {
     quote:
       "From beginner to advanced, AlgoMentor guided me through every step. Highly recommend it!",
-    author: "Sarah",
-    role: "CS Student",
-    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752145/sarah-testimonial_vjlhxz.jpg",
+    authorName: "Tanya Arora",
+    avatar: "",
+    rating: 5,
   },
   {
     quote:
       "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
-    author: "Vamika",
-    role: "CS Student",
-    avatar: "https://res.cloudinary.com/diylnbvzn/image/upload/v1755752146/vamika-testimonial_uvieoi.jpg",
+    authorName: "Sanya verma",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    quote:
+      "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
+    authorName: "Ritika Sharma",
+    avatar: "",
+    rating: 5,
+  },
+  {
+    quote:
+      "AlgoMentor's socratic approach of teaching algorithms is both effective and enjoyable. I've learned so much!",
+    authorName: "Kabir Mehta",
+    avatar: "",
+    rating: 5,
   },
 ];
 const TestimonialsSection = () => {
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isMore, setIsMore] = useState<boolean>(false);
+
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      // breakpoints: >=1024 => large (6), >=768 => medium (4), else small (3)
+      if (w >= 1280) setVisibleCount(6);
+      else if (w >= 768) setVisibleCount(4);
+      else setVisibleCount(3);
+    }
+
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const visibleCards = testimonials.slice(0, visibleCount);
+
   return (
     <section
       id="testimonials"
-      className="relative py-8 p-4 text-center my-20 bg-primary w-full overflow-y-clip"
+      className="relative py-8 p-4 text-center my-20 w-full overflow-y-clip"
     >
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-[-1] w-[110vw] h-full bg-primary"></div>
-      <div className="flex flex-col-reverse md:flex-row items-center justify-around gap-8">
-        <div className="relative">
-        <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-primary via-primary backdrop-blur-sm blur-sm to-primary/80 z-10">
-        <div className="w-full h-1/3 bg-primary absolute -top-3"></div>
+      <div>
+        <div className="text-xl md:text-2xl font-medium text-center text-[#7C3AED] mb-1">
+          Feedback
         </div>
-        <div className="w-full h-[400px] overflow-y-hidden scrollbar-hidden p-4">
-          <div className="flex flex-col gap-y-8 my-16 py-16 h-max animate-auto-scroll">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
+        <h2 className="text-5xl font-semibold text-center">
+          What our learner says?
+        </h2>
+        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-[#5b5b5b]">
+          AlgoMentor is helping students and developers transform how they understand algorithms—from passive reading to active problem-solving. Here’s what our users say:
+        </p>
+      </div>
+
+      <div className="my-24 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div role="list" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+            {visibleCards.map((testimonial, index) => (
+              <div key={index} role="listitem" className="w-full">
+                <TestimonialCard
+                  quote={testimonial.quote}
+                  authorName={testimonial.authorName}
+                  avatar={testimonial.avatar}
+                  rating={testimonial.rating}
+                />
+              </div>
             ))}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-primary via-primary backdrop-blur-sm blur-sm to-primary/80">
-        <div className="w-full h-1/3 bg-primary absolute -bottom-3"></div>
-        </div>
-      </div>
-      <div>
-        <h2 className="text-4xl font-semibold text-white">What Our Users Say</h2>
-        <p className="text-gray-300 mt-2">
-          Our users love AlgoMentor! Here&apos;s what they have to say:
-        </p>
-        <div className="flex items-center justify-center mt-4 gap-x-1">
-          <StarIcon size={16} className="fill-yellow-500 text-yellow-500"/>
-          <StarIcon size={16} className="fill-yellow-500 text-yellow-500"/>
-          <StarIcon size={16} className="fill-yellow-500 text-yellow-500"/>
-          <StarIcon size={16} className="fill-yellow-500 text-yellow-500"/>
-          <StarHalfIcon size={16} className="fill-yellow-500 text-yellow-500"/>
-          <span className="text-gray-300">4.5/5</span>
-        </div>
-      </div>
+
+        {!isMore && <div className="absolute w-full h-1/2 md:h-2/3 bg-gradient-to-t from-white to-transparent bottom-0 left-0" />}
+
+        {!isMore && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 border backdrop-blur-sm bg-transparent px-4 py-2 rounded-lg cursor-context-menu shadow-lg hover:shadow-sm hover:scale-95 duration-300 text-sm font-medium" onClick={()=> setIsMore(true)}>
+          Show more
+          <ChevronDown size={16} className="mx-auto" />
+        </div>}
       </div>
     </section>
-  );
-};
-
-const TestimonialCard = ({
-  quote,
-  author,
-  role,
-  avatar,
-}: {
-  quote: string;
-  author: string;
-  role: string;
-  avatar: string;
-}) => {
-  return (
-    <Card className="max-w-md m-2 bg-white">
-      <CardContent className="flex flex-col sm:flex-row items-center gap-4 p-4 py-8 pt-4 sm:py-12">
-        <div>
-          <Avatar className="w-20 h-20 m-2">
-            <AvatarImage src={avatar} alt={author} />
-            <AvatarFallback >{author.split(" ").map((name) => name[0]).join("")}</AvatarFallback>
-          </Avatar>
-        </div>
-        <div>
-          <p className="italic text-black">&quot;{quote}&quot;</p>
-          <p className="italic text-gray-600 text-sm mt-4">{author} - {role}</p>
-        </div>
-      </CardContent>
-    </Card>
   );
 };
 

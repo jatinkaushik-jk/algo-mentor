@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar/>
       <div
         id="top"
-        className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 px-2 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)] overflow-x-hidden"
+        className="min-h-screen p-8 px-2 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)] overflow-x-hidden"
       >
         <main className="flex flex-col gap-4 row-start-2">
           {/* Hero Section */}
