@@ -16,7 +16,10 @@ const Dashboard = () => {
     <>
       <div className="w-full min-h-screen flex flex-row xl:gap-4">
         <section className="w-full lg:w-[75%]">
-          <div id="algorithm-cards" className="w-full flex flex-col sm:flex-row gap-6 px-2 justify-start items-center">
+          <div
+            id="algorithm-cards"
+            className="w-full flex flex-col sm:flex-row gap-6 px-2 justify-start items-center"
+          >
             <Link href="/algorithms/easy" className="w-full">
               <div className="w-full aspect-[5/3.4] rounded-xl bg-[url('/images/cardImg01.webp')] bg-center bg-cover bg-no-repeat bg-[rgba(0,0,0,0.1)] bg-blend-multiply hover:bg-white transition-colors"></div>
             </Link>
@@ -32,7 +35,9 @@ const Dashboard = () => {
               <h3 className="font-semibold text-3xl">
                 Welcome back {session?.user?.name}!
               </h3>
-              <GuideTourBtn tourName="dashboard-tour" />
+              <div className="lg:flex hidden">
+                <GuideTourBtn tourName="dashboard-tour" />
+              </div>
             </div>
             <div id="algorithm-table" className="w-full">
               <AlgorithmTable />
