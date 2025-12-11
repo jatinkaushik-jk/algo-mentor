@@ -46,7 +46,7 @@ const FeaturesSection = () => {
         <h2 className="text-5xl font-semibold text-center">
           Why Choose AlgoMentor?
         </h2>
-        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-[#5b5b5b]">
+        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400">
           Unlock your coding potential with personalized, AI-driven insights.
         </p>
       </div>

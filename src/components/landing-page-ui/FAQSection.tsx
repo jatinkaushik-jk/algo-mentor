@@ -45,13 +45,13 @@ export default function FAQSection() {
   return (
     <section id="faqs" className="mx-auto max-w-4xl w-full p-6">
       <div>
-        <div className="text-base font-medium text-center text-black bg-[#ECECEC] mb-4 w-max mx-auto p-2 px-3 rounded-lg flex gap-x-2 justify-center items-center">
+        <div className="text-base font-medium text-center text-black dark:text-white bg-[#ECECEC] dark:bg-gray-700 mb-4 w-max mx-auto p-2 px-3 rounded-lg flex gap-x-2 justify-center items-center">
           <GrCircleQuestion /> FAQs
         </div>
         <h2 className="text-5xl font-semibold text-center">
           Frequently Asked Questions
         </h2>
-        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-[#5b5b5b]">
+        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400">
           Find questions and answers related to the design system, purchase,
           updates, and support.
         </p>

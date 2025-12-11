@@ -80,7 +80,7 @@ const TestimonialsSection = () => {
         <h2 className="text-5xl font-semibold text-center">
           What our learner says?
         </h2>
-        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-[#5b5b5b]">
+        <p className="text-lg mt-4 text-center max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400">
           AlgoMentor is helping students and developers transform how they understand algorithms—from passive reading to active problem-solving. Here’s what our users say:
         </p>
       </div>

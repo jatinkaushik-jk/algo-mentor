@@ -34,8 +34,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <div 
       className={`
         bg-white 
+        dark:bg-gray-900
         rounded-3xl 
         border border-gray-200 
+        dark:border-gray-600
         p-8 
         shadow-sm
         hover:shadow-md
@@ -59,12 +61,12 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       {/* Body: Quote Text */}
-      <blockquote className="text-gray-900 text-lg leading-relaxed font-medium mb-8 text-start">
+      <blockquote className="text-gray-900 dark:text-gray-200 leading-relaxed font-medium mb-8 text-start">
         {quote}
       </blockquote>
 
       {/* Divider */}
-      <div className="h-px w-full bg-gray-200 mb-6" />
+      <div className="h-px w-full bg-gray-200 dark:bg-gray-600 mb-6" />
 
       {/* Footer: User Profile */}
       <div className="flex items-center gap-4">
@@ -74,11 +76,11 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           alt={"Avatar"}
           height={200}
           width={200}
-          className="rounded-full object-cover border border-gray-100 bg-purple-100"
+          className="rounded-full object-cover border border-gray-100 dark:border-gray-500 dark:bg-purple-300 bg-purple-100"
         />
         </div>
         <div>
-          <h4 className="text-gray-900 font-bold text-base">
+          <h4 className="text-gray-900 dark:text-gray-200 font-bold dark:font-semibold text-base">
             {authorName}
           </h4>
         </div>

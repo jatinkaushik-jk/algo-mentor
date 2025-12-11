@@ -68,7 +68,7 @@ const footerLinks = [
 
 const Footer = () => {
   return (
-    <footer className="p-8 rounded-t-3xl bg-gradient-to-b from-[#7C3AED] to-[#52269E] text-white">
+    <footer className="p-8 rounded-t-3xl bg-gradient-to-b from-[#6125c8] to-[#3c187c] text-white">
       <div className="py-10 flex flex-col lg:flex-row gap-20 justify-between items-center max-w-7xl mx-auto">
         <div className="max-w-sm flex flex-col justify-center items-center gap-10">
           <div className="w-24 h-24">
@@ -77,7 +77,7 @@ const Footer = () => {
           <div className="space-y-4 text-center">
             <h1 className="text-2xl font-bold">AlgoMentor creating
 new learning experience</h1>
-          <p className="text-[#ccc] text-sm">
+          <p className="text-gray-300 text-sm">
             Strengthen your algorithm skills through AI-driven guidance, adaptive learning, and real progress growth.
           </p>
           </div>
@@ -101,7 +101,7 @@ new learning experience</h1>
                 <Link
                   key={link.text}
                   href={link.href}
-                  className="text-[#ccc] hover:underline"
+                  className="text-gray-300 hover:underline"
                 >
                   {link.text}
                 </Link>
@@ -110,8 +110,8 @@ new learning experience</h1>
           ))}
         </div>
       </div>
-      <hr className="my-6 sm:mx-4" />
-      <div className="text-center flex gap-6 flex-wrap items-center justify-between text-[#ccc] text-sm max-w-7xl px-10 xl:px-0 mx-auto">
+      <hr className="my-6 sm:mx-4 border-gray-300" />
+      <div className="text-center flex gap-6 flex-wrap items-center justify-between text-gray-300 text-sm max-w-7xl px-10 xl:px-0 mx-auto">
         <p>
           © {new Date().getFullYear()} AlgoMentor | All rights reserved.
         </p>

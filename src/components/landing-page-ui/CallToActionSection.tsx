@@ -8,7 +8,7 @@ import Vector from "@/assets/illustrations/vector-1.png"
 const CallToActionSection = () => {
   return (
     <section className="lg:my-40 my-20">
-      <div className="bg-[#f5f5f5] w-full max-w-5xl rounded-2xl mx-auto px-8 sm:px-16 pt-16 pb-4 lg:py-0 text-start flex lg:flex-row flex-col items-center justify-between gap-20 overflow-hidden">
+      <div className="bg-gray-100 dark:bg-gray-800 w-full max-w-5xl rounded-2xl mx-auto px-8 sm:px-16 pt-16 pb-4 lg:py-0 text-start flex lg:flex-row flex-col items-center justify-between gap-20 overflow-hidden">
         <div>
           <div>
             <h2 className="text-3xl font-bold">
