@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { BiSolidQuoteAltLeft } from "react-icons/bi";
+import AvatarBoy from "@/assets/images/avatar-boy.png"
 
 // 1. Defined Types for Scalability
 interface TestimonialCardProps {
   quote: string;
   authorName: string;
-  avatar: string;
+  avatar?: string;
   rating?: number; // Optional: Defaults to 5
   className?: string; // Optional: For overriding container styles
 }
@@ -26,7 +27,7 @@ const StarIcon = () => (
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
   quote,
   authorName,
-  avatar,
+  avatar=AvatarBoy.src,
   rating = 5,
   className = "",
 }) => {

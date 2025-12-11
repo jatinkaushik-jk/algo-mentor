@@ -93,7 +93,7 @@ const TestimonialsSection = () => {
                 <TestimonialCard
                   quote={testimonial.quote}
                   authorName={testimonial.authorName}
-                  avatar={testimonial.avatar}
+                  // avatar={testimonial.avatar}
                   rating={testimonial.rating}
                 />
               </div>
@@ -101,7 +101,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {!isMore && <div className="absolute w-full h-1/2 md:h-2/3 bg-gradient-to-t from-white to-transparent bottom-0 left-0" />}
+        {!isMore && <div className="absolute w-full h-1/2 md:h-2/3 bg-gradient-to-t from-white to-transparent dark:from-[#101623] from-10% bottom-0 left-0" />}
 
         {!isMore && <div className="absolute bottom-6 left-1/2 -translate-x-1/2 border backdrop-blur-sm bg-transparent px-4 py-2 rounded-lg cursor-context-menu shadow-lg hover:shadow-sm hover:scale-95 duration-300 text-sm font-medium" onClick={()=> setIsMore(true)}>
           Show more

@@ -6,8 +6,11 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="p-4 px-6 space-y-20 lg:space-y-40 my-20"
+      className="p-4 px-6 space-y-20 lg:space-y-40 lg:my-20 my-12 relative"
     >
+      <div className="lg:block hidden text-[160px] xl:text-[200px] text-primary/10 font-bold text-right -my-16 leading-none xl:-translate-y-20 -translate-y-16 h-20 xl:h-32">
+        ABOUT
+      </div>
       <div className="flex lg:flex-row flex-col items-center justify-center gap-20 xl:gap-32">
         <div className="group relative w-full lg:w-2/5 aspect-[1.62] rounded-3xl before:content-[''] before:absolute before:md:top-6 before:xs:top-4 before:top-2 before:md:right-6 before:xs:right-4 before:right-2 before:w-full before:h-full before:rounded-3xl before:bg-[#52269E] before:z-[-1] border border-gray-200 -rotate-1 hover:rotate-0 duration-300">
         <Image

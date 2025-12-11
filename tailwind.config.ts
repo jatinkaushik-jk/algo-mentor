@@ -91,44 +91,44 @@ const config: Config = {
   					transform: 'translateY(-0.25rem)'
   				}
   			},
-			'auto-scroll':{
-				'0%': {
-					transform: 'translateY(-4%)'
-				},
-				'4%': {
-					transform: 'translateY(-4%)'
-				},
-				'24%': {
-					transform: 'translateY(-25%)'
-				},
-				'28%': {
-					transform: 'translateY(-25%)'
-				},
-				'48%': {
-					transform: 'translateY(-50%)'
-				},
-				'52%': {
-					transform: 'translateY(-50%)'
-				},
-				'72%': {
-					transform: 'translateY(-75%)'
-				},
-				'76%': {
-					transform: 'translateY(-75%)'
-				},
-				'100%': {
-					transform: 'translateY(-4%)'
-				}
-			}
+  			'auto-scroll': {
+  				'0%': {
+  					transform: 'translateY(-4%)'
+  				},
+  				'4%': {
+  					transform: 'translateY(-4%)'
+  				},
+  				'24%': {
+  					transform: 'translateY(-25%)'
+  				},
+  				'28%': {
+  					transform: 'translateY(-25%)'
+  				},
+  				'48%': {
+  					transform: 'translateY(-50%)'
+  				},
+  				'52%': {
+  					transform: 'translateY(-50%)'
+  				},
+  				'72%': {
+  					transform: 'translateY(-75%)'
+  				},
+  				'76%': {
+  					transform: 'translateY(-75%)'
+  				},
+  				'100%': {
+  					transform: 'translateY(-4%)'
+  				}
+  			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			'typing-dot-bounce': 'typing-dot-bounce 1.25s ease-out infinite',
-			'auto-scroll': 'auto-scroll 12s ease-in-out infinite',
+  			'auto-scroll': 'auto-scroll 12s ease-in-out infinite'
   		}
   	}
   },
-  plugins: [animations],
+  plugins: [animations, require("tailwindcss-animate")],
 };
 export default config;

@@ -5,11 +5,9 @@ import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -27,56 +25,23 @@ import { ModeToggle } from "../ui/mode-toggle";
 import LogInButton from "../LogInButton";
 import { LogOutButton } from "../LogOutButton";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Socratic AI",
-    href: "/socratic-ai",
-    description: "Personalized algorithm learning through guided questions.",
-  },
-  {
-    title: "Interactive Modules",
-    href: "/dashboard",
-    description: "Hands-on exercises for mastering algorithms.",
-  },
-  {
-    title: "Popular Algorithms",
-    href: "/dashboard",
-    description: "Explore the most widely-used algorithms.",
-  },
-  {
-    title: "Latest Notes",
-    href: "/community",
-    description: "Stay updated with fresh algorithm insights.",
-  },
-  {
-    title: "Community",
-    href: "/community",
-    description: "Connect, share, and grow with fellow learners.",
-  },
-  {
-    title: "Support",
-    href: "/community",
-    description: "Get help with any issues or queries.",
-  },
-];
-
 export function Navbar({className}:{className?: string}) {
   const { status } = useSession();
   return (
-    <NavigationMenu className="p-4 lg:px-10 xs:px-6">
+    <NavigationMenu className={cn("p-4 lg:px-10 xs:px-6 bg-transparent", className)} style={{background: "transparent"}}>
       <NavigationMenuList className="flex flex-row justify-between items-center">
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link href="/">
-              <div className="lg:text-3xl text-2xl font-bold text-primary text-nowrap">
+              <div className="lg:text-3xl text-2xl font-bold text-[#7135d8] text-nowrap">
                 Algo Mentor
               </div>
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuList className="hidden md:flex">
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4 ${className}`}>
+          {/* <NavigationMenuItem>
+            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4`}>
               Getting started
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -108,7 +73,7 @@ export function Navbar({className}:{className?: string}) {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4 ${className}`}>
+            <NavigationMenuTrigger className={`text-xs lg:text-base px-2 lg:px-4`}>
               Resources
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -124,24 +89,35 @@ export function Navbar({className}:{className?: string}) {
                 ))}
               </ul>
             </NavigationMenuContent>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
+              className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-black/5 dark:hover:bg-white/5 lg:px-4`}
             >
               <Link
-                href="https://github.com/jatinkaushik-jk/algo-mentor"
-                target="_blank"
+                href="#about"
               >
-                <div className="text-xs lg:text-base">Documentation</div>
+                <div className="text-xs lg:text-base">Overview</div>
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
+              className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-black/5 dark:hover:bg-white/5 lg:px-4`}
+            >
+              <Link
+                href="#features"
+              >
+                <div className="text-xs lg:text-base">Features</div>
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-black/5 dark:hover:bg-white/5 lg:px-4`}
             >
               <Link href="/pricing">
                 <div className="text-xs lg:text-base">Pricing</div>
@@ -151,7 +127,7 @@ export function Navbar({className}:{className?: string}) {
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={`${navigationMenuTriggerStyle()} px-2 lg:px-4 ${className}`}
+              className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-black/5 dark:hover:bg-white/5 lg:px-4`}
             >
               <Link href="/contact">
                 <div className="text-xs lg:text-base">Contact</div>
@@ -162,13 +138,13 @@ export function Navbar({className}:{className?: string}) {
         <NavigationMenuList className="gap-1 xs:gap-3">
           <NavigationMenuItem className="hidden md:block">
             <NavigationMenuLink asChild>
-              {status === "authenticated" ? <Button asChild><Link href={"/dashboard"}>Dashboard</Link></Button> : <LogInButton />}
+              {status === "authenticated" ? <Button asChild><Link href={"/dashboard"}>Dashboard</Link></Button> : <LogInButton className="bg-black hover:bg-black/80 dark:bg-white dark:hover:bg-white/80 dark:text-black" />}
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex items-center gap-4">
             <Sheet>
               <SheetTrigger asChild>
-                <Button size="icon" variant="outline" className={`md:hidden ${className}`}>
+                <Button size="icon" variant="outline" className={`md:hidden`}>
                   <PanelLeft className="h-5 w-5" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
@@ -176,7 +152,7 @@ export function Navbar({className}:{className?: string}) {
               <SheetContent side="left" className="sm:max-w-xs">
                 <nav className="grid gap-6 text-lg font-medium">
                   <Link href="/">
-                    <div className="lg:text-3xl text-2xl font-bold text-primary text-nowrap">
+                    <div className="lg:text-3xl text-2xl font-bold text-[#7135d8] text-nowrap">
                       Algo Mentor
                     </div>
                     <span className="sr-only">Logo</span>

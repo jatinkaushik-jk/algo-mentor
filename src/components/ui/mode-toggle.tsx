@@ -14,7 +14,7 @@ import {
 
 export function ModeToggle({className}:{className?: string}) {
   const { setTheme } = useTheme();
-  const setUITheme = (theme: "light" | "dark" | "system") => {
+  const setUITheme = (theme: "light" | "dark") => {
     setTheme(theme);
     localStorage.setItem("theme", theme);
   };
@@ -40,9 +40,9 @@ export function ModeToggle({className}:{className?: string}) {
         <DropdownMenuItem onClick={() => setUITheme("dark")}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setUITheme("system")}>
+        {/* <DropdownMenuItem onClick={() => setUITheme("system")}>
           System
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

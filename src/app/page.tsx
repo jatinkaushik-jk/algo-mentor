@@ -15,10 +15,9 @@ export default function Home() {
     <FaqStructuredData/>
       <Navbar/>
       <div
-        id="top"
-        className="min-h-screen p-8 px-2 pb-20 gap-16 sm:p-20 sm:pt-14 font-[family-name:var(--font-geist-sans)] overflow-x-hidden"
+        className="px-2 gap-16 sm:px-20 font-[family-name:var(--font-geist-sans)]"
       >
-        <main className="flex flex-col gap-4 row-start-2">
+        <main className="flex flex-col gap-4">
           {/* Hero Section */}
           <HeroSection/>
 
