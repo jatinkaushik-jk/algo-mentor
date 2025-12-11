@@ -9,6 +9,7 @@ const Calender = () => {
       mode="single"
       selected={date}
       onSelect={setDate}
+      id="calender_tab"
       className="calender_tab rounded-md border shadow-lg shadow-[rgba(23,20,20,0.04)] max-w-full w-max aspect-auto mx-auto scale-90"
     />
   );

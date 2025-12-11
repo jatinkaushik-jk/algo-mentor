@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/context/theme-provider";
 import "./globals.css";
 import { UserProvider } from "@/context/UserProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { NextStepProvider } from 'nextstepjs';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,7 +43,9 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <NextStepProvider>
               {children}
+              </NextStepProvider>
               <Toaster />
             </ThemeProvider>
           </UserProvider>

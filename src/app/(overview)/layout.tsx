@@ -6,6 +6,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
 import { useUserContext } from "@/context/UserProvider";
+import { NextStep } from "nextstepjs";
+import { TourSteps } from "@/components/GuideTour/tour-steps";
+import GuideCard from "@/components/GuideTour/GuideCard";
 
 export default function DashboardLayout({
   children,
@@ -61,11 +64,13 @@ export default function DashboardLayout({
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 ">
+      <NextStep steps={TourSteps} cardComponent={GuideCard}>
       <SidebarNavigations></SidebarNavigations>
       <div className="flex flex-col gap-2 sm:gap-4 sm:pl-14">
         <Header pageHeading={pageHeading} searchbar={false}></Header>
         <main className="p-6 pt-0">{children}</main>
       </div>
+      </NextStep>
     </div>
   );
 }
