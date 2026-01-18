@@ -1,6 +1,7 @@
 import { SOCRATIC_AI_GUIDELINES } from "@/helpers/systemInstructions";
 import { getUserFromDatabase } from "@/helpers/user";
-import { IConversation, IModule } from "@/interfaces/algorithms.interface";
+import { IConversation } from "@/interfaces/algorithms.interface";
+import UserModel from "@/models/user.model";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateId, Message, streamText } from "ai";
 
@@ -72,20 +73,17 @@ const saveMessage = async ({
       console.error("User not found");
       return;
     }
-    const { modules }: { modules: IModule[] } = reqUser;
-    if (!modules) {
-      console.error("Modules not found for user");
-      return;
-    }
-    const algoModule = modules.find(
-      (module) => module.algorithm.algoID === algoID
+    // Use atomic update to avoid version conflicts
+    await UserModel.findOneAndUpdate(
+      { 
+        _id: reqUser._id,
+        "modules.algorithm.algoID": algoID 
+      },
+      { 
+        $push: { "modules.$.conversation": message } 
+      },
+      { new: true }
     );
-    if (!algoModule) {
-      console.error("Algorithm module not found for:", algoID);
-      return;
-    }
-    algoModule.conversation.push(message);
-    await reqUser.save();
   } catch (error) {
     console.error("Error saving message:", error);
   }

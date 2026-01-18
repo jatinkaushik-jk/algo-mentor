@@ -2,7 +2,7 @@
 import { useChat } from "@ai-sdk/react";
 import { Chat } from "@/components/ui/chat";
 import { Message } from "@/components/ui/chat-message";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUserContext } from "@/context/UserProvider";
 import { IAlgorithm, IConversation } from "@/interfaces/algorithms.interface";
 import { LoaderCircle } from "lucide-react";
@@ -12,7 +12,9 @@ import { useRouter } from "next/navigation";
 
 const ChatBotUI = ({ algorithm }: { algorithm: IAlgorithm }) => {
   const [initMessage, setInitMessage] = useState<IConversation[]>([]);
-  const [initInput, setInitInput] = useState<string>("");
+  // const [initInput, setInitInput] = useState<string>("");
+  const hasInitialized = useRef(false);
+
   const { user, fetchAlgoMessages, markModuleStatus } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -21,7 +23,7 @@ const ChatBotUI = ({ algorithm }: { algorithm: IAlgorithm }) => {
   const { messages, input, handleInputChange, handleSubmit, append, stop } =
     useChat({
       api: "/api/ai/chat",
-      initialInput: initInput,
+      // initialInput: initInput,
       initialMessages: initMessage.length > 0 ? initMessage : [],
       body: {
         algorithmId: algorithm.algoID,
@@ -54,11 +56,13 @@ const ChatBotUI = ({ algorithm }: { algorithm: IAlgorithm }) => {
   // Fetch initial messages for the algorithm
   useEffect(() => {
     async function fetchInitialMessages() {
+      if (hasInitialized.current) return;
+      hasInitialized.current = true;
       const data = await fetchAlgoMessages(algorithm.algoID);
       // Update initial input only if no history
       setIsLoading(false);
       if (data?.length === 0) {
-        setInitInput(algorithm.title); // check whether this is needed
+        // setInitInput(algorithm.title); // check whether this is needed
         append({
           role: "user",
           content: algorithm.title,
